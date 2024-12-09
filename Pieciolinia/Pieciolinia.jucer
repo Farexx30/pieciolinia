@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="lX1oaC" name="Pieciolinia" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+  <MAINGROUP id="ewNcDE" name="Pieciolinia">
+    <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
+      <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
+        <FILE id="OvR3DT" name="CustomMidiKeyboardComponent.h" compile="0"
+              resource="0" file="Source/CustomMidiKeyboardComponent.h"/>
+        <FILE id="jB3Rso" name="MidiCore.cpp" compile="1" resource="0" file="Source/MidiCore.cpp"/>
+        <FILE id="xmG3yU" name="MidiCore.h" compile="0" resource="0" file="Source/MidiCore.h"/>
+        <FILE id="IKIMFc" name="MidiDeviceListBox.cpp" compile="1" resource="0"
+              file="Source/MidiDeviceListBox.cpp"/>
+        <FILE id="ZS0xbi" name="MidiDeviceListBox.h" compile="0" resource="0"
+              file="Source/MidiDeviceListBox.h"/>
+        <FILE id="GpzM66" name="MidiDeviceListEntry.cpp" compile="1" resource="0"
+              file="Source/MidiDeviceListEntry.cpp"/>
+        <FILE id="IFQoTD" name="MidiDeviceListEntry.h" compile="0" resource="0"
+              file="Source/MidiDeviceListEntry.h"/>
+      </GROUP>
+      <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
+        <FILE id="spdjG5" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
+      </GROUP>
+      <FILE id="u7Dtco" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Pieciolinia"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Pieciolinia"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="D:/juce-8.0.4-windows/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
