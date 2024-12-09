@@ -396,3 +396,37 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# JUCE-specific ignores
+Builds/
+JuceLibraryCode/
+
+# CMake build directories
+build/
+cmake-build-*/
+
+# Compiled binary files
+*.exe
+*.dll
+*.dylib
+*.so
+
+# Xcode (if you might develop on Mac)
+*.xcodeproj
+*.xcworkspace
+DerivedData/
+
+# VST/AU/RTAS/AAX plugin build folders
+*_artefacts/
+
+# Intermediate build files
+*.aps
+*.exp
+*.lib
+*.pdb
+
+# Saved plugin state or cache
+*.jucerproj.backup
+
+# User-specific JUCE project settings
+*.jucer.user
