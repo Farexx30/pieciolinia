@@ -7,7 +7,7 @@
 */
 
 #include <JuceHeader.h>
-#include "MidiCore.h"
+#include "Core/MidiCore.h"
 
 //==============================================================================
 class MyTestMidiAudioAppApplication

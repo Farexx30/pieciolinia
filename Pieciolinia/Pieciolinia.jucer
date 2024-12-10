@@ -5,24 +5,24 @@
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
-        <FILE id="OvR3DT" name="CustomMidiKeyboardComponent.h" compile="0"
-              resource="0" file="Source/CustomMidiKeyboardComponent.h"/>
-        <FILE id="jB3Rso" name="MidiCore.cpp" compile="1" resource="0" file="Source/MidiCore.cpp"/>
-        <FILE id="xmG3yU" name="MidiCore.h" compile="0" resource="0" file="Source/MidiCore.h"/>
-        <FILE id="IKIMFc" name="MidiDeviceListBox.cpp" compile="1" resource="0"
-              file="Source/MidiDeviceListBox.cpp"/>
-        <FILE id="ZS0xbi" name="MidiDeviceListBox.h" compile="0" resource="0"
-              file="Source/MidiDeviceListBox.h"/>
-        <FILE id="GpzM66" name="MidiDeviceListEntry.cpp" compile="1" resource="0"
-              file="Source/MidiDeviceListEntry.cpp"/>
-        <FILE id="IFQoTD" name="MidiDeviceListEntry.h" compile="0" resource="0"
-              file="Source/MidiDeviceListEntry.h"/>
+        <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
+              resource="0" file="Source/Core/CustomMidiKeyboardComponent.h"/>
+        <FILE id="TIM5Fl" name="MidiCore.cpp" compile="1" resource="0" file="Source/Core/MidiCore.cpp"/>
+        <FILE id="d6rryb" name="MidiCore.h" compile="0" resource="0" file="Source/Core/MidiCore.h"/>
+        <FILE id="buSQq1" name="MidiDeviceListBox.cpp" compile="1" resource="0"
+              file="Source/Core/MidiDeviceListBox.cpp"/>
+        <FILE id="b3hhKk" name="MidiDeviceListBox.h" compile="0" resource="0"
+              file="Source/Core/MidiDeviceListBox.h"/>
+        <FILE id="Su0nHF" name="MidiDeviceListEntry.cpp" compile="1" resource="0"
+              file="Source/Core/MidiDeviceListEntry.cpp"/>
+        <FILE id="ESQBBw" name="MidiDeviceListEntry.h" compile="0" resource="0"
+              file="Source/Core/MidiDeviceListEntry.h"/>
       </GROUP>
       <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
-        <FILE id="spdjG5" name="Constants.h" compile="0" resource="0" file="Source/Constants.h"/>
+        <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
       </GROUP>
-      <FILE id="u7Dtco" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
+    <FILE id="dCASfE" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
