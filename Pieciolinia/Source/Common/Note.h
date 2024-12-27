@@ -1,29 +1,35 @@
-/*
-  ==============================================================================
-
-    Note.h
-    Created: 27 Dec 2024 9:59:38am
-    Author:  Lenovo
-
-  ==============================================================================
-*/
-
 #pragma once
 #ifndef NOTE_H
 #define NOTE_H
+
 #include <string>
 
 class Note {
 public:
-
     Note();
 
-    enum class NoteLength {};
+    enum class NoteLength {
+        Whole,
+        Half,
+        Quarter,
+        Eighth,
+        Sixteenth
+    };
 
-    enum class NoteName {};
+    enum class NoteName {
+        c1, cSharp1, d1, dSharp1, e1, f1, fSharp1, g1, gSharp1,
+        a1, aSharp1, h1, c2, cSharp2, d2, dSharp2, e2, f2, fSharp2, g2
+    };
 
-    struct noteInfo {};
 
+    struct NoteInfo {
+        NoteLength length;
+        NoteName name;
+    };
+
+private:
+
+    NoteInfo info;
 };
 
-#endif 
+#endif
