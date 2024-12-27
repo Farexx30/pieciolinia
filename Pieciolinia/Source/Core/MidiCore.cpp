@@ -1,7 +1,6 @@
 #include "MidiCore.h"
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
-#include "../Common/Timer.h"
 
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore()

@@ -12,24 +12,16 @@
 #include <chrono>
 #include <thread>
 
+Timer::Timer() {
+    start_time = std::chrono::high_resolution_clock::now();
+}
 
-class Timer {
-public:
+void Timer::reset() {
+    start_time = std::chrono::high_resolution_clock::now();
+}
 
-    Timer() {
-        start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    //Method may seem identical to the constructor but we are using it in different situations without creating new object
-    void reset() {
-        start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    double elapsedMilliseconds() const {
-        return std::chrono::duration<double, std::milli>(
-            std::chrono::high_resolution_clock::now() - start_time
-        ).count();
-    }
-private:
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-};
+double Timer::elapsedMilliseconds() const {
+    return std::chrono::duration<double, std::milli>(
+        std::chrono::high_resolution_clock::now() - start_time
+    ).count();
+}
