@@ -9,3 +9,11 @@
 */
 
 #include "Note.h"
+
+enum class NoteLength {
+    Whole,    
+    Half,     
+    Quarter,  
+    Eighth,   
+    Sixteenth 
+};
