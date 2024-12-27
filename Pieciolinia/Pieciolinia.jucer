@@ -20,6 +20,8 @@
       </GROUP>
       <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
+        <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
+        <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>
         <FILE id="P9IT2m" name="Timer.h" compile="0" resource="0" file="Source/Common/Timer.h"/>
       </GROUP>
