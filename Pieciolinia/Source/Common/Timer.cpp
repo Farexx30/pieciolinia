@@ -20,6 +20,7 @@ public:
         start_time = std::chrono::high_resolution_clock::now();
     }
 
+    //Method may seem identical to the constructor but we are using it in different situations without creating new object
     void reset() {
         start_time = std::chrono::high_resolution_clock::now();
     }
