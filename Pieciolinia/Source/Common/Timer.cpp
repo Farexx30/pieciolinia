@@ -15,7 +15,12 @@
 
 class Timer {
 public:
+
     Timer() {
+        start_time = std::chrono::high_resolution_clock::now();
+    }
+
+    void reset() {
         start_time = std::chrono::high_resolution_clock::now();
     }
 private:
