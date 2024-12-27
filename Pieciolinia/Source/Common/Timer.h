@@ -17,11 +17,11 @@
 
 class Timer {
 public:
-
+    //Constructor
     Timer();
-
+    //Method which resetes time
     void reset();
-
+    //Method which returns time in Miliseconds
     double elapsedMilliseconds() const;
 
 private:
