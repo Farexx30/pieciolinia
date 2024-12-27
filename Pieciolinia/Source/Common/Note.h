@@ -27,6 +27,7 @@ public:
         NoteName name;
     };
 
+    std::string getNodeLength(double time, int bpm, int note);
 private:
 
     NoteInfo info;
