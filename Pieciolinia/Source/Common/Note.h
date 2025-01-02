@@ -29,7 +29,7 @@ public:
 
     std::string getNodeLength(double time, int bpm, int note);
 private:
-
+    int whichNote;
     NoteInfo info;
 };
 
