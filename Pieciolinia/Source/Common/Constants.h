@@ -1,6 +1,8 @@
 #pragma once
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+#include <vector>
+#include "Note.h"
 
 namespace ListBoxConstants
 {
@@ -18,5 +20,29 @@ namespace LabelConstants
     constexpr const char* midiOutputName = "Midi Output Label";
     constexpr const char* midiOutputText = "Midi Output:";
 }
+
+namespace CompositionConstants
+{
+    // Global vector with notes
+    inline std::vector<Note> notes;
+}
+
+
+//Na pozniej dodawanie do nut do globalnego wektora
+
+/*
+* void addNoteToComposition(Note newNote) {
+    CompositionConstants::notes.push_back(newNote);
+}
+* 
+* A tutaj czytanie
+* 
+void printComposition() {
+    for (const auto& note : CompositionConstants::notes) {
+        std::cout << "Note: " << static_cast<int>(note.info.name) 
+                  << ", Length: " << static_cast<int>(note.info.length) << std::endl;
+    }
+}
+*/
 
 #endif
