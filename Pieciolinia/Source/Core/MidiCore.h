@@ -4,6 +4,8 @@
 
 #include<JuceHeader.h>
 #include "../Common/Constants.h"
+#include "CustomMidiKeyboardComponent.h"
+
 
 //Zadeklarowanie, ze takie struktury/klasy istnieja (pliki naglowkowe zaimportowane w pliku .cpp).
 //Powod? Musimy odwolac sie z tej klasy do klasy MidiDeviceListBox, a z klasy klasy MidiDeviceListBox do tej klasy, wiec jest to konieczne jesli chcemy zachowac ich implementacje/definicje w osobnych plikach, a do tego nie popasc w nieskonczona petle importowania plikow naglowkowych (blad na etapie kompilacj).
@@ -48,8 +50,9 @@ private:
     //Private properties:
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
-    juce::MidiKeyboardState midiKeyboardState;
-    juce::MidiKeyboardComponent midiKeyboard;
+    juce::MidiKeyboardState midiKeyboardState; 
+    //HERE!!!
+    CustomMidiKeyboardComponent midiKeyboard;
 
     juce::ReferenceCountedArray<MidiDeviceListEntry> midiOutputs;
     std::unique_ptr<MidiDeviceListBox> midiOutputSelector;

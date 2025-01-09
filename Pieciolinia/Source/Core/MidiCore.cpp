@@ -3,6 +3,7 @@
 #include "MidiDeviceListBox.h"
 
 
+
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore()
     : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
@@ -11,7 +12,7 @@ MidiCore::MidiCore()
     addLabelAndSetStyle(midiOutputLabel);
 
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
-    //midiKeyboard.setAvailableRange(72, 84); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
+    midiKeyboard.setAvailableRange(72, 84); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
     addAndMakeVisible(midiKeyboard);
 
     addAndMakeVisible(midiOutputSelector.get());
@@ -65,7 +66,8 @@ void MidiCore::resized()
         (width / 2) - (2 * margin),
         (height / 2) - ((4 * margin) + 24 + 24));
 
-    midiKeyboard.setBounds(0, (height / 2) + (24 + margin), width, 64);
+    midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 408, 256);
+
     //juce::AffineTransform transform = juce::AffineTransform::scale(1.5f, 1.0f); // 1.5x horizontal scale
     //midiKeyboard.setTransform(transform);
 }
