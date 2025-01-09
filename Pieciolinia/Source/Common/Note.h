@@ -8,6 +8,8 @@ class Note {
 public:
     Note();
 
+    void getNodeLength(double time, int bpm, Note note);
+
     enum class NoteLength {
         Whole,
         Half,
@@ -27,7 +29,6 @@ public:
         NoteName name;
     };
 
-    std::string getNodeLength(double time, int bpm, int note);
 private:
     int whichNote;
     NoteInfo info;
