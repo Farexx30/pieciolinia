@@ -21,6 +21,7 @@ namespace LabelConstants
     constexpr const char* midiOutputName = "Midi Output Label";
     constexpr const char* midiOutputText = "Midi Output:";
 }
+//maybe for later mapping from keyboard
 namespace KeyToNoteMapping
 {
     inline std::unordered_map<char, Note::NoteName> keyToNote = {
@@ -28,6 +29,7 @@ namespace KeyToNoteMapping
         
     };
 }
+
 namespace CompositionConstants
 {
     // Global vector with notes
