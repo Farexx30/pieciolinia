@@ -4,6 +4,7 @@
 
 #include<JuceHeader.h>
 #include "../Common/Constants.h"
+#include "CustomMidiKeyboardComponent.h"
 #include "../Common/Timer.h"
 
 //Zadeklarowanie, ze takie struktury/klasy istnieja (pliki naglowkowe zaimportowane w pliku .cpp).
@@ -51,8 +52,8 @@ private:
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
-    juce::MidiKeyboardState midiKeyboardState;
-    juce::MidiKeyboardComponent midiKeyboard;
+    juce::MidiKeyboardState midiKeyboardState; 
+    CustomMidiKeyboardComponent midiKeyboard;
 
     juce::ReferenceCountedArray<MidiDeviceListEntry> midiOutputs;
     std::unique_ptr<MidiDeviceListBox> midiOutputSelector;
