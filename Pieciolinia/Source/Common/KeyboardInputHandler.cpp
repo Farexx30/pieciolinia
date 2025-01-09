@@ -13,20 +13,17 @@
 #include "Note.h"
 //#include "Note.cpp"
 #include <iostream>
-#include "NoteInfo.h"
-
 
 void handleKeyPress(char key) {
     auto it = KeyToNoteMapping::keyToNote.find(key);
     if (it != KeyToNoteMapping::keyToNote.end()) {
         Note note;
-        NoteInfo noteInfo;
-        noteInfo.name = it->second; 
-        note.setInfo(noteInfo);    
+        note.info.name = it->second;
 
         CompositionConstants::notes.push_back(note);
 
-        std::cout << "Added note: " << static_cast<int>(note.getInfo().name) << std::endl;
+        //For debugging
+        std::cout << "Added note: " << static_cast<int>(note.info.name) << std::endl;
     }
     else {
         std::cerr << "Invalid key pressed: " << key << std::endl;

@@ -9,3 +9,7 @@
 */
 
 #pragma once
+
+
+//function which handles key and map it for correct sign
+void handleKeyPress(char key);
