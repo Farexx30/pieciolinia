@@ -29,6 +29,10 @@ public:
         NoteName name;
     };
 
+     //Getter and Setter for Note info
+    const NoteInfo& getInfo() const { return info; }
+    void setInfo(const NoteInfo& noteInfo) { info = noteInfo; }
+
 private:
     int whichNote;
     NoteInfo info;
