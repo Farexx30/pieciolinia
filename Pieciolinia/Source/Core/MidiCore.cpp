@@ -2,7 +2,6 @@
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
 
-
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore()
     : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
@@ -36,6 +35,7 @@ MidiCore::~MidiCore()
 //Obsluga klikniecia klawisza pianina:
 void MidiCore::handleNoteOn(juce::MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)
 {
+    timer.reset(); // start of measuring time
     juce::MidiMessage message(juce::MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity));
     message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
     sendToOutputs(message);
@@ -44,6 +44,7 @@ void MidiCore::handleNoteOn(juce::MidiKeyboardState*, int midiChannel, int midiN
 //Obsluga puszczenia klawisza pianina:
 void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)
 {
+    double elapsed = timer.elapsedMilliseconds(); // Checking Time
     juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
     message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
     sendToOutputs(message);
