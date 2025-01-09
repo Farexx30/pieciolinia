@@ -48,6 +48,7 @@ public:
         This class implements the desktop window that contains an instance of
         our MainComponent class.
     */
+
     class MainWindow
         : public juce::DocumentWindow
     {
