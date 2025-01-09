@@ -8,7 +8,7 @@ class Note {
 public:
     Note();
 
-    void getNodeLength(double time, int bpm, Note note);
+    void getNoteLength(double time, int bpm, Note note);
 
     enum class NoteLength {
         Whole,

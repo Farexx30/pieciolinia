@@ -6,7 +6,7 @@ Note::Note() {
     info.name = NoteName::c1;
 }
 
-void Note::getNodeLength(double time, int bpm, Note note) {
+void Note::getNoteLength(double time, int bpm, Note note) {
 
     double beatDuration = 60000.0 / bpm; 
 
