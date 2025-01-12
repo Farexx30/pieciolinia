@@ -12,6 +12,7 @@
 //Co prawda w przypadku struktury MidiDeviceListEntry nie byloby tego problemu, bo nie musimy się z MidiDeviceListEntry odwolywac do MidiCore, ale wydaje sie to byc mimo wszystko dobra praktyka promujaca zasade open-closed principle z SOLIDA.
 class MidiDeviceList;
 struct MidiDeviceListEntry;
+class SettingsWindow;
 
 
 class MidiCore final
@@ -44,16 +45,22 @@ public:
 
 private:
     //Custom private methods:
+    void showSettingsWindow();
     void sendToOutputs(const juce::MidiMessage& message);
     void addLabelAndSetStyle(juce::Label& label);
 
+
     //Private properties:
     Timer timer;
+
+    juce::TextButton showSettingsButton { "Settings" };
 
     juce::MidiKeyboardState midiKeyboardState; 
     CustomMidiKeyboardComponent midiKeyboard;
 
     MidiDeviceList& _midiDeviceList;
+
+    juce::Component::SafePointer<SettingsWindow> settingsWindow;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiCore)
 };

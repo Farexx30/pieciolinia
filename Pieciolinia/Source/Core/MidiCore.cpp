@@ -2,6 +2,7 @@
 #include "MidiDeviceList.h"
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
+#include "SettingsWindow.h"
 
 
 //Ctors/Dtors (Constructors/Destructors):
@@ -9,9 +10,14 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
     _midiDeviceList(midiDeviceList)
 {
+    _midiDeviceList.addChangeListener(this);
+
+    addAndMakeVisible(showSettingsButton);
+    showSettingsButton.onClick = [this] { showSettingsWindow(); };
+
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
     midiKeyboard.setAvailableRange(72, 84); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
-    addAndMakeVisible(midiKeyboard);;
+    addAndMakeVisible(midiKeyboard);
 
     midiKeyboardState.addListener(this);
 
@@ -20,6 +26,12 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 
 MidiCore::~MidiCore()
 {
+    if (settingsWindow != nullptr) 
+    {
+        settingsWindow->removeChangeListener(this);
+        settingsWindow.deleteAndZero();
+    }
+    _midiDeviceList.removeChangeListener(this);
     midiKeyboardState.removeListener(this);
 }
 
@@ -45,9 +57,14 @@ void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midi
 
 void MidiCore::changeListenerCallback(juce::ChangeBroadcaster* source)
 {
-    if (source == &_midiDeviceList)
+    if (source == settingsWindow)
     {
-        std::cout << "XD" << source;
+        settingsWindow->removeChangeListener(this);
+        showSettingsButton.setEnabled(true);
+    }
+    else if (source == &_midiDeviceList)
+    {
+        //Up;
     }
 }
 
@@ -62,6 +79,7 @@ void MidiCore::resized()
 {
     int margin = 10, width = getWidth(), height = getHeight();
 
+    showSettingsButton.setBounds(width / 2, 24 + margin, 100, 60);
     midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 408, 256);
 }
 
@@ -93,6 +111,14 @@ int MidiCore::getNumberOfMidiOutputs() const
 }
 
 
+void MidiCore::showSettingsWindow()
+{
+    settingsWindow = new SettingsWindow("Settings");
+
+    settingsWindow->addChangeListener(this);
+    showSettingsButton.setEnabled(false);
+}
+
 //==============================================================================
 // PRIVATE MEMBERS
 //==============================================================================
@@ -123,4 +149,6 @@ void MidiCore::addLabelAndSetStyle(juce::Label& label)
 
     addAndMakeVisible(label);
 }
+
+
 

@@ -5,14 +5,14 @@
 
 #include<JuceHeader.h>
 
-class SettingsWindow final
+class SettingsWindow final : public juce::DocumentWindow,
+	public juce::ChangeBroadcaster
 {
 public:
-	SettingsWindow();
+	SettingsWindow(const juce::String& name);
 	~SettingsWindow();
 
-
-
+	void closeButtonPressed() override;
 private:
 
 	void addLabelAndSetStyle(juce::Label& label);
