@@ -23,6 +23,10 @@
               file="Source/Core/MidiDeviceListEntry.cpp"/>
         <FILE id="ESQBBw" name="MidiDeviceListEntry.h" compile="0" resource="0"
               file="Source/Core/MidiDeviceListEntry.h"/>
+        <FILE id="Cupq3d" name="MidiDeviceList.cpp" compile="1" resource="0"
+              file="Source/Core/MidiDeviceList.cpp"/>
+        <FILE id="TkhfyP" name="MidiDeviceList.h" compile="0" resource="0"
+              file="Source/Core/MidiDeviceList.h"/>
       </GROUP>
       <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
