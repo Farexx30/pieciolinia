@@ -6,6 +6,10 @@
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
         <GROUP id="{D7291FF0-EABA-B110-5276-9D670C50E9EA}" name="Settings">
+          <FILE id="y3WXdN" name="SettingsComponent.cpp" compile="1" resource="0"
+                file="Source/Core/SettingsComponent.cpp"/>
+          <FILE id="tMH2qg" name="SettingsComponent.h" compile="0" resource="0"
+                file="Source/Core/SettingsComponent.h"/>
           <FILE id="CLPnNh" name="SettingsWindow.cpp" compile="1" resource="0"
                 file="Source/Core/SettingsWindow.cpp"/>
           <FILE id="nDX1QQ" name="SettingsWindow.h" compile="0" resource="0"

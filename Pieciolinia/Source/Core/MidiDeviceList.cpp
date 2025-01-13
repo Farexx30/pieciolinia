@@ -81,6 +81,7 @@ void MidiDeviceList::updateDeviceList()
     auto availableDevices = juce::MidiOutput::getAvailableDevices(); 
     closeUnpluggedDevices(availableDevices);
 
+    juce::ReferenceCountedArray<MidiDeviceListEntry> newMidiOutputs; //Ogolnie moznaby nie uzywac tymczasowej tablicy/listy i od razu w tym ifie "if (foundDevice == nullptr) {}" dodac nowe urzadzenie do midiOutputs jednakze uzycie tymczasowego pojemnika na dane jest ogolnie "bezpieczniejsze" jesli mielibysmy jeszcze jakies inne kawalki kodu, w ktorych lista ta moglaby zostac w tym samym czasie zmodyfikowana (np. asynchroniczne). U nas co prawda nie ma takich, ale kto wie jak faktyczny projekt bedzie wygladal, a to i tak nie powoduje zadnej zauwazalnej roznicy w wydajnosci.
     for (auto& device : availableDevices)
     {
         MidiDeviceListEntry::Ptr foundDevice = findDevice(device);
@@ -89,10 +90,11 @@ void MidiDeviceList::updateDeviceList()
         if (foundDevice == nullptr)
         {
             foundDevice = new MidiDeviceListEntry(device);
-            midiOutputs.add(foundDevice);
-            openDevice(midiOutputs.size() - 1);
         }
+
+        newMidiOutputs.add(foundDevice);
     }
+    midiOutputs = newMidiOutputs;
 
     sendChangeMessage();
 }

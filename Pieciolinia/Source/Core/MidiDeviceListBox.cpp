@@ -1,10 +1,10 @@
 #include "MidiDeviceListBox.h"
 #include "MidiDeviceListEntry.h"
-#include "MidiCore.h"
+#include "SettingsComponent.h"
 
-MidiDeviceListBox::MidiDeviceListBox(const juce::String& name, MidiCore& midiCore)
+MidiDeviceListBox::MidiDeviceListBox(const juce::String& name, SettingsComponent& parent)
     : juce::ListBox(name),
-    parent(midiCore)
+    _parent(parent)
 {
     setModel(this);
     setOutlineThickness(1);
@@ -16,7 +16,7 @@ MidiDeviceListBox::MidiDeviceListBox(const juce::String& name, MidiCore& midiCor
 //Overriden virtual members from juce::ListBoxModel:
 int MidiDeviceListBox::getNumRows()
 {
-    return parent.getNumberOfMidiOutputs();
+    return _parent.getNumberOfMidiOutputs();
 }
 
 //Rysowanie pojedynczego elementu z listboxa:
@@ -34,9 +34,9 @@ void MidiDeviceListBox::paintListBoxItem(int rowNumber, juce::Graphics& graphics
     graphics.setColour(textColor);
     graphics.setFont(height * 0.7f);
 
-    if (rowNumber < parent.getNumberOfMidiOutputs())
+    if (rowNumber < _parent.getNumberOfMidiOutputs())
     {
-        auto midiDevice = parent.getMidiDevice(rowNumber);
+        auto midiDevice = _parent.getMidiDevice(rowNumber);
         graphics.drawText(midiDevice->deviceInfo.name,
             5, 0, width, height,
             juce::Justification::centredLeft, true);
@@ -53,7 +53,7 @@ void MidiDeviceListBox::selectedRowsChanged(int)
         {
             if (!currentSelectedItems.contains(lastSelectedItems[i]))
             {
-                parent.closeDevice(lastSelectedItems[i]);
+                _parent.closeDevice(lastSelectedItems[i]);
             }
         }
 
@@ -61,7 +61,7 @@ void MidiDeviceListBox::selectedRowsChanged(int)
         {
             if (!lastSelectedItems.contains(currentSelectedItems[i]))
             {
-                parent.openDevice(currentSelectedItems[i]);
+                _parent.openDevice(currentSelectedItems[i]);
             }
         }
 

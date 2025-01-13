@@ -1,11 +1,17 @@
 #include "SettingsWindow.h"
+#include "MidiDeviceListBox.h"
+#include "SettingsComponent.h"
+#include "MidiDeviceList.h"
 
-SettingsWindow::SettingsWindow(const juce::String& name)
+SettingsWindow::SettingsWindow(const juce::String& name, MidiDeviceList& midiDeviceList)
 	: DocumentWindow(name,
 		juce::Desktop::getInstance().getDefaultLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId),
-		DocumentWindow::allButtons)
+		DocumentWindow::allButtons),
+    _midiDeviceList(midiDeviceList)
 {
     setUsingNativeTitleBar(true);
+    auto settingsComponent = new SettingsComponent(_midiDeviceList);
+    setContentOwned(settingsComponent, true);
 
 #if JUCE_IOS || JUCE_ANDROID
     setFullScreen(true);
@@ -20,16 +26,12 @@ SettingsWindow::SettingsWindow(const juce::String& name)
 
 SettingsWindow::~SettingsWindow()
 {
-
+    this->removeAllChangeListeners();
 }
 
 void SettingsWindow::closeButtonPressed()
 {
     sendChangeMessage();
     juce::MessageManager::callAsync([this] { delete this; });
-}
-
-void SettingsWindow::addLabelAndSetStyle(juce::Label& label)
-{
 }
 

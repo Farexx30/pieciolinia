@@ -7,11 +7,9 @@
 
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
-    : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
-    _midiDeviceList(midiDeviceList)
+    : _midiDeviceList(midiDeviceList),
+    midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
-    _midiDeviceList.addChangeListener(this);
-
     addAndMakeVisible(showSettingsButton);
     showSettingsButton.onClick = [this] { showSettingsWindow(); };
 
@@ -31,7 +29,6 @@ MidiCore::~MidiCore()
         settingsWindow->removeChangeListener(this);
         settingsWindow.deleteAndZero();
     }
-    _midiDeviceList.removeChangeListener(this);
     midiKeyboardState.removeListener(this);
 }
 
@@ -62,10 +59,6 @@ void MidiCore::changeListenerCallback(juce::ChangeBroadcaster* source)
         settingsWindow->removeChangeListener(this);
         showSettingsButton.setEnabled(true);
     }
-    else if (source == &_midiDeviceList)
-    {
-        //Up;
-    }
 }
 
 
@@ -90,30 +83,9 @@ void MidiCore::resized()
 //==============================================================================
 // PUBLIC MEMBERS
 //==============================================================================
-void MidiCore::openDevice(int index)
-{
-    _midiDeviceList.openDevice(index);
-}
-
-void MidiCore::closeDevice(int index)
-{
-    _midiDeviceList.closeDevice(index);
-}
-
-juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> MidiCore::getMidiDevice(int index) const
-{
-    return _midiDeviceList.getMidiDevice(index);
-}
-
-int MidiCore::getNumberOfMidiOutputs() const
-{
-    return _midiDeviceList.getNumberOfMidiOutputs();
-}
-
-
 void MidiCore::showSettingsWindow()
 {
-    settingsWindow = new SettingsWindow("Settings");
+    settingsWindow = new SettingsWindow("Settings", _midiDeviceList);
 
     settingsWindow->addChangeListener(this);
     showSettingsButton.setEnabled(false);

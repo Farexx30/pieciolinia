@@ -37,12 +37,6 @@ public:
     void resized() override;
 
     //Custom public methods:
-    void openDevice(int index);
-    void closeDevice(int index);
-    juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> getMidiDevice(int index) const;
-    int getNumberOfMidiOutputs() const;
-
-
 private:
     //Custom private methods:
     void showSettingsWindow();
@@ -51,14 +45,13 @@ private:
 
 
     //Private properties:
-    Timer timer;
+    MidiDeviceList& _midiDeviceList;
 
+    Timer timer;
     juce::TextButton showSettingsButton { "Settings" };
 
     juce::MidiKeyboardState midiKeyboardState; 
     CustomMidiKeyboardComponent midiKeyboard;
-
-    MidiDeviceList& _midiDeviceList;
 
     juce::Component::SafePointer<SettingsWindow> settingsWindow;
 
