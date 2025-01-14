@@ -24,6 +24,7 @@
               file="Source/Common/KeyboardInputHandler.cpp"/>
         <FILE id="tLoW37" name="KeyboardInputHandler.h" compile="0" resource="0"
               file="Source/Common/KeyboardInputHandler.h"/>
+        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
         <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>
