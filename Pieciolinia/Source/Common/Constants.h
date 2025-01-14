@@ -29,7 +29,8 @@ namespace KeyToNoteMapping
 
     };
 }
-namespace NoteToFontMapping
+
+namespace NoteMapping
 {
     inline std::unordered_map<Note::NoteLength, std::unordered_map<Note::NoteName, std::string>> noteToFont = {
     {Note::NoteLength::Whole, {
@@ -143,6 +144,29 @@ namespace NoteToFontMapping
         {Note::NoteName::fSharp2, "\u00CC"},
         {Note::NoteName::g2,      "\u00CD"}
     }}
+    };
+
+    std::unordered_map<int, Note::NoteName> indexToNoteName = {
+        {72, Note::NoteName::c1},
+        {73, Note::NoteName::cSharp1}, 
+        {74, Note::NoteName::d1}, 
+        {75, Note::NoteName::dSharp1},
+        {76, Note::NoteName::e1}, 
+        {77, Note::NoteName::f1}, 
+        {78, Note::NoteName::fSharp1}, 
+        {79, Note::NoteName::g1},
+        {80, Note::NoteName::gSharp1}, 
+        {81, Note::NoteName::a1}, 
+        {82, Note::NoteName::aSharp1}, 
+        {83, Note::NoteName::h1},
+        {84, Note::NoteName::c2}, 
+        {85, Note::NoteName::cSharp2}, 
+        {86, Note::NoteName::d2}, 
+        {87, Note::NoteName::dSharp2},
+        {88, Note::NoteName::e2}, 
+        {89, Note::NoteName::f2}, 
+        {90, Note::NoteName::fSharp2}, 
+        {91, Note::NoteName::g2}
     };
 }
 
