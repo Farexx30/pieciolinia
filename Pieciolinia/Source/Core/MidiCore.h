@@ -46,7 +46,6 @@ private:
     void updateDeviceList(); //Only for output devices (w przypadku tego programu).
     void addLabelAndSetStyle(juce::Label& label);
 
-
     //Private properties:
     Timer timer;
 

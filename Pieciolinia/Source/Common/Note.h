@@ -8,7 +8,7 @@ class Note {
 public:
     Note();
 
-    void getNoteLength(double time, int bpm, Note note);
+    void getNoteLength(double time, int bpm);
 
     //which symbol 
     enum class NoteLength {
@@ -34,8 +34,8 @@ public:
     int whichNote;
     NoteInfo info;
 private:
-    
-    
+
+
 };
 
 #endif
