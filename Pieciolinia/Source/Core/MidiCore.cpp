@@ -18,9 +18,14 @@ MidiCore::MidiCore()
 
     midiKeyboardState.addListener(this);
 
+    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
+    juce::Font customFont(typeface);
+    customFont.setHeight(60.0f);
+
     textEditorForNotesTest.setMultiLine(true);
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
-    textEditorForNotesTest.setReadOnly(true);         // Make it editable
+    textEditorForNotesTest.setReadOnly(true);        
+    textEditorForNotesTest.applyFontToAllText(customFont);
 
     // Add to the component
     addAndMakeVisible(textEditorForNotesTest);
