@@ -1,6 +1,5 @@
 #include "Note.h"
 #include "Mappers.h"
-#include <iostream> //do usuniêcia po testach
 
 Note::Note() 
 {
@@ -9,7 +8,7 @@ Note::Note()
     info.name = NoteName::c1;
 }
 
-//usunê³am przekazanie note w metodzie, poniewa¿ nie modyfikowa³oby to wartoœci obiektu
+//usunelam przekazanie note w metodzie, poniewaz nie modyfikowaloby to wartosci obiektu
 void Note::setNoteLength(double time, int bpm) 
 {
 
