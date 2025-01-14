@@ -3,7 +3,6 @@
 #define CONSTANTS_H
 #include <vector>
 #include "Note.h"
-#include <unordered_map>
 
 namespace ListBoxConstants
 {
@@ -21,19 +20,11 @@ namespace LabelConstants
     constexpr const char* midiOutputName = "Midi Output Label";
     constexpr const char* midiOutputText = "Midi Output:";
 }
-//maybe for later mapping from keyboard
-namespace KeyToNoteMapping
-{
-    inline std::unordered_map<char, Note::NoteName> keyToNote = {
-        {'B', Note::NoteName::c1},
-        
-    };
-}
 
 namespace CompositionConstants
 {
     // Global vector with notes
-    inline std::vector<Note> notes;
+    inline std::vector<Note*> notes;
 
     //Global bpm
     inline int bpm = 120;

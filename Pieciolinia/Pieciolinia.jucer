@@ -3,6 +3,10 @@
 <JUCERPROJECT id="lX1oaC" name="Pieciolinia" projectType="guiapp" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
+    <GROUP id="{369A1568-C477-CBFA-4E47-06DFADE4896E}" name="Assets">
+      <FILE id="kIAgxS" name="MusiQwikPieciolinia.ttf" compile="0" resource="1"
+            file="C:/Users/marty/Documents/MusiQwikPieciolinia.ttf"/>
+    </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
         <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
@@ -24,6 +28,7 @@
               file="Source/Common/KeyboardInputHandler.cpp"/>
         <FILE id="tLoW37" name="KeyboardInputHandler.h" compile="0" resource="0"
               file="Source/Common/KeyboardInputHandler.h"/>
+        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
         <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>

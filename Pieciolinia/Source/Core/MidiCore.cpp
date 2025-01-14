@@ -11,12 +11,24 @@ MidiCore::MidiCore()
     addLabelAndSetStyle(midiOutputLabel);
 
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
-    midiKeyboard.setAvailableRange(72, 84); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
+    midiKeyboard.setAvailableRange(72, 91); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
     addAndMakeVisible(midiKeyboard);
 
     addAndMakeVisible(midiOutputSelector.get());
 
     midiKeyboardState.addListener(this);
+
+    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
+    juce::Font customFont(typeface);
+    customFont.setHeight(60.0f);
+
+    textEditorForNotesTest.setMultiLine(true);
+    textEditorForNotesTest.setReturnKeyStartsNewLine(true);
+    textEditorForNotesTest.setReadOnly(true);        
+    textEditorForNotesTest.applyFontToAllText(customFont);
+
+    // Add to the component
+    addAndMakeVisible(textEditorForNotesTest);
 
     setSize(732, 520);
 
@@ -49,8 +61,17 @@ void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midi
     juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
     message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
     sendToOutputs(message);
+    auto currentNote = new Note();
+    currentNote->setNoteInfo(elapsed, 120, midiNoteNumber);
+    CompositionConstants::notes.push_back(currentNote);
+    addText(textEditorForNotesTest, currentNote->getNoteFont());
 }
 
+void MidiCore::addText(juce::TextEditor& editor, const juce::String& text)
+{
+    editor.setCaretPosition(editor.getText().length()); // Move caret to the end
+    editor.insertTextAtCaret(text); // Insert new text
+}
 
 //Virtual members from juce::Component:
 void MidiCore::paint(juce::Graphics&)
@@ -67,7 +88,8 @@ void MidiCore::resized()
         (width / 2) - (2 * margin),
         (height / 2) - ((4 * margin) + 24 + 24));
 
-    midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 408, 256);
+    midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 612, 256);
+    textEditorForNotesTest.setBounds(10, 10, 100, 100);
 
     //juce::AffineTransform transform = juce::AffineTransform::scale(1.5f, 1.0f); // 1.5x horizontal scale
     //midiKeyboard.setTransform(transform);

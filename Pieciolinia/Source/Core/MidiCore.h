@@ -45,9 +45,10 @@ private:
     void closeUnpluggedDevices(const juce::Array<juce::MidiDeviceInfo>& currentlyPluggedInDevices);
     void updateDeviceList(); //Only for output devices (w przypadku tego programu).
     void addLabelAndSetStyle(juce::Label& label);
-
+    void addText(juce::TextEditor& editor, const juce::String& text);
 
     //Private properties:
+    juce::TextEditor textEditorForNotesTest;
     Timer timer;
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
