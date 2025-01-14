@@ -24,7 +24,7 @@ namespace LabelConstants
 namespace CompositionConstants
 {
     // Global vector with notes
-    inline std::vector<Note> notes;
+    inline std::vector<Note*> notes;
 
     //Global bpm
     inline int bpm = 120;

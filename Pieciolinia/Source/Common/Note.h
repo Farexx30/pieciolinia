@@ -8,7 +8,8 @@ class Note {
 public:
     Note();
 
-    void getNoteLength(double time, int bpm);
+    void setNoteInfo(double time, int bpm, int keyIndex);
+    std::string getNoteFont();
 
     //which symbol 
     enum class NoteLength {
@@ -31,10 +32,11 @@ public:
     };
 
 
-    int whichNote;
+    //int whichNote;
     NoteInfo info;
 private:
-
+    void setNoteLength(double time, int bpm);
+    void setNoteName(int keyIndex);
 
 };
 

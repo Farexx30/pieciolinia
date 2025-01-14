@@ -8,6 +8,7 @@
 
 #include <JuceHeader.h>
 #include "Core/MidiCore.h"
+#include "Common/Constants.h"
 
 //==============================================================================
 class MyTestMidiAudioAppApplication
@@ -73,7 +74,14 @@ public:
         }
 
         void closeButtonPressed() override
-        {
+        {         
+            // Deleting objects
+            for (auto* note : CompositionConstants::notes)
+            {
+                delete note;
+                note = nullptr;
+            }
+            CompositionConstants::notes.clear();
             // This is called when the user tries to close this window. Here, we'll just
             // ask the app to quit when this happens, but you can change this to do
             // whatever you need.
