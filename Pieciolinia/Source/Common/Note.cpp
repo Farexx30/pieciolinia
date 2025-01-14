@@ -38,7 +38,6 @@ void Note::setNoteInfo(double time, int bpm, int keyIndex)
 {
     setNoteLength(time, bpm);
     setNoteName(keyIndex);
-    std::cout << "ustawiono dane nuty" << std::endl;
 }
 
 std::string Note::getNoteFont()
