@@ -15,10 +15,22 @@ MidiCore::MidiCore()
     saveButton = std::make_unique<juce::DrawableButton>("SaveButton", juce::DrawableButton::ImageFitted);
 
 
-    saveButton->setImages(new juce::DrawableImage{
-         juce::ImageCache::getFromMemory(BinaryData::icons8savefile66_png, BinaryData::icons8savefile66_pngSize)
-        });
+    auto saveImage = std::make_unique<juce::DrawableImage>(
+        juce::ImageCache::getFromMemory(BinaryData::icons8savefile66_png, BinaryData::icons8savefile66_pngSize)
+    );
+
+    saveButton->setImages(saveImage.get());
+
     element1.addAndMakeVisible(saveButton.get());
+
+    folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
+
+    auto folderImage = std::make_unique<juce::DrawableImage>(
+        juce::ImageCache::getFromMemory(BinaryData::icons8folder50_png, BinaryData::icons8folder50_pngSize)
+    );
+    folderButton->setImages(folderImage.get());
+
+    element2.addAndMakeVisible(folderButton.get());
 
     element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(element2);
@@ -184,9 +196,12 @@ void MidiCore::resized()
     // Position each section
     element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
 
-    saveButton->setBounds(element1.getLocalBounds());
+    saveButton->setBounds(element1.getLocalBounds().reduced(10));
+
 
     element2.setBounds(headerArea.removeFromLeft(sectionWidth));
+
+    folderButton -> setBounds(element2.getLocalBounds().reduced(10));
     element3.setBounds(headerArea.removeFromLeft(sectionWidth));
     element4.setBounds(headerArea.removeFromLeft(bigsection));
     element5.setBounds(headerArea.removeFromLeft(sectionWidth));

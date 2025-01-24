@@ -80,6 +80,7 @@ private:
     juce::TextButton orangeContent;
 
     std::unique_ptr<juce::DrawableButton> saveButton;
+    std::unique_ptr<juce::DrawableButton> folderButton;
 
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
