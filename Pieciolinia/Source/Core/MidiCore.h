@@ -81,6 +81,13 @@ private:
 
     std::unique_ptr<juce::DrawableButton> saveButton;
     std::unique_ptr<juce::DrawableButton> folderButton;
+    std::unique_ptr<juce::DrawableButton> pauseButton;
+    std::unique_ptr<juce::DrawableButton> playButton;
+    std::unique_ptr<juce::DrawableButton> backspaceButton;
+    std::unique_ptr<juce::DrawableButton> stopButton;
+    std::unique_ptr<juce::DrawableButton> settingsButton;
+    std::unique_ptr<juce::DrawableButton> arrowUpButton;
+    std::unique_ptr<juce::DrawableButton> arrowDownButton;
 
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };

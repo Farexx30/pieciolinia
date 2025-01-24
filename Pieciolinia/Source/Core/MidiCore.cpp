@@ -20,6 +20,47 @@ MidiCore::MidiCore()
     );
 
     saveButton->setImages(saveImage.get());
+    // Arrow Down Button
+    arrowDownButton = std::make_unique<juce::DrawableButton>("ArrowDownButton", juce::DrawableButton::ImageFitted);
+    auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
+    arrowDownButton->setImages(arrowDownImage.get());
+    element33.addAndMakeVisible(arrowDownButton.get());
+
+    // Arrow Up Button
+    arrowUpButton = std::make_unique<juce::DrawableButton>("ArrowUpButton", juce::DrawableButton::ImageFitted);
+    auto arrowUpImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowup50_png, BinaryData::icons8arrowup50_pngSize));
+    arrowUpButton->setImages(arrowUpImage.get());
+    element22.addAndMakeVisible(arrowUpButton.get());
+
+    // Backspace Button
+    backspaceButton = std::make_unique<juce::DrawableButton>("BackspaceButton", juce::DrawableButton::ImageFitted);
+    auto backspaceImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8backspace50_png, BinaryData::icons8backspace50_pngSize));
+    backspaceButton->setImages(backspaceImage.get());
+    element44.addAndMakeVisible(backspaceButton.get());
+
+    // Pause Button
+    pauseButton = std::make_unique<juce::DrawableButton>("PauseButton", juce::DrawableButton::ImageFitted);
+    auto pauseImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8pause50_png, BinaryData::icons8pause50_pngSize));
+    pauseButton->setImages(pauseImage.get());
+    element7.addAndMakeVisible(pauseButton.get());
+
+    // Play Button
+    playButton = std::make_unique<juce::DrawableButton>("PlayButton", juce::DrawableButton::ImageFitted);
+    auto playImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8play50_png, BinaryData::icons8play50_pngSize));
+    playButton->setImages(playImage.get());
+    element6.addAndMakeVisible(playButton.get());
+
+    // Settings Button
+    settingsButton = std::make_unique<juce::DrawableButton>("SettingsButton", juce::DrawableButton::ImageFitted);
+    auto settingsImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8settings50_png, BinaryData::icons8settings50_pngSize));
+    settingsButton->setImages(settingsImage.get());
+    element9.addAndMakeVisible(settingsButton.get());
+
+    // Stop Button
+    stopButton = std::make_unique<juce::DrawableButton>("StopButton", juce::DrawableButton::ImageFitted);
+    auto stopImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8stop50_png, BinaryData::icons8stop50_pngSize));
+    stopButton->setImages(stopImage.get());
+    element8.addAndMakeVisible(stopButton.get());
 
     element2.addAndMakeVisible(saveButton.get());
 
@@ -211,9 +252,13 @@ void MidiCore::resized()
     element4.setBounds(headerArea.removeFromLeft(bigsection));
     element5.setBounds(headerArea.removeFromLeft(sectionWidth));
     element6.setBounds(headerArea.removeFromLeft(sectionWidth));
+    playButton->setBounds(element6.getLocalBounds().reduced(10));
     element7.setBounds(headerArea.removeFromLeft(sectionWidth));
+    pauseButton->setBounds(element7.getLocalBounds().reduced(10));
     element8.setBounds(headerArea.removeFromLeft(sectionWidth));
+    stopButton->setBounds(element8.getLocalBounds().reduced(10));
     element9.setBounds(headerArea.removeFromLeft(sectionWidth));
+    settingsButton->setBounds(element9.getLocalBounds().reduced(10));
 
     auto contentItemHeight = 450;
     orangeContent.setBounds(area.removeFromTop(contentItemHeight));
@@ -239,8 +284,11 @@ void MidiCore::resized()
 
     element22.setBounds(firstColumn.removeFromTop(smallColumnHeight));
     element33.setBounds(firstColumn);
+    arrowUpButton->setBounds(element22.getLocalBounds().reduced(10));
+    arrowDownButton->setBounds(element33.getLocalBounds().reduced(10));
 
     element44.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+    backspaceButton->setBounds(element44.getLocalBounds().reduced(10));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
 
     juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
