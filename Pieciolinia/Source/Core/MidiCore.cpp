@@ -8,13 +8,92 @@ MidiCore::MidiCore()
     : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
     midiOutputSelector(new MidiDeviceListBox(ListBoxConstants::midiOutputSelectorName, *this))
 {
-    addLabelAndSetStyle(midiOutputLabel);
+    
+    element1.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element1);
+
+    element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element2);
+
+    element3.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82)); 
+    addAndMakeVisible(element3);
+
+    element4.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element4);
+
+    element5.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element5);
+
+    element6.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element6);
+
+    element7.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element7);
+
+    element8.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element8);
+
+    element9.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
+    addAndMakeVisible(element9);
+
+
+    orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(orangeContent);
+
+
+    element11.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element11);
+
+    element22.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element22);
+
+    element33.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element33);
+
+    element44.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element44);
+
+    element55.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element55);
+
+    element66.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element66);
+
+    element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element77);
+
+    element88.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element88);
+
+    element99.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element99);
+
+    element111.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element111);
+
+    element222.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element222);
+
+    element333.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element333);
+
+    element444.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element444);
+
+    element555.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element555);
+
+    element666.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element666);
+
+
+    //addLabelAndSetStyle(midiOutputLabel);
 
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
     midiKeyboard.setAvailableRange(72, 91); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
-    addAndMakeVisible(midiKeyboard);
+    //addAndMakeVisible(midiKeyboard);
 
-    addAndMakeVisible(midiOutputSelector.get());
+    //addAndMakeVisible(midiOutputSelector.get());
 
     midiKeyboardState.addListener(this);
 
@@ -28,9 +107,9 @@ MidiCore::MidiCore()
     textEditorForNotesTest.applyFontToAllText(customFont);
 
     // Add to the component
-    addAndMakeVisible(textEditorForNotesTest);
+    //addAndMakeVisible(textEditorForNotesTest);
 
-    setSize(732, 520);
+    setSize(1300, 750);
 
     updateDeviceList();
 }
@@ -81,6 +160,78 @@ void MidiCore::paint(juce::Graphics&)
 
 void MidiCore::resized()
 {
+    auto area = getLocalBounds();
+
+    auto headerHeight = 100;
+    juce::Rectangle<int> headerArea = area.removeFromTop(headerHeight);
+
+    // Divide header into 5 equal sections
+    int sectionWidth = headerArea.getWidth() / 13;
+    int minisection = sectionWidth / 2;
+    int bigsection = sectionWidth * 4;
+    int mediumbigsection = sectionWidth * 2;
+
+    // Position each section
+    element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
+    element2.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element3.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element4.setBounds(headerArea.removeFromLeft(bigsection));
+    element5.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element6.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element7.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element8.setBounds(headerArea.removeFromLeft(sectionWidth));
+    element9.setBounds(headerArea.removeFromLeft(sectionWidth));
+
+    auto contentItemHeight = 450;
+    orangeContent.setBounds(area.removeFromTop(contentItemHeight));
+
+    /*
+    auto headerFooterHeight = 60;
+    footer.setBounds(area.removeFromBottom(headerFooterHeight));
+    */
+
+    auto footerHeight = 200;
+    juce::Rectangle<int> footerArea = area.removeFromTop(footerHeight);
+
+    // Dzielimy obszar na dwie kolumny: ma³¹ (lewa) i du¿¹ (prawa)
+    int smallSectionWidth = footerArea.getWidth() / 18;
+
+    int mediumSectionWidth = smallSectionWidth * 2;
+    int bigSectionWidth = smallSectionWidth * 8;
+
+    element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+
+    juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostok¹ta dla prawej kolumny
+    int smallColumnHeight = footerHeight / 2;
+
+    element22.setBounds(firstColumn.removeFromTop(smallColumnHeight));
+    element33.setBounds(firstColumn);
+
+    element44.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+    element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
+
+    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostok¹ta dla prawej kolumny
+
+    element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
+    element77.setBounds(secondColumn);
+
+    juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
+    element88.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
+    element99.setBounds(thirdColumn);
+
+    juce::Rectangle<int> fourthColumn = footerArea.removeFromLeft(smallSectionWidth);
+    element111.setBounds(fourthColumn.removeFromTop(smallColumnHeight));
+    element222.setBounds(fourthColumn);
+    juce::Rectangle<int> fifthColumn = footerArea.removeFromLeft(smallSectionWidth);
+    element333.setBounds(fifthColumn.removeFromTop(smallColumnHeight));
+    element444.setBounds(fifthColumn);
+
+    juce::Rectangle<int> sisxthColumn = footerArea.removeFromLeft(smallSectionWidth);
+    element555.setBounds(sisxthColumn.removeFromTop(smallColumnHeight));
+    element666.setBounds(sisxthColumn);
+
+
+    /*
     int margin = 10, width = getWidth(), height = getHeight();
 
     midiOutputLabel.setBounds((width / 2) - 5 * margin, margin, (width / 2) - (2 * margin), 24);
@@ -90,7 +241,7 @@ void MidiCore::resized()
 
     midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 612, 256);
     textEditorForNotesTest.setBounds(10, 10, 100, 100);
-
+    */
     //juce::AffineTransform transform = juce::AffineTransform::scale(1.5f, 1.0f); // 1.5x horizontal scale
     //midiKeyboard.setTransform(transform);
 }
@@ -129,6 +280,8 @@ int MidiCore::getNumberOfMidiOutputs() const
 //==============================================================================
 // PRIVATE MEMBERS
 //==============================================================================
+
+
 void MidiCore::sendToOutputs(const juce::MidiMessage& message)
 {
     for (auto* midiOutput : midiOutputs)

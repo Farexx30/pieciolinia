@@ -9,6 +9,7 @@
 #include <JuceHeader.h>
 #include "Core/MidiCore.h"
 #include "Common/Constants.h"
+#include "CssFile.h"
 
 //==============================================================================
 class MyTestMidiAudioAppApplication

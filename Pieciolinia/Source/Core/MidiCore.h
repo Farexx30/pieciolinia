@@ -51,6 +51,34 @@ private:
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
 
+    //For GUI
+    juce::TextButton header;
+    juce::TextButton element1;
+    juce::TextButton element2;
+    juce::TextButton element3;
+    juce::TextButton element4;
+    juce::TextButton element5;
+    juce::TextButton element6;
+    juce::TextButton element7;
+    juce::TextButton element8;
+    juce::TextButton element9;
+    juce::TextButton element11;
+    juce::TextButton element22;
+    juce::TextButton element33;
+    juce::TextButton element44;
+    juce::TextButton element55;
+    juce::TextButton element66;
+    juce::TextButton element77;
+    juce::TextButton element88;
+    juce::TextButton element99;
+    juce::TextButton element111;
+    juce::TextButton element222;
+    juce::TextButton element333;
+    juce::TextButton element444;
+    juce::TextButton element555;
+    juce::TextButton element666;
+    juce::TextButton orangeContent;
+
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
     juce::MidiKeyboardState midiKeyboardState; 
