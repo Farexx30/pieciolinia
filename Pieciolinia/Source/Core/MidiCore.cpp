@@ -83,6 +83,8 @@ MidiCore::MidiCore()
     element555.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element555);
 
+    element55.addAndMakeVisible(midiKeyboard);
+
     element666.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element666);
 
@@ -194,10 +196,10 @@ void MidiCore::resized()
     juce::Rectangle<int> footerArea = area.removeFromTop(footerHeight);
 
     // Dzielimy obszar na dwie kolumny: ma³¹ (lewa) i du¿¹ (prawa)
-    int smallSectionWidth = footerArea.getWidth() / 18;
+    int smallSectionWidth = footerArea.getWidth() / 19;
 
     int mediumSectionWidth = smallSectionWidth * 2;
-    int bigSectionWidth = smallSectionWidth * 8;
+    int bigSectionWidth = smallSectionWidth * 9;
 
     element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
 
@@ -230,6 +232,7 @@ void MidiCore::resized()
     element555.setBounds(sisxthColumn.removeFromTop(smallColumnHeight));
     element666.setBounds(sisxthColumn);
 
+    midiKeyboard.setBounds(element55.getLocalBounds());
 
     /*
     int margin = 10, width = getWidth(), height = getHeight();
