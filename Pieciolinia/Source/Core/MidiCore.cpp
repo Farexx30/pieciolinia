@@ -62,6 +62,18 @@ MidiCore::MidiCore()
     stopButton->setImages(stopImage.get());
     element8.addAndMakeVisible(stopButton.get());
 
+    // Logo Button
+    logoButton = std::make_unique<juce::DrawableButton>("LogoButton", juce::DrawableButton::ImageFitted);
+    auto logoImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8logo50_png, BinaryData::icons8logo50_pngSize));
+    logoButton->setImages(logoImage.get());
+    element1.addAndMakeVisible(logoButton.get());
+
+    // Verified Button
+    verifyButton = std::make_unique<juce::DrawableButton>("verifyButton", juce::DrawableButton::ImageFitted);
+    auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
+    verifyButton->setImages(verifyImage.get());
+    element5.addAndMakeVisible(verifyButton.get());
+
     element2.addAndMakeVisible(saveButton.get());
 
     folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
@@ -123,7 +135,14 @@ MidiCore::MidiCore()
     element66.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element66);
 
+
+    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
+    juce::Font customFont(typeface);
+    customFont.setHeight(100.0f);
+
     element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    element77.setButtonText("B0");
+    element77.setFont(juce::Font("NazwaCustomCzcionki", 20.0f, juce::Font::plain));
     addAndMakeVisible(element77);
 
     element88.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -165,7 +184,7 @@ MidiCore::MidiCore()
 
     auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
     juce::Font customFont(typeface);
-    customFont.setHeight(60.0f);
+    customFont.setHeight(100.0f);
 
     textEditorForNotesTest.setMultiLine(true);
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
@@ -241,6 +260,7 @@ void MidiCore::resized()
 
     // Position each section
     element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
+    logoButton->setBounds(element1.getLocalBounds().reduced(10));
 
     saveButton->setBounds(element2.getLocalBounds().reduced(10));
 
@@ -251,6 +271,7 @@ void MidiCore::resized()
     element3.setBounds(headerArea.removeFromLeft(sectionWidth));
     element4.setBounds(headerArea.removeFromLeft(bigsection));
     element5.setBounds(headerArea.removeFromLeft(sectionWidth));
+    verifyButton->setBounds(element5.getLocalBounds().reduced(10));
     element6.setBounds(headerArea.removeFromLeft(sectionWidth));
     playButton->setBounds(element6.getLocalBounds().reduced(10));
     element7.setBounds(headerArea.removeFromLeft(sectionWidth));
@@ -291,7 +312,7 @@ void MidiCore::resized()
     backspaceButton->setBounds(element44.getLocalBounds().reduced(10));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
 
-    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
+    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); 
 
     element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
     element77.setBounds(secondColumn);
