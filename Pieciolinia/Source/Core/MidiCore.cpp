@@ -39,6 +39,8 @@ MidiCore::MidiCore()
     addAndMakeVisible(element3);
 
     element4.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    element4.setButtonText("Nazwa Utworu");
+    element4.setColour(juce::TextButton::textColourOffId, juce::Colours::black);
     addAndMakeVisible(element4);
 
     element5.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
