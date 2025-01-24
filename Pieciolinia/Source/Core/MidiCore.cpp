@@ -3,6 +3,7 @@
 #include "MidiDeviceListBox.h"
 
 
+
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore()
     : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
@@ -65,6 +66,7 @@ MidiCore::MidiCore()
     // Logo Button
     logoButton = std::make_unique<juce::DrawableButton>("LogoButton", juce::DrawableButton::ImageFitted);
     auto logoImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8logo50_png, BinaryData::icons8logo50_pngSize));
+    logoImage->setTransform(juce::AffineTransform::scale(4.0f));
     logoButton->setImages(logoImage.get());
     element1.addAndMakeVisible(logoButton.get());
 
@@ -73,6 +75,13 @@ MidiCore::MidiCore()
     auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
     verifyButton->setImages(verifyImage.get());
     element5.addAndMakeVisible(verifyButton.get());
+
+
+    // Staff Button
+    staffButton = std::make_unique<juce::DrawableButton>("staffButton", juce::DrawableButton::ImageFitted);
+    auto staffImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8staff50_png, BinaryData::icons8staff50_pngSize));
+    staffButton->setImages(staffImage.get());
+    element11.addAndMakeVisible(staffButton.get());
 
     element2.addAndMakeVisible(saveButton.get());
 
@@ -135,14 +144,7 @@ MidiCore::MidiCore()
     element66.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element66);
 
-
-    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
-    juce::Font customFont(typeface);
-    customFont.setHeight(100.0f);
-
     element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    element77.setButtonText("B0");
-    element77.setFont(juce::Font("NazwaCustomCzcionki", 20.0f, juce::Font::plain));
     addAndMakeVisible(element77);
 
     element88.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -260,7 +262,8 @@ void MidiCore::resized()
 
     // Position each section
     element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
-    logoButton->setBounds(element1.getLocalBounds().reduced(10));
+    logoButton->setBounds(-50, -50,300,200); // Powiększamy przycisk
+
 
     saveButton->setBounds(element2.getLocalBounds().reduced(10));
 
@@ -299,6 +302,7 @@ void MidiCore::resized()
     int bigSectionWidth = smallSectionWidth * 9;
 
     element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+    staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
     juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
     int smallColumnHeight = footerHeight / 2;

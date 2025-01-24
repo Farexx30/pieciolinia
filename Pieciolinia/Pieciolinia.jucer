@@ -28,6 +28,8 @@
                 file="../../../../Downloads/icons8-save-file-66.png"/>
           <FILE id="V5TfUB" name="icons8-settings-50.png" compile="0" resource="1"
                 file="../../../../Downloads/icons8-settings-50.png"/>
+          <FILE id="OjewWB" name="icons8-staff-50.png" compile="0" resource="1"
+                file="../../../../Downloads/icons8-staff-50.png"/>
           <FILE id="TWtSGl" name="icons8-stop-50.png" compile="0" resource="1"
                 file="../../../../Downloads/icons8-stop-50.png"/>
           <FILE id="etNbCK" name="icons8-verified-50.png" compile="0" resource="1"
@@ -35,10 +37,6 @@
         </GROUP>
         <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
               resource="0" file="Source/Core/CustomMidiKeyboardComponent.h"/>
-        <FILE id="h7M3UB" name="CustomTextButton.cpp" compile="1" resource="0"
-              file="Source/Core/CustomTextButton.cpp"/>
-        <FILE id="Gd8GZC" name="CustomTextButton.h" compile="0" resource="0"
-              file="Source/Core/CustomTextButton.h"/>
         <FILE id="TIM5Fl" name="MidiCore.cpp" compile="1" resource="0" file="Source/Core/MidiCore.cpp"/>
         <FILE id="d6rryb" name="MidiCore.h" compile="0" resource="0" file="Source/Core/MidiCore.h"/>
         <FILE id="buSQq1" name="MidiDeviceListBox.cpp" compile="1" resource="0"
