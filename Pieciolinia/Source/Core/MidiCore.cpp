@@ -60,6 +60,7 @@ MidiCore::MidiCore()
     orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(orangeContent);
 
+    
 
     element11.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element11);
@@ -127,7 +128,9 @@ MidiCore::MidiCore()
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
     textEditorForNotesTest.setReadOnly(true);        
     textEditorForNotesTest.applyFontToAllText(customFont);
+    textEditorForNotesTest.setBounds(0, 0, 1300, 500);
 
+    orangeContent.addAndMakeVisible(textEditorForNotesTest);
     // Add to the component
     //addAndMakeVisible(textEditorForNotesTest);
 
