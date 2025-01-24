@@ -79,6 +79,9 @@ private:
     juce::TextButton element666;
     juce::TextButton orangeContent;
 
+    std::unique_ptr<juce::DrawableButton> saveButton;
+
+
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
     juce::MidiKeyboardState midiKeyboardState; 

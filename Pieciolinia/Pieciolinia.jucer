@@ -9,6 +9,10 @@
     </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
+        <GROUP id="{D7291FF0-EABA-B110-5276-9D670C50E9EA}" name="ImagesGUI">
+          <FILE id="UVWr1d" name="icons8-save-file-66.png" compile="0" resource="1"
+                file="../../../../Downloads/icons8-save-file-66.png"/>
+        </GROUP>
         <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
               resource="0" file="Source/Core/CustomMidiKeyboardComponent.h"/>
         <FILE id="TIM5Fl" name="MidiCore.cpp" compile="1" resource="0" file="Source/Core/MidiCore.cpp"/>
@@ -26,11 +30,11 @@
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
         <FILE id="UCjQXH" name="KeyboardInputHandler.cpp" compile="1" resource="0"
               file="Source/Common/KeyboardInputHandler.cpp"/>
+        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
         <FILE id="tLoW37" name="KeyboardInputHandler.h" compile="0" resource="0"
               file="Source/Common/KeyboardInputHandler.h"/>
-        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
-        <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
+        <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>
         <FILE id="P9IT2m" name="Timer.h" compile="0" resource="0" file="Source/Common/Timer.h"/>
       </GROUP>

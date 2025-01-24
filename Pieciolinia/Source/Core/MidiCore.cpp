@@ -1,4 +1,4 @@
-#include "MidiCore.h"
+ï»¿#include "MidiCore.h"
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
 
@@ -11,6 +11,14 @@ MidiCore::MidiCore()
     
     element1.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(element1);
+
+    saveButton = std::make_unique<juce::DrawableButton>("SaveButton", juce::DrawableButton::ImageFitted);
+
+
+    saveButton->setImages(new juce::DrawableImage{
+         juce::ImageCache::getFromMemory(BinaryData::icons8savefile66_png, BinaryData::icons8savefile66_pngSize)
+        });
+    element1.addAndMakeVisible(saveButton.get());
 
     element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(element2);
@@ -175,6 +183,9 @@ void MidiCore::resized()
 
     // Position each section
     element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
+
+    saveButton->setBounds(element1.getLocalBounds());
+
     element2.setBounds(headerArea.removeFromLeft(sectionWidth));
     element3.setBounds(headerArea.removeFromLeft(sectionWidth));
     element4.setBounds(headerArea.removeFromLeft(bigsection));
@@ -195,7 +206,7 @@ void MidiCore::resized()
     auto footerHeight = 200;
     juce::Rectangle<int> footerArea = area.removeFromTop(footerHeight);
 
-    // Dzielimy obszar na dwie kolumny: ma³¹ (lewa) i du¿¹ (prawa)
+    // Dzielimy obszar na dwie kolumny: maÅ‚Ä… (lewa) i duÅ¼Ä… (prawa)
     int smallSectionWidth = footerArea.getWidth() / 19;
 
     int mediumSectionWidth = smallSectionWidth * 2;
@@ -203,7 +214,7 @@ void MidiCore::resized()
 
     element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
 
-    juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostok¹ta dla prawej kolumny
+    juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokÄ…ta dla prawej kolumny
     int smallColumnHeight = footerHeight / 2;
 
     element22.setBounds(firstColumn.removeFromTop(smallColumnHeight));
@@ -212,7 +223,7 @@ void MidiCore::resized()
     element44.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
 
-    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostok¹ta dla prawej kolumny
+    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokÄ…ta dla prawej kolumny
 
     element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
     element77.setBounds(secondColumn);
