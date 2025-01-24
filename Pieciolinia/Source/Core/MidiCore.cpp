@@ -21,7 +21,7 @@ MidiCore::MidiCore()
 
     saveButton->setImages(saveImage.get());
 
-    element1.addAndMakeVisible(saveButton.get());
+    element2.addAndMakeVisible(saveButton.get());
 
     folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
 
@@ -30,7 +30,7 @@ MidiCore::MidiCore()
     );
     folderButton->setImages(folderImage.get());
 
-    element2.addAndMakeVisible(folderButton.get());
+    element3.addAndMakeVisible(folderButton.get());
 
     element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(element2);
@@ -199,12 +199,12 @@ void MidiCore::resized()
     // Position each section
     element1.setBounds(headerArea.removeFromLeft(mediumbigsection));
 
-    saveButton->setBounds(element1.getLocalBounds().reduced(10));
+    saveButton->setBounds(element2.getLocalBounds().reduced(10));
 
 
     element2.setBounds(headerArea.removeFromLeft(sectionWidth));
 
-    folderButton -> setBounds(element2.getLocalBounds().reduced(10));
+    folderButton -> setBounds(element3.getLocalBounds().reduced(10));
     element3.setBounds(headerArea.removeFromLeft(sectionWidth));
     element4.setBounds(headerArea.removeFromLeft(bigsection));
     element5.setBounds(headerArea.removeFromLeft(sectionWidth));
