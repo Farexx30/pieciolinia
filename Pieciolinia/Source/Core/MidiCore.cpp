@@ -130,6 +130,19 @@ MidiCore::MidiCore()
     c2Button->setImages(c2Image.get());
     element666.addAndMakeVisible(c2Button.get());
 
+    // D2 Button
+    d2Button = std::make_unique<juce::DrawableButton>("d2Button", juce::DrawableButton::ImageFitted);
+    auto d2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::d2note_png, BinaryData::d2note_pngSize));
+    d2Button->setImages(d2Image.get());
+    element66.addAndMakeVisible(d2Button.get());
+
+    // E2 Button
+    e2Button = std::make_unique<juce::DrawableButton>("e2Button", juce::DrawableButton::ImageFitted);
+    auto e2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::e2note_png, BinaryData::e2note_pngSize));
+    e2Button->setImages(e2Image.get());
+    element77.addAndMakeVisible(e2Button.get());
+
+
     element2.addAndMakeVisible(saveButton.get());
 
     folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
@@ -388,6 +401,8 @@ void MidiCore::resized()
     aButton->setBounds(element88.getLocalBounds().reduced(10));
     bButton->setBounds(element88.getLocalBounds().reduced(10));
     c2Button->setBounds(element88.getLocalBounds().reduced(10));
+    d2Button->setBounds(element88.getLocalBounds().reduced(10));
+    e2Button->setBounds(element88.getLocalBounds().reduced(10));
     element666.setBounds(sisxthColumn);
     juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth);
     element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
