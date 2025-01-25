@@ -364,7 +364,7 @@ void MidiCore::resized()
     backspaceButton->setBounds(element44.getLocalBounds().reduced(10));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
 
-    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); 
+    
 
     
 
@@ -389,6 +389,7 @@ void MidiCore::resized()
     bButton->setBounds(element88.getLocalBounds().reduced(10));
     c2Button->setBounds(element88.getLocalBounds().reduced(10));
     element666.setBounds(sisxthColumn);
+    juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth);
     element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
     element77.setBounds(secondColumn);
     midiKeyboard.setBounds(element55.getLocalBounds());
