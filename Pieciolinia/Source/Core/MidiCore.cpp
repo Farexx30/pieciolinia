@@ -83,6 +83,53 @@ MidiCore::MidiCore()
     staffButton->setImages(staffImage.get());
     element11.addAndMakeVisible(staffButton.get());
 
+    // C Button
+    cButton = std::make_unique<juce::DrawableButton>("cButton", juce::DrawableButton::ImageFitted);
+    auto cImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::cnote_png, BinaryData::cnote_pngSize));
+    cButton->setImages(cImage.get());
+    element88.addAndMakeVisible(cButton.get());
+    // D Button
+    dButton = std::make_unique<juce::DrawableButton>("dButton", juce::DrawableButton::ImageFitted);
+    auto dImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::dnote_png, BinaryData::dnote_pngSize));
+    dButton->setImages(dImage.get());
+    element99.addAndMakeVisible(dButton.get());
+
+    // E Button
+    eButton = std::make_unique<juce::DrawableButton>("eButton", juce::DrawableButton::ImageFitted);
+    auto eImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::enote_png, BinaryData::enote_pngSize));
+    eButton->setImages(eImage.get());
+    element111.addAndMakeVisible(eButton.get());
+
+    // F Button
+    fButton = std::make_unique<juce::DrawableButton>("fButton", juce::DrawableButton::ImageFitted);
+    auto fImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::fnote_png, BinaryData::fnote_pngSize));
+    fButton->setImages(fImage.get());
+    element222.addAndMakeVisible(fButton.get());
+
+    // G Button
+    gButton = std::make_unique<juce::DrawableButton>("gButton", juce::DrawableButton::ImageFitted);
+    auto gImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::gnote_png, BinaryData::gnote_pngSize));
+    gButton->setImages(gImage.get());
+    element333.addAndMakeVisible(gButton.get());
+
+    // A Button
+    aButton = std::make_unique<juce::DrawableButton>("aButton", juce::DrawableButton::ImageFitted);
+    auto aImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::anote_png, BinaryData::anote_pngSize));
+    aButton->setImages(aImage.get());
+    element444.addAndMakeVisible(aButton.get());
+
+    // B Button
+    bButton = std::make_unique<juce::DrawableButton>("bButton", juce::DrawableButton::ImageFitted);
+    auto bImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::Bnote_png, BinaryData::Bnote_pngSize));
+    bButton->setImages(bImage.get());
+    element555.addAndMakeVisible(bButton.get());
+
+    // C2 Button
+    c2Button = std::make_unique<juce::DrawableButton>("c2Button", juce::DrawableButton::ImageFitted);
+    auto c2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::c2note_png, BinaryData::c2note_pngSize));
+    c2Button->setImages(c2Image.get());
+    element666.addAndMakeVisible(c2Button.get());
+
     element2.addAndMakeVisible(saveButton.get());
 
     folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
@@ -141,11 +188,7 @@ MidiCore::MidiCore()
     element55.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element55);
 
-    element66.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    addAndMakeVisible(element66);
-
-    element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    addAndMakeVisible(element77);
+  
 
     element88.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element88);
@@ -173,6 +216,11 @@ MidiCore::MidiCore()
     element666.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element666);
 
+    element66.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element66);
+
+    element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
+    addAndMakeVisible(element77);
 
     //addLabelAndSetStyle(midiOutputLabel);
 
@@ -318,24 +366,31 @@ void MidiCore::resized()
 
     juce::Rectangle<int> secondColumn = footerArea.removeFromLeft(smallSectionWidth); 
 
-    element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
-    element77.setBounds(secondColumn);
+    
 
     juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
     element88.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
+    cButton->setBounds(element88.getLocalBounds().reduced(10));
     element99.setBounds(thirdColumn);
-
+    dButton->setBounds(element88.getLocalBounds().reduced(10));
     juce::Rectangle<int> fourthColumn = footerArea.removeFromLeft(smallSectionWidth);
     element111.setBounds(fourthColumn.removeFromTop(smallColumnHeight));
+    eButton->setBounds(element88.getLocalBounds().reduced(10));
     element222.setBounds(fourthColumn);
+    fButton->setBounds(element88.getLocalBounds().reduced(10));
     juce::Rectangle<int> fifthColumn = footerArea.removeFromLeft(smallSectionWidth);
     element333.setBounds(fifthColumn.removeFromTop(smallColumnHeight));
+    gButton->setBounds(element88.getLocalBounds().reduced(10));
     element444.setBounds(fifthColumn);
 
     juce::Rectangle<int> sisxthColumn = footerArea.removeFromLeft(smallSectionWidth);
     element555.setBounds(sisxthColumn.removeFromTop(smallColumnHeight));
+    aButton->setBounds(element88.getLocalBounds().reduced(10));
+    bButton->setBounds(element88.getLocalBounds().reduced(10));
+    c2Button->setBounds(element88.getLocalBounds().reduced(10));
     element666.setBounds(sisxthColumn);
-
+    element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
+    element77.setBounds(secondColumn);
     midiKeyboard.setBounds(element55.getLocalBounds());
 
     /*

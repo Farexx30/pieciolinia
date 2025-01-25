@@ -90,7 +90,8 @@ private:
     std::unique_ptr<juce::DrawableButton> arrowDownButton;
     std::unique_ptr<juce::DrawableButton> verifyButton;
     std::unique_ptr<juce::DrawableButton> logoButton;
-    std::unique_ptr<juce::DrawableButton> cfButton;
+    std::unique_ptr<juce::DrawableButton> staffButton;
+    std::unique_ptr<juce::DrawableButton> cButton;
     std::unique_ptr<juce::DrawableButton> dButton;
     std::unique_ptr<juce::DrawableButton> eButton;
     std::unique_ptr<juce::DrawableButton> fButton;
