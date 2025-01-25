@@ -4,37 +4,37 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
+      <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+        <FILE id="TRZj2R" name="icons8-arrow-down-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-arrow-down-50.png"/>
+        <FILE id="byDTDN" name="icons8-arrow-up-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-arrow-up-50.png"/>
+        <FILE id="bBPwCX" name="icons8-backspace-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-backspace-50.png"/>
+        <FILE id="LEkkES" name="icons8-folder-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-folder-50.png"/>
+        <FILE id="iNDcol" name="icons8-logo-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-logo-50.png"/>
+        <FILE id="zj8Z82" name="icons8-pause-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-pause-50.png"/>
+        <FILE id="zJeof4" name="icons8-play-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-play-50.png"/>
+        <FILE id="gHOOr2" name="icons8-save-file-66.png" compile="0" resource="1"
+              file="Source/Assets/icons8-save-file-66.png"/>
+        <FILE id="M8bYeS" name="icons8-settings-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-settings-50.png"/>
+        <FILE id="MrXeDz" name="icons8-staff-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-staff-50.png"/>
+        <FILE id="GQvZr6" name="icons8-stop-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-stop-50.png"/>
+        <FILE id="XwCfTh" name="icons8-verified-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-verified-50.png"/>
+      </GROUP>
       <FILE id="gDiq7p" name="MusiQwikPieciolinia.ttf" compile="0" resource="1"
             file="Source/Assets/MusiQwikPieciolinia.ttf"/>
     </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
-        <GROUP id="{D7291FF0-EABA-B110-5276-9D670C50E9EA}" name="ImagesGUI">
-          <FILE id="YUlulR" name="icons8-arrow-down-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-arrow-down-50.png"/>
-          <FILE id="zh7QQG" name="icons8-arrow-up-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-arrow-up-50.png"/>
-          <FILE id="qY7FLl" name="icons8-backspace-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-backspace-50.png"/>
-          <FILE id="u1BAet" name="icons8-folder-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-folder-50.png"/>
-          <FILE id="aedSrd" name="icons8-logo-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-logo-50.png"/>
-          <FILE id="n5FSfw" name="icons8-pause-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-pause-50.png"/>
-          <FILE id="yoStcn" name="icons8-play-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-play-50.png"/>
-          <FILE id="UVWr1d" name="icons8-save-file-66.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-save-file-66.png"/>
-          <FILE id="V5TfUB" name="icons8-settings-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-settings-50.png"/>
-          <FILE id="OjewWB" name="icons8-staff-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-staff-50.png"/>
-          <FILE id="TWtSGl" name="icons8-stop-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-stop-50.png"/>
-          <FILE id="etNbCK" name="icons8-verified-50.png" compile="0" resource="1"
-                file="../../../../Downloads/icons8-verified-50.png"/>
-        </GROUP>
         <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
               resource="0" file="Source/Core/CustomMidiKeyboardComponent.h"/>
         <FILE id="TIM5Fl" name="MidiCore.cpp" compile="1" resource="0" file="Source/Core/MidiCore.cpp"/>
