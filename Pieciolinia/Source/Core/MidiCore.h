@@ -90,7 +90,14 @@ private:
     std::unique_ptr<juce::DrawableButton> arrowDownButton;
     std::unique_ptr<juce::DrawableButton> verifyButton;
     std::unique_ptr<juce::DrawableButton> logoButton;
-    std::unique_ptr<juce::DrawableButton> staffButton;
+    std::unique_ptr<juce::DrawableButton> cfButton;
+    std::unique_ptr<juce::DrawableButton> dButton;
+    std::unique_ptr<juce::DrawableButton> eButton;
+    std::unique_ptr<juce::DrawableButton> fButton;
+    std::unique_ptr<juce::DrawableButton> gButton;
+    std::unique_ptr<juce::DrawableButton> aButton;
+    std::unique_ptr<juce::DrawableButton> bButton;
+    std::unique_ptr<juce::DrawableButton> c2Button;
 
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };

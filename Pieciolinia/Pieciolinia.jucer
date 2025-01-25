@@ -5,6 +5,14 @@
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
       <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+        <FILE id="DlEfiM" name="anote.png" compile="0" resource="1" file="Source/Assets/anote.png"/>
+        <FILE id="IAqlwK" name="bnote.png" compile="0" resource="1" file="Source/Assets/bnote.png"/>
+        <FILE id="Ie1D5K" name="c2note.png" compile="0" resource="1" file="Source/Assets/c2note.png"/>
+        <FILE id="MV9uey" name="cnote.png" compile="0" resource="1" file="Source/Assets/cnote.png"/>
+        <FILE id="xz9NzJ" name="dnote.png" compile="0" resource="1" file="Source/Assets/dnote.png"/>
+        <FILE id="K0nNLC" name="enote.png" compile="0" resource="1" file="Source/Assets/enote.png"/>
+        <FILE id="iiDCZT" name="fnote.png" compile="0" resource="1" file="Source/Assets/fnote.png"/>
+        <FILE id="c7XhiS" name="gnote.png" compile="0" resource="1" file="Source/Assets/gnote.png"/>
         <FILE id="TRZj2R" name="icons8-arrow-down-50.png" compile="0" resource="1"
               file="Source/Assets/icons8-arrow-down-50.png"/>
         <FILE id="byDTDN" name="icons8-arrow-up-50.png" compile="0" resource="1"
