@@ -10,7 +10,7 @@
 #include "Core/MidiCore.h"
 #include "Common/Constants.h"
 #include "CssFile.h"
-
+#include "Core/MidiDeviceList.h"
 //==============================================================================
 class MyTestMidiAudioAppApplication
     : public juce::JUCEApplication
@@ -26,15 +26,16 @@ public:
     void initialise(const juce::String&) override
     {
         // This method is where you should put your application's initialisation code..
-
-        mainWindow.reset(new MainWindow(getApplicationName()));
+        midiDeviceList = std::make_unique<MidiDeviceList>();
+        auto midiCore = new MidiCore(*midiDeviceList);
+        mainWindow = std::make_unique<MainWindow>(getApplicationName(), midiCore);
     }
 
     void shutdown() override
     {
         // Add your application's shutdown code here..
-
-        mainWindow.reset(); // (deletes our window)
+        mainWindow.reset();
+        midiDeviceList.reset();
     }
 
     //==============================================================================
@@ -55,13 +56,13 @@ public:
         : public juce::DocumentWindow
     {
     public:
-        MainWindow(const juce::String& name)
+        MainWindow(const juce::String& name, MidiCore* midiCore)
             : DocumentWindow(name,
                 juce::Desktop::getInstance().getDefaultLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId),
                 DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar(true);
-            setContentOwned(new MidiCore(), true);
+            setContentOwned(midiCore, true);
 
 #if JUCE_IOS || JUCE_ANDROID
             setFullScreen(true);
@@ -102,6 +103,7 @@ public:
 
 private:
     std::unique_ptr<MainWindow> mainWindow;
+    std::unique_ptr<MidiDeviceList> midiDeviceList;
 };
 
 //==============================================================================
