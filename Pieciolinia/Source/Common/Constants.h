@@ -6,7 +6,6 @@
 
 namespace ListBoxConstants
 {
-    //Bardziej nowoczesny i wydajniejszy sposob na stale w C++:
     constexpr const char* midiOutputSelectorName = "Midi output selector";
 }
 

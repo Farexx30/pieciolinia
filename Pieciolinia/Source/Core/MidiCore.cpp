@@ -1,15 +1,16 @@
-﻿#include "MidiCore.h"
+#include "MidiCore.h"
+#include "MidiDeviceList.h"
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
+#include "SettingsWindow.h"
 
 
 
 //Ctors/Dtors (Constructors/Destructors):
-MidiCore::MidiCore()
-    : midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard),
-    midiOutputSelector(new MidiDeviceListBox(ListBoxConstants::midiOutputSelectorName, *this))
-{
-    
+MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
+    : _midiDeviceList(midiDeviceList),
+    midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
+{    
     element1.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(element1);
 
@@ -236,6 +237,7 @@ MidiCore::MidiCore()
     addAndMakeVisible(element77);
 
     //addLabelAndSetStyle(midiOutputLabel);
+    settingsButton->onClick = [this] { showSettingsWindow(); };
 
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
     midiKeyboard.setAvailableRange(72, 91); //Jak chcecie obciac sobie pianino (warto zaznaczyc, ze wtedy i tak z klawiatury mozna grac te nie wyswietlone przyciski, wiec trzeba bedzie sie tym zajac!).
@@ -256,19 +258,18 @@ MidiCore::MidiCore()
     textEditorForNotesTest.setBounds(0, 0, 1300, 500);
 
     orangeContent.addAndMakeVisible(textEditorForNotesTest);
-    // Add to the component
-    //addAndMakeVisible(textEditorForNotesTest);
+    midiKeyboardState.addListener(this);
 
     setSize(1300, 750);
-
-    updateDeviceList();
 }
 
 MidiCore::~MidiCore()
 {
-    midiOutputs.clear();
-    midiOutputSelector.reset();
-
+    if (settingsWindow != nullptr) 
+    {
+        settingsWindow->removeChangeListener(this);
+        settingsWindow.deleteAndZero();
+    }
     midiKeyboardState.removeListener(this);
 }
 
@@ -300,6 +301,15 @@ void MidiCore::addText(juce::TextEditor& editor, const juce::String& text)
 {
     editor.setCaretPosition(editor.getText().length()); // Move caret to the end
     editor.insertTextAtCaret(text); // Insert new text
+}
+
+void MidiCore::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    if (source == settingsWindow)
+    {
+        settingsWindow->removeChangeListener(this);
+        settingsButton->setEnabled(true);
+    }
 }
 
 //Virtual members from juce::Component:
@@ -408,21 +418,8 @@ void MidiCore::resized()
     element66.setBounds(secondColumn.removeFromTop(smallColumnHeight));
     element77.setBounds(secondColumn);
     midiKeyboard.setBounds(element55.getLocalBounds());
-
-    /*
-    int margin = 10, width = getWidth(), height = getHeight();
-
-    midiOutputLabel.setBounds((width / 2) - 5 * margin, margin, (width / 2) - (2 * margin), 24);
-    midiOutputSelector->setBounds((width / 4), (2 * margin) + 24,
-        (width / 2) - (2 * margin),
-        (height / 2) - ((4 * margin) + 24 + 24));
-
-    midiKeyboard.setBounds(width / 2 - 204, (height / 2) + (24 + margin), 612, 256);
-    textEditorForNotesTest.setBounds(10, 10, 100, 100);
-    */
-    //juce::AffineTransform transform = juce::AffineTransform::scale(1.5f, 1.0f); // 1.5x horizontal scale
-    //midiKeyboard.setTransform(transform);
 }
+
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Custom methods !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -430,30 +427,13 @@ void MidiCore::resized()
 //==============================================================================
 // PUBLIC MEMBERS
 //==============================================================================
-void MidiCore::openDevice(int index)
+void MidiCore::showSettingsWindow()
 {
-    midiOutputs[index]->outputDevice = juce::MidiOutput::openDevice(midiOutputs[index]->deviceInfo.identifier);
-    if (midiOutputs[index]->outputDevice == nullptr)
-    {
-        //NOT GOOD:( ERROR - czyli nie udalo sie otworzyc urzadzenia
-    }
-}
+    settingsWindow = new SettingsWindow("Settings", _midiDeviceList);
 
-void MidiCore::closeDevice(int index)
-{
-    midiOutputs[index]->resetDevice();
+    settingsWindow->addChangeListener(this);
+    settingsButton->setEnabled(false);
 }
-
-juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> MidiCore::getMidiDevice(int index) const
-{
-    return midiOutputs[index];
-}
-
-int MidiCore::getNumberOfMidiOutputs() const
-{
-    return midiOutputs.size();
-}
-
 
 //==============================================================================
 // PRIVATE MEMBERS
@@ -462,6 +442,7 @@ int MidiCore::getNumberOfMidiOutputs() const
 
 void MidiCore::sendToOutputs(const juce::MidiMessage& message)
 {
+    auto midiOutputs = _midiDeviceList.getMidiDevices();
     for (auto* midiOutput : midiOutputs)
     {
         if (auto* outputDevice = midiOutput->outputDevice.get())
@@ -476,86 +457,6 @@ void MidiCore::sendToOutputs(const juce::MidiMessage& message)
     }
 }
 
-//Tak naprawde to niepotrzebne teraz, ale ogolnie sprawdza, czy faktycznie lista aktywnych urzadzen rozni sie od tych, ktore aktualnie nasza aplikacja zna - opisane w "updateDeviceList()" dlaczego poki co zbedne.
-bool MidiCore::hasDeviceListChanged(const juce::Array<juce::MidiDeviceInfo>& availableDevices)
-{
-    if (midiOutputs.size() != availableDevices.size())
-    {
-        return true;
-    }
-
-    for (int i = 0; i < availableDevices.size(); ++i)
-    {
-        if (availableDevices[i] != midiOutputs[i]->deviceInfo)
-        {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> MidiCore::findDevice(const juce::MidiDeviceInfo& deviceInfo) const
-{
-    for (auto& device : midiOutputs)
-    {
-        //Jesli to urzadzenie juz istnieje, to je po prostu zwroc (czyli jesli nie jest nowe):
-        if (device->deviceInfo == deviceInfo)
-        {
-            return device;
-        }
-    }
-
-    //Jesli jest nowe, to jeszcze go nie znamy, wiec zwracamy nullptr:
-    return nullptr;
-}
-
-//Zwalnia zasoby odlaczonych juz urzadzen:
-void MidiCore::closeUnpluggedDevices(const juce::Array<juce::MidiDeviceInfo>& currentlyPluggedInDevices)
-{
-    //I ogolnie dlaczego wszedzie "++i" albo "--i" zamiast po prostu "i++" albo "i--"? Poniewaz efekt ten sam, a --i oraz ++i sa minimalnie bardziej wydajne (w internecie opisane dokladniej dlaczego) - choc tak naprawde teraz kompilatory i tak juz czesto optymalizuja uzycie i++ czy i-- aby byly traktowane jak ++i i --i (tak ja przeczytalem i to zrozumialem).
-    for (int i = midiOutputs.size(); --i >= 0;) //Zapis ten sam co: for (int i = midiOutputs.size() - 1; i >= 0; --i)
-    {
-        auto& device = *midiOutputs[i];
-        if (!currentlyPluggedInDevices.contains(device.deviceInfo))
-        {
-            if (device.outputDevice != nullptr)
-            {
-                closeDevice(i);
-            }
-
-            midiOutputs.remove(i);
-        }
-    }
-}
-
-void MidiCore::updateDeviceList()
-{
-    auto availableDevices = juce::MidiOutput::getAvailableDevices();
-    if (hasDeviceListChanged(availableDevices)) //Tak naprawde to u nas ten if nie jest potrzebny, ale jesli mielibysmy tez midiInputs jak w tym MidiDemo i zastosowalibysmy to samo podejscie co oni, to ten if ma juz wtedy sens.
-    {
-        closeUnpluggedDevices(availableDevices);
-
-        juce::ReferenceCountedArray<MidiDeviceListEntry> newMidiOutputs; //Ogolnie moznaby nie uzywac tymczasowej tablicy/listy i od razu w tym ifie "if (foundDevice == nullptr) {}" dodac nowe urzadzenie do midiOutputs jednakze uzycie tymczasowego pojemnika na dane jest ogolnie "bezpieczniejsze" jesli mielibysmy jeszcze jakies inne kawalki kodu, w ktorych lista ta moglaby zostac w tym samym czasie zmodyfikowana (np. asynchroniczne). U nas co prawda nie ma takich, ale kto wie jak faktyczny projekt bedzie wygladal, a to i tak nie powoduje zadnej zauwazalnej roznicy w wydajnosci.
-        for (auto& device : availableDevices)
-        {
-            MidiDeviceListEntry::Ptr foundDevice = findDevice(device);
-
-            //Jesli to urzadzenie nie jest nam jeszcze znane (czyli jest nowo podlaczone):
-            if (foundDevice == nullptr)
-            {
-                foundDevice = new MidiDeviceListEntry(device);
-            }
-
-            newMidiOutputs.add(foundDevice);
-        }
-        midiOutputs = newMidiOutputs;
-
-        //Update Listboxa:
-        midiOutputSelector->syncSelectedItemsWithDeviceList(midiOutputs);
-    }
-}
-
 void MidiCore::addLabelAndSetStyle(juce::Label& label)
 {
     label.setFont(juce::FontOptions(15.00f, juce::Font::plain));
@@ -566,4 +467,3 @@ void MidiCore::addLabelAndSetStyle(juce::Label& label)
 
     addAndMakeVisible(label);
 }
-

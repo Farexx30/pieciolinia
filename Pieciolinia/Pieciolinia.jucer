@@ -45,6 +45,16 @@
     </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
+        <GROUP id="{D7291FF0-EABA-B110-5276-9D670C50E9EA}" name="Settings">
+          <FILE id="y3WXdN" name="SettingsComponent.cpp" compile="1" resource="0"
+                file="Source/Core/SettingsComponent.cpp"/>
+          <FILE id="tMH2qg" name="SettingsComponent.h" compile="0" resource="0"
+                file="Source/Core/SettingsComponent.h"/>
+          <FILE id="CLPnNh" name="SettingsWindow.cpp" compile="1" resource="0"
+                file="Source/Core/SettingsWindow.cpp"/>
+          <FILE id="nDX1QQ" name="SettingsWindow.h" compile="0" resource="0"
+                file="Source/Core/SettingsWindow.h"/>
+        </GROUP>
         <FILE id="Pkf0Fz" name="CustomMidiKeyboardComponent.h" compile="0"
               resource="0" file="Source/Core/CustomMidiKeyboardComponent.h"/>
         <FILE id="TIM5Fl" name="MidiCore.cpp" compile="1" resource="0" file="Source/Core/MidiCore.cpp"/>
@@ -57,6 +67,10 @@
               file="Source/Core/MidiDeviceListEntry.cpp"/>
         <FILE id="ESQBBw" name="MidiDeviceListEntry.h" compile="0" resource="0"
               file="Source/Core/MidiDeviceListEntry.h"/>
+        <FILE id="Cupq3d" name="MidiDeviceList.cpp" compile="1" resource="0"
+              file="Source/Core/MidiDeviceList.cpp"/>
+        <FILE id="TkhfyP" name="MidiDeviceList.h" compile="0" resource="0"
+              file="Source/Core/MidiDeviceList.h"/>
       </GROUP>
       <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>

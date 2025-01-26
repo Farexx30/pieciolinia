@@ -6,9 +6,8 @@
 
 //Zadeklarowanie, ze taka klasa istnieje (plik naglowkowy zaimportowany w pliku .cpp).
 //Powod? Musimy odwolac sie z tej klasy do klasy MidiCore, a z klasy MidiCore do tej klasy, wiec jest to konieczne jesli chcemy zachowac ich implementacje/definicje w osobnych plikach, a do tego nie popasc w nieskonczona petle importowania plikow naglowkowych (blad na etapie kompilacj).
-class MidiCore;
+class SettingsComponent;
 struct MidiDeviceListEntry;
-
 
 
 class MidiDeviceListBox final
@@ -18,7 +17,7 @@ class MidiDeviceListBox final
 {
 public:
     //Ctors/Dtors:
-    MidiDeviceListBox(const juce::String& name, MidiCore& midiCore);
+    MidiDeviceListBox(const juce::String& name, SettingsComponent& parent);
 
     //Overriden virtual members from juce::ListBoxModel:
     int getNumRows() override;
@@ -30,7 +29,7 @@ public:
 
 private:
     //Private properties:
-    MidiCore& parent;
+    SettingsComponent& _parent;
     juce::SparseSet<int> lastSelectedItems;
 };
 
