@@ -37,16 +37,30 @@ public:
     void resized() override;
 
     //Custom public methods:
+
+    void startPlayback();
+    void pausePlayback();
+    void stopPlayback();
+
 private:
     //Custom private methods:
     void showSettingsWindow();
     void sendToOutputs(const juce::MidiMessage& message);
     void addLabelAndSetStyle(juce::Label& label);
     void addText(juce::TextEditor& editor, const juce::String& text);
+    void playbackWorker();
 
     //Private properties:
+
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
+
+	//Playback properties
+    std::thread playbackThread;
+    std::atomic<bool> isPlaying{ false };
+    std::atomic<bool> isPaused{ false };
+    std::condition_variable pauseCondition;
+    std::mutex pauseMutex;
 
     //For GUI
     juce::TextButton header;

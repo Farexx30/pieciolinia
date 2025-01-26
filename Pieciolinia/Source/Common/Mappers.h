@@ -4,7 +4,7 @@
 
 namespace NoteMapper
 {
-    std::unordered_map<int, Note::NoteName> indexToNoteName =
+    inline std::unordered_map<int, Note::NoteName> indexToNoteName =
     {
         {72, Note::NoteName::c1},
         {73, Note::NoteName::cSharp1},
@@ -28,8 +28,32 @@ namespace NoteMapper
         {91, Note::NoteName::g2}
     };
 
-    inline std::unordered_map<Note::NoteLength, 
-        std::unordered_map<Note::NoteName, std::string>> noteToFont = 
+    inline std::unordered_map<Note::NoteName, int> noteToIndex =
+    {
+        {Note::NoteName::c1,      72},
+        {Note::NoteName::cSharp1, 73},
+        {Note::NoteName::d1,      74},
+        {Note::NoteName::dSharp1, 75},
+        {Note::NoteName::e1,      76},
+        {Note::NoteName::f1,      77},
+        {Note::NoteName::fSharp1, 78},
+        {Note::NoteName::g1,      79},
+        {Note::NoteName::gSharp1, 80},
+        {Note::NoteName::a1,      81},
+        {Note::NoteName::aSharp1, 82},
+        {Note::NoteName::h1,      83},
+        {Note::NoteName::c2,      84},
+        {Note::NoteName::cSharp2, 85},
+        {Note::NoteName::d2,      86},
+        {Note::NoteName::dSharp2, 87},
+        {Note::NoteName::e2,      88},
+        {Note::NoteName::f2,      89},
+        {Note::NoteName::fSharp2, 90},
+        {Note::NoteName::g2,      91}
+    };
+
+    inline std::unordered_map<Note::NoteLength,
+        std::unordered_map<Note::NoteName, std::string>> noteToFont =
     {
         {Note::NoteLength::Whole,
             {
@@ -55,7 +79,7 @@ namespace NoteMapper
                 {Note::NoteName::g2,      "e0"}
             }
         },
-        {Note::NoteLength::Half, 
+        {Note::NoteLength::Half,
             {
                 {Note::NoteName::c1,      "N0"},
                 {Note::NoteName::cSharp1, "rN0"},
@@ -79,7 +103,7 @@ namespace NoteMapper
                 {Note::NoteName::g2,      "Y0"}
             }
         },
-        {Note::NoteLength::Quarter, 
+        {Note::NoteLength::Quarter,
             {
                 {Note::NoteName::c1,      "B0"},
                 {Note::NoteName::cSharp1, "rB0"},
@@ -103,7 +127,7 @@ namespace NoteMapper
                 {Note::NoteName::g2,      "M0"}
             }
         },
-        {Note::NoteLength::Eighth, 
+        {Note::NoteLength::Eighth,
             {
                 {Note::NoteName::c1,      "60"},
                 {Note::NoteName::cSharp1, "r60"},
@@ -127,7 +151,7 @@ namespace NoteMapper
                 {Note::NoteName::g2,      "A0"}
             }
         },
-        {Note::NoteLength::Sixteenth, 
+        {Note::NoteLength::Sixteenth,
             {
                 {Note::NoteName::c1,      "f0"},
                 {Note::NoteName::cSharp1, "rf0"},
