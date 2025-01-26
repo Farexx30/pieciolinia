@@ -4,6 +4,42 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
+      <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+        <FILE id="KniiyO" name="anote.png" compile="0" resource="1" file="Source/Assets/anote.png"/>
+        <FILE id="rcG5W4" name="Bnote.png" compile="0" resource="1" file="Source/Assets/Bnote.png"/>
+        <FILE id="xo1Sip" name="c2note.png" compile="0" resource="1" file="Source/Assets/c2note.png"/>
+        <FILE id="HhiJKc" name="cnote.png" compile="0" resource="1" file="Source/Assets/cnote.png"/>
+        <FILE id="mxxw5I" name="d2note.png" compile="0" resource="1" file="Source/Assets/d2note.png"/>
+        <FILE id="cvQeY8" name="dnote.png" compile="0" resource="1" file="Source/Assets/dnote.png"/>
+        <FILE id="SnfGPp" name="e2note.png" compile="0" resource="1" file="Source/Assets/e2note.png"/>
+        <FILE id="JgDMyK" name="enote.png" compile="0" resource="1" file="Source/Assets/enote.png"/>
+        <FILE id="i5zmQW" name="fnote.png" compile="0" resource="1" file="Source/Assets/fnote.png"/>
+        <FILE id="Ur2q9T" name="gnote.png" compile="0" resource="1" file="Source/Assets/gnote.png"/>
+        <FILE id="TRZj2R" name="icons8-arrow-down-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-arrow-down-50.png"/>
+        <FILE id="byDTDN" name="icons8-arrow-up-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-arrow-up-50.png"/>
+        <FILE id="bBPwCX" name="icons8-backspace-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-backspace-50.png"/>
+        <FILE id="LEkkES" name="icons8-folder-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-folder-50.png"/>
+        <FILE id="iNDcol" name="icons8-logo-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-logo-50.png"/>
+        <FILE id="zj8Z82" name="icons8-pause-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-pause-50.png"/>
+        <FILE id="zJeof4" name="icons8-play-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-play-50.png"/>
+        <FILE id="gHOOr2" name="icons8-save-file-66.png" compile="0" resource="1"
+              file="Source/Assets/icons8-save-file-66.png"/>
+        <FILE id="M8bYeS" name="icons8-settings-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-settings-50.png"/>
+        <FILE id="MrXeDz" name="icons8-staff-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-staff-50.png"/>
+        <FILE id="GQvZr6" name="icons8-stop-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-stop-50.png"/>
+        <FILE id="XwCfTh" name="icons8-verified-50.png" compile="0" resource="1"
+              file="Source/Assets/icons8-verified-50.png"/>
+      </GROUP>
       <FILE id="gDiq7p" name="MusiQwikPieciolinia.ttf" compile="0" resource="1"
             file="Source/Assets/MusiQwikPieciolinia.ttf"/>
     </GROUP>
@@ -26,15 +62,16 @@
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
         <FILE id="UCjQXH" name="KeyboardInputHandler.cpp" compile="1" resource="0"
               file="Source/Common/KeyboardInputHandler.cpp"/>
+        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
         <FILE id="tLoW37" name="KeyboardInputHandler.h" compile="0" resource="0"
               file="Source/Common/KeyboardInputHandler.h"/>
-        <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
-        <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
+        <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>
         <FILE id="P9IT2m" name="Timer.h" compile="0" resource="0" file="Source/Common/Timer.h"/>
       </GROUP>
     </GROUP>
+    <FILE id="WBKxN8" name="CssFile.h" compile="0" resource="0" file="Source/CssFile.h"/>
     <FILE id="dCASfE" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
   </MAINGROUP>
   <MODULES>

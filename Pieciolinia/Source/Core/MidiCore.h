@@ -51,6 +51,58 @@ private:
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
 
+    //For GUI
+    juce::TextButton header;
+    juce::TextButton element1;
+    juce::TextButton element2;
+    juce::TextButton element3;
+    juce::TextButton element4;
+    juce::TextButton element5;
+    juce::TextButton element6;
+    juce::TextButton element7;
+    juce::TextButton element8;
+    juce::TextButton element9;
+    juce::TextButton element11;
+    juce::TextButton element22;
+    juce::TextButton element33;
+    juce::TextButton element44;
+    juce::TextButton element55;
+    juce::TextButton element66;
+    juce::TextButton element77;
+    juce::TextButton element88;
+    juce::TextButton element99;
+    juce::TextButton element111;
+    juce::TextButton element222;
+    juce::TextButton element333;
+    juce::TextButton element444;
+    juce::TextButton element555;
+    juce::TextButton element666;
+    juce::TextButton orangeContent;
+
+    std::unique_ptr<juce::DrawableButton> saveButton;
+    std::unique_ptr<juce::DrawableButton> folderButton;
+    std::unique_ptr<juce::DrawableButton> pauseButton;
+    std::unique_ptr<juce::DrawableButton> playButton;
+    std::unique_ptr<juce::DrawableButton> backspaceButton;
+    std::unique_ptr<juce::DrawableButton> stopButton;
+    std::unique_ptr<juce::DrawableButton> settingsButton;
+    std::unique_ptr<juce::DrawableButton> arrowUpButton;
+    std::unique_ptr<juce::DrawableButton> arrowDownButton;
+    std::unique_ptr<juce::DrawableButton> verifyButton;
+    std::unique_ptr<juce::DrawableButton> logoButton;
+    std::unique_ptr<juce::DrawableButton> staffButton;
+    std::unique_ptr<juce::DrawableButton> cButton;
+    std::unique_ptr<juce::DrawableButton> dButton;
+    std::unique_ptr<juce::DrawableButton> eButton;
+    std::unique_ptr<juce::DrawableButton> fButton;
+    std::unique_ptr<juce::DrawableButton> gButton;
+    std::unique_ptr<juce::DrawableButton> aButton;
+    std::unique_ptr<juce::DrawableButton> bButton;
+    std::unique_ptr<juce::DrawableButton> c2Button;
+    std::unique_ptr<juce::DrawableButton> d2Button;
+    std::unique_ptr<juce::DrawableButton> e2Button;
+
+
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
     juce::MidiKeyboardState midiKeyboardState; 
