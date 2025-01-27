@@ -50,6 +50,10 @@ private:
     void addText(juce::TextEditor& editor, const juce::String& text);
     void playbackWorker();
 
+
+    void ArrowUpClick();
+    void ArrowDownClick();
+
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;

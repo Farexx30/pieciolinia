@@ -29,12 +29,14 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
     arrowDownButton->setImages(arrowDownImage.get());
     element33.addAndMakeVisible(arrowDownButton.get());
+	arrowDownButton->onClick = [this] {ArrowDownClick(); };
 
     // Arrow Up Button
     arrowUpButton = std::make_unique<juce::DrawableButton>("ArrowUpButton", juce::DrawableButton::ImageFitted);
     auto arrowUpImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowup50_png, BinaryData::icons8arrowup50_pngSize));
     arrowUpButton->setImages(arrowUpImage.get());
     element22.addAndMakeVisible(arrowUpButton.get());
+    arrowUpButton->onClick = [this] {ArrowUpClick(); };
 
     // Backspace Button
     backspaceButton = std::make_unique<juce::DrawableButton>("BackspaceButton", juce::DrawableButton::ImageFitted);
@@ -161,7 +163,6 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 #pragma region elements
 
 
-
     element3.addAndMakeVisible(folderButton.get());
 
     element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -170,17 +171,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     element3.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82)); 
     addAndMakeVisible(element3);
 
-    nameSongEditor = std::make_unique<juce::TextEditor>();
-    nameSongEditor->setMultiLine(false); 
-    nameSongEditor->setReturnKeyStartsNewLine(false);
-    nameSongEditor->setFont(juce::Font(35.0f));
-    nameSongEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
-    nameSongEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
-    nameSongEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
-    nameSongEditor->setJustification(juce::Justification::centred);
-    nameSongEditor->setText("Nazwa Utworu");
-
-    addAndMakeVisible(*nameSongEditor);
+   
 
     element5.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element5);
@@ -201,11 +192,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(orangeContent);
 
-    switchNoteEditor = std::make_unique<juce::TextEditor>();
-    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
-    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
-    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
-    addAndMakeVisible(*switchNoteEditor);
+
 
     element22.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element22);
@@ -266,7 +253,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 
     auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
     juce::Font customFont(typeface);
-    customFont.setHeight(100.0f);
+    customFont.setHeight(128.0f);
 
     textEditorForNotesTest.setMultiLine(true);
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
@@ -275,6 +262,35 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     textEditorForNotesTest.setBounds(0, 0, 1300, 450);
 	textEditorForNotesTest.setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
 	textEditorForNotesTest.setColour(juce::TextEditor::textColourId, juce::Colours::black);
+
+
+    switchNoteEditor = std::make_unique<juce::TextEditor>();
+    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    switchNoteEditor->setJustification(juce::Justification::centred);
+    switchNoteEditor->setEnabled(false);
+    switchNoteEditor->setReadOnly(true);
+    switchNoteEditor->applyFontToAllText(customFont);
+	switchNoteEditor->setText("000;000");
+    
+
+
+    addAndMakeVisible(*switchNoteEditor);
+
+
+    nameSongEditor = std::make_unique<juce::TextEditor>();
+    nameSongEditor->setMultiLine(false);
+    nameSongEditor->setReturnKeyStartsNewLine(false);
+    nameSongEditor->setFont(juce::Font(35.0f));
+    nameSongEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    nameSongEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    nameSongEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    nameSongEditor->setJustification(juce::Justification::centred);
+    nameSongEditor->setInputRestrictions(50);
+
+    addAndMakeVisible(*nameSongEditor);
+
 
     orangeContent.addAndMakeVisible(textEditorForNotesTest);
     midiKeyboardState.addListener(this);
@@ -360,6 +376,7 @@ void MidiCore::resized()
 
 
     saveButton->setBounds(element2.getLocalBounds().reduced(10));
+    staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
 
     element2.setBounds(headerArea.removeFromLeft(sectionWidth));
@@ -396,7 +413,6 @@ void MidiCore::resized()
     int bigSectionWidth = smallSectionWidth * 9;
 
     switchNoteEditor->setBounds(footerArea.removeFromLeft(mediumSectionWidth));
-    staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
     juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
     int smallColumnHeight = footerHeight / 2;
@@ -409,10 +425,6 @@ void MidiCore::resized()
     element44.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     backspaceButton->setBounds(element44.getLocalBounds().reduced(10));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
-
-    
-
-    
 
     juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
     element88.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
@@ -548,14 +560,14 @@ void MidiCore::playbackWorker() {
             std::unique_lock<std::mutex> lock(pauseMutex);
             pauseCondition.wait(lock, [this] { return !isPaused || !isPlaying; });
 
-            if (!isPlaying) return; 
+            if (!isPlaying) return;
         }
 
         auto& note = notes[i];
         int midiNote = NoteMapper::noteToIndex.at(note->info.name);
         juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
         sendToOutputs(onMsg);
-        
+
         int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
@@ -565,8 +577,114 @@ void MidiCore::playbackWorker() {
     }
 
     isPlaying = false;
+    juce::MessageManager::callAsync([this] {
+        playButton->setEnabled(true);
+        pauseButton->setEnabled(false);
+        stopButton->setEnabled(false);
+        });
 
-	playButton->setEnabled(true);
-	pauseButton->setEnabled(false);
-	stopButton->setEnabled(false);
+}
+
+
+juce::String setHigherNote(juce::String text)
+{
+	char note = text[3];
+    switch (note)
+    {
+	case '6':
+		return("0007000");
+		break;
+	case '7':
+		return("0008000");
+        break;
+	case '8':
+		return("0009000");
+		break;
+	case '9':
+		return("000:000");
+		break;
+    case ':':
+		return("000;000");
+		break;
+	case ';':
+		return("000<000");
+        break;
+	case '<':
+		return("000=000");
+		break;
+	case '=':
+		return("000>000");
+		break;
+	case '>':
+		return("000?000");
+		break;
+	case '?':
+		return("000@000");
+		break;
+	case '@':
+		return("000A000");
+		break;
+	case 'A':
+		return("000A000");
+		break;
+    default:
+		return("000;000");
+        break;
+    }
+}
+
+juce::String setNoteLower(juce::String text)
+{
+    char note = text[3];
+    switch (note)
+    {
+	case '6':
+		return("0006000");
+		break;
+	case '7':
+		return("0006000");
+		break;
+	case '8':
+		return("0007000");
+		break;
+	case '9':
+		return("0008000");
+		break;
+	case ':':
+		return("0009000");
+		break;
+	case ';':
+		return("000:000");
+		break;
+	case '<':
+		return("000;000");
+		break;
+	case '=':
+		return("000<000");
+		break;
+	case '>':
+		return("000=000");
+		break;
+	case '?':
+		return("000>000");
+		break;
+	case '@':
+		return("000?000");
+		break;
+	case 'A':
+		return("000@000");
+		break;
+	default:
+		return("000;000");
+    }
+}
+
+void MidiCore::ArrowUpClick()
+{
+	switchNoteEditor->setText(setHigherNote(switchNoteEditor->getText()));
+}
+
+void MidiCore::ArrowDownClick()
+{
+	switchNoteEditor->setText(setNoteLower(switchNoteEditor->getText()));
 }
