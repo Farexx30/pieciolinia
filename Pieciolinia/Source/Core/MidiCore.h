@@ -42,6 +42,8 @@ public:
     void pausePlayback();
     void stopPlayback();
 
+
+
 private:
     //Custom private methods:
     void showSettingsWindow();
@@ -49,6 +51,13 @@ private:
     void addLabelAndSetStyle(juce::Label& label);
     void addText(juce::TextEditor& editor, const juce::String& text);
     void playbackWorker();
+
+    juce::String setHigherNote(juce::String text);
+
+    juce::String setNoteLower(juce::String text);
+
+
+
 
 
     void ArrowUpClick();
@@ -58,6 +67,7 @@ private:
 
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
+	Note::NoteName chosenNoteName = Note::NoteName::c1;
 
 	//Playback properties
     std::thread playbackThread;

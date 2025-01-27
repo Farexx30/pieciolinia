@@ -586,97 +586,187 @@ void MidiCore::playbackWorker() {
 }
 
 
-juce::String setHigherNote(juce::String text)
+
+juce::String MidiCore::setHigherNote(juce::String text)
 {
 	char note = text[3];
     switch (note)
     {
 	case '6':
-		return("0007000");
+		chosenNoteName = Note::NoteName::cSharp1;
+		return("000r600");
 		break;
-	case '7':
-		return("0008000");
+	case 'r':
+		chosenNoteName = Note::NoteName::d1;
+        return("0007000");
         break;
+	case '7':
+		chosenNoteName = Note::NoteName::dSharp1;
+		return("000s700");
+        break;
+	case 's':
+		chosenNoteName = Note::NoteName::e1;
+		return("0008000");
+		break;
 	case '8':
+		chosenNoteName = Note::NoteName::f1;
 		return("0009000");
 		break;
 	case '9':
+		chosenNoteName = Note::NoteName::fSharp1;
+		return("000u900");
+		break;
+	case 'u':
+		chosenNoteName = Note::NoteName::g1;
 		return("000:000");
-		break;
     case ':':
-		return("000;000");
+		chosenNoteName = Note::NoteName::gSharp1;
+		return("000v:00");
 		break;
+    case 'v':
+		chosenNoteName = Note::NoteName::a1;
+		return("000;000");
 	case ';':
-		return("000<000");
+		chosenNoteName = Note::NoteName::aSharp1;
+		return("000w;00");
         break;
+	case 'w':
+		chosenNoteName = Note::NoteName::h1;
+        return("000<000");
+		break;
 	case '<':
+		chosenNoteName = Note::NoteName::c2;
 		return("000=000");
 		break;
 	case '=':
+		chosenNoteName = Note::NoteName::cSharp2;
+		return("000y=00");
+		break;
+	case 'y':
+		chosenNoteName = Note::NoteName::d2;
 		return("000>000");
 		break;
 	case '>':
+		chosenNoteName = Note::NoteName::dSharp2;
+		return("000z>00");
+		break;
+	case 'z':
+		chosenNoteName = Note::NoteName::e2;
 		return("000?000");
 		break;
 	case '?':
+		chosenNoteName = Note::NoteName::f2;
 		return("000@000");
 		break;
 	case '@':
+		chosenNoteName = Note::NoteName::fSharp2;
+		return("000|@00");
+		break;
+	case '|':
+		chosenNoteName = Note::NoteName::g2;
 		return("000A000");
 		break;
 	case 'A':
 		return("000A000");
 		break;
     default:
+		chosenNoteName = Note::NoteName::a1;
 		return("000;000");
         break;
     }
 }
 
-juce::String setNoteLower(juce::String text)
+juce::String MidiCore::setNoteLower(juce::String text)
 {
     char note = text[3];
     switch (note)
     {
-	case '6':
-		return("0006000");
+    case '6':
+        chosenNoteName = Note::NoteName::c1;
+        return("000600");
+        break;
+	case 'r':
+		chosenNoteName = Note::NoteName::c1;
+		return("000600");
 		break;
 	case '7':
-		return("0006000");
+		chosenNoteName = Note::NoteName::cSharp1;
+		return("000r600");
 		break;
-	case '8':
+	case 's':
+		chosenNoteName = Note::NoteName::d1;
 		return("0007000");
 		break;
+	case '8':
+		chosenNoteName = Note::NoteName::dSharp1;
+		return("000s700");
+		break;
 	case '9':
+		chosenNoteName = Note::NoteName::e1;
 		return("0008000");
 		break;
-	case ':':
+	case 'u':
+		chosenNoteName = Note::NoteName::f1;
 		return("0009000");
 		break;
-	case ';':
+	case ':':
+		chosenNoteName = Note::NoteName::fSharp1;
+		return("000u900");
+		break;
+	case 'v':
+		chosenNoteName = Note::NoteName::g1;
 		return("000:000");
 		break;
-	case '<':
+	case ';':
+		chosenNoteName = Note::NoteName::gSharp1;
+		return("000v:00");
+		break;
+	case 'w':
+		chosenNoteName = Note::NoteName::a1;
 		return("000;000");
+		break;
+	case '<':
+		chosenNoteName = Note::NoteName::aSharp1;
+		return("000w;00");
 		break;
 	case '=':
+		chosenNoteName = Note::NoteName::h1;
 		return("000<000");
 		break;
-	case '>':
+	case 'y':
+		chosenNoteName = Note::NoteName::c2;
 		return("000=000");
 		break;
-	case '?':
+	case '>':
+		chosenNoteName = Note::NoteName::cSharp2;
+		return("000y=00");
+		break;
+	case 'z':
+		chosenNoteName = Note::NoteName::d2;
 		return("000>000");
 		break;
+	case '?':
+		chosenNoteName = Note::NoteName::dSharp2;
+		return("000z>00");
+		break;
 	case '@':
+		chosenNoteName = Note::NoteName::e2;
 		return("000?000");
 		break;
-	case 'A':
+	case '|':
+		chosenNoteName = Note::NoteName::f2;
 		return("000@000");
 		break;
+	case 'A':
+		chosenNoteName = Note::NoteName::fSharp2;
+		return("000|@00");
+		break;
 	default:
+		chosenNoteName = Note::NoteName::a1;
 		return("000;000");
+		break;
     }
+
 }
 
 void MidiCore::ArrowUpClick()
@@ -688,3 +778,12 @@ void MidiCore::ArrowDownClick()
 {
 	switchNoteEditor->setText(setNoteLower(switchNoteEditor->getText()));
 }
+//
+//void MidiCore::AddedNoteByButton(Note::NoteLength noteLength)
+//{
+//	auto currentNote = std::make_unique<Note>();
+//	currentNote->info.length = noteLength;
+//	currentNote->info.name = NoteName::c1;
+//	addText(textEditorForNotesTest, currentNote->getNoteFont());
+//	CompositionConstants::notes.push_back(std::move(currentNote));
+//}
