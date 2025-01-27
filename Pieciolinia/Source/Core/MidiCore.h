@@ -103,6 +103,7 @@ private:
     std::unique_ptr<juce::DrawableButton> e2Button;
 
     std::unique_ptr<juce::TextEditor> nameSongEditor;
+    std::unique_ptr<juce::TextEditor> switchNoteEditor;
 
 
 

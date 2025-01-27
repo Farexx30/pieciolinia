@@ -191,10 +191,11 @@ MidiCore::MidiCore()
     orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(orangeContent);
 
-    
-
-    element11.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    addAndMakeVisible(element11);
+    switchNoteEditor = std::make_unique<juce::TextEditor>();
+    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    addAndMakeVisible(*switchNoteEditor);
 
     element22.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element22);
@@ -369,7 +370,7 @@ void MidiCore::resized()
     int mediumSectionWidth = smallSectionWidth * 2;
     int bigSectionWidth = smallSectionWidth * 9;
 
-    element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+    switchNoteEditor->setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
     juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
