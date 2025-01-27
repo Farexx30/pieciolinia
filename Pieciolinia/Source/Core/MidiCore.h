@@ -63,6 +63,9 @@ private:
 
     void AddNoteRestByButton(Note::NoteLength noteLength);
 
+    void DeleteLastNote();
+
+
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;

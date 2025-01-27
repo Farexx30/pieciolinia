@@ -43,6 +43,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto backspaceImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8backspace50_png, BinaryData::icons8backspace50_pngSize));
     backspaceButton->setImages(backspaceImage.get());
     element44.addAndMakeVisible(backspaceButton.get());
+    backspaceButton->onClick = [this] {DeleteLastNote(); };
 
     // Pause Button
     pauseButton = std::make_unique<juce::DrawableButton>("PauseButton", juce::DrawableButton::ImageFitted);
@@ -537,7 +538,7 @@ void MidiCore::startPlayback() {
     isPlaying = true;
 
     playbackThread = std::thread(&MidiCore::playbackWorker, this);
-
+    textEditorForNotesTest.setCaretPosition(0);
 	stopButton->setEnabled(true);
 	pauseButton->setEnabled(true);
 	playButton->setEnabled(false);
@@ -593,14 +594,35 @@ void MidiCore::playbackWorker() {
             int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
             std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
         }
+        juce::MessageManager::callAsync([this]
+            {
+                int currentPosition = textEditorForNotesTest.getCaretPosition();
+                int textLength = textEditorForNotesTest.getText().length();
 
+                if (currentPosition < textLength)
+                {
+                    auto text = textEditorForNotesTest.getText();
+                    int n = 0;
+                    for (int i = currentPosition; i < textLength; ++i)
+                    {
+                        n++;
+                        if (text[i] == '0')
+                        {
+                            break;
+                        }
+                    }
+
+                    textEditorForNotesTest.setCaretPosition(currentPosition + n);
+                }
+            });
     }
 
     isPlaying = false;
-    juce::MessageManager::callAsync([this] {
-        playButton->setEnabled(true);
-        pauseButton->setEnabled(false);
-        stopButton->setEnabled(false);
+    juce::MessageManager::callAsync([this]
+        {
+            playButton->setEnabled(true);
+            pauseButton->setEnabled(false);
+            stopButton->setEnabled(false);
         });
 
 }
@@ -816,3 +838,17 @@ void MidiCore::AddNoteRestByButton(Note::NoteLength noteLength)
 	CompositionConstants::notes.push_back(std::move(currentNote));
 }
 
+void MidiCore::DeleteLastNote()
+{
+    auto text = textEditorForNotesTest.getText();
+    if (!text.isEmpty()) 
+    {
+        text = text.dropLastCharacters(1);
+        while (text.getLastCharacter() != '0' && !text.isEmpty())
+        {
+            text = text.dropLastCharacters(1);
+        }
+    }
+    textEditorForNotesTest.setText(text);
+    CompositionConstants::notes.pop_back();
+}
