@@ -102,6 +102,10 @@ private:
     std::unique_ptr<juce::DrawableButton> d2Button;
     std::unique_ptr<juce::DrawableButton> e2Button;
 
+    std::unique_ptr<juce::TextEditor> nameSongEditor;
+
+
+
 
     juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
 
