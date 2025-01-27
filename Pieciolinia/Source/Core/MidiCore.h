@@ -61,6 +61,8 @@ private:
 
     void AddNoteByButton(Note::NoteLength noteLength);
 
+    void AddNoteRestByButton(Note::NoteLength noteLength);
+
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;

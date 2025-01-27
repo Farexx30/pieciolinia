@@ -76,7 +76,8 @@ namespace NoteMapper
                 {Note::NoteName::e2,      "c0"},
                 {Note::NoteName::f2,      "d0"},
                 {Note::NoteName::fSharp2, "\u007Cd0"},
-                {Note::NoteName::g2,      "e0"}
+                {Note::NoteName::g2,      "e0"},
+                {Note::NoteName::rest,    "50" }
             }
         },
         {Note::NoteLength::Half,
@@ -100,7 +101,8 @@ namespace NoteMapper
                 {Note::NoteName::e2,      "W0"},
                 {Note::NoteName::f2,      "X0"},
                 {Note::NoteName::fSharp2, "\u007CX0"},
-                {Note::NoteName::g2,      "Y0"}
+                {Note::NoteName::g2,      "Y0"},
+                {Note::NoteName::rest,    "40" }
             }
         },
         {Note::NoteLength::Quarter,
@@ -124,7 +126,8 @@ namespace NoteMapper
                 {Note::NoteName::e2,      "K0"},
                 {Note::NoteName::f2,      "L0"},
                 {Note::NoteName::fSharp2, "\u007CL0"},
-                {Note::NoteName::g2,      "M0"}
+                {Note::NoteName::g2,      "M0"},
+                {Note::NoteName::rest,    "30" }
             }
         },
         {Note::NoteLength::Eighth,
@@ -148,7 +151,8 @@ namespace NoteMapper
                 {Note::NoteName::e2,      "?0"},
                 {Note::NoteName::f2,      "@0"},
                 {Note::NoteName::fSharp2, "\u007C@0"},
-                {Note::NoteName::g2,      "A0"}
+                {Note::NoteName::g2,      "A0"},
+                {Note::NoteName::rest,    "20"}
             }
         },
         {Note::NoteLength::Sixteenth,
@@ -172,7 +176,8 @@ namespace NoteMapper
                 {Note::NoteName::e2,      "o0"},
                 {Note::NoteName::f2,      "p0"},
                 {Note::NoteName::fSharp2, "\u007Cp0"},
-                {Note::NoteName::g2,      "q0"}
+                {Note::NoteName::g2,      "q0"},
+                {Note::NoteName::rest,    "10" }
             }
         }
     };
