@@ -56,18 +56,16 @@ private:
 
     juce::String setNoteLower(juce::String text);
 
-
-
-
-
     void ArrowUpClick();
     void ArrowDownClick();
+
+    void AddNoteByButton(Note::NoteLength noteLength);
 
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
-	Note::NoteName chosenNoteName = Note::NoteName::c1;
+	Note::NoteName chosenNoteName = Note::NoteName::a1;
 
 	//Playback properties
     std::thread playbackThread;

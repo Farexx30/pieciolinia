@@ -96,6 +96,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto cImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::cnote_png, BinaryData::cnote_pngSize));
     cButton->setImages(cImage.get());
     element88.addAndMakeVisible(cButton.get());
+	cButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Whole); };
     // D Button
     dButton = std::make_unique<juce::DrawableButton>("dButton", juce::DrawableButton::ImageFitted);
     auto dImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::dnote_png, BinaryData::dnote_pngSize));
@@ -107,6 +108,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto eImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::enote_png, BinaryData::enote_pngSize));
     eButton->setImages(eImage.get());
     element111.addAndMakeVisible(eButton.get());
+	eButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Half); };
 
     // F Button
     fButton = std::make_unique<juce::DrawableButton>("fButton", juce::DrawableButton::ImageFitted);
@@ -119,6 +121,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto gImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::gnote_png, BinaryData::gnote_pngSize));
     gButton->setImages(gImage.get());
     element333.addAndMakeVisible(gButton.get());
+	gButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Quarter); };
 
     // A Button
     aButton = std::make_unique<juce::DrawableButton>("aButton", juce::DrawableButton::ImageFitted);
@@ -131,6 +134,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto bImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::Bnote_png, BinaryData::Bnote_pngSize));
     bButton->setImages(bImage.get());
     element555.addAndMakeVisible(bButton.get());
+	bButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Eighth); };
 
     // C2 Button
     c2Button = std::make_unique<juce::DrawableButton>("c2Button", juce::DrawableButton::ImageFitted);
@@ -143,6 +147,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto d2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::d2note_png, BinaryData::d2note_pngSize));
     d2Button->setImages(d2Image.get());
     element66.addAndMakeVisible(d2Button.get());
+	d2Button->onClick = [this] { AddNoteByButton(Note::NoteLength::Sixteenth); };
 
     // E2 Button
     e2Button = std::make_unique<juce::DrawableButton>("e2Button", juce::DrawableButton::ImageFitted);
@@ -778,12 +783,23 @@ void MidiCore::ArrowDownClick()
 {
 	switchNoteEditor->setText(setNoteLower(switchNoteEditor->getText()));
 }
-//
-//void MidiCore::AddedNoteByButton(Note::NoteLength noteLength)
-//{
-//	auto currentNote = std::make_unique<Note>();
-//	currentNote->info.length = noteLength;
-//	currentNote->info.name = NoteName::c1;
-//	addText(textEditorForNotesTest, currentNote->getNoteFont());
-//	CompositionConstants::notes.push_back(std::move(currentNote));
-//}
+
+void MidiCore::AddNoteByButton(Note::NoteLength noteLength)
+{
+	auto currentNote = std::make_unique<Note>();
+	currentNote->info.length = noteLength;
+    currentNote->info.name = chosenNoteName;
+	addText(textEditorForNotesTest, currentNote->getNoteFont());
+	CompositionConstants::notes.push_back(std::move(currentNote));
+
+    int midiNote = NoteMapper::noteToIndex.at(currentNote->info.name);
+    juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
+    sendToOutputs(onMsg);
+
+    int noteDurationMs = currentNote->calculateNoteDuration(CompositionConstants::bpm);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
+
+    juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
+    sendToOutputs(offMsg);
+}
