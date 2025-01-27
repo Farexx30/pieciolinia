@@ -329,23 +329,29 @@ MidiCore::~MidiCore()
 //Obsluga klikniecia klawisza pianina:
 void MidiCore::handleNoteOn(juce::MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)
 {
-    timer.reset(); // start of measuring time
-    juce::MidiMessage message(juce::MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity));
-    message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
-    sendToOutputs(message);
+    if (!isKeyboardLocked)
+    {
+        timer.reset(); // start of measuring time
+        juce::MidiMessage message(juce::MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity));
+        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
+        sendToOutputs(message);
+    }
 }
 
 //Obsluga puszczenia klawisza pianina:
 void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)
 {
-    double elapsed = timer.elapsedMilliseconds(); // Checking Time
-    juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
-    message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
-    sendToOutputs(message);
-    auto currentNote = std::make_unique<Note>();
-    currentNote->setNoteInfo(elapsed, 120, midiNoteNumber);
-    addText(textEditorForNotesTest, currentNote->getNoteFont());
-    CompositionConstants::notes.push_back(std::move(currentNote));
+    if (!isKeyboardLocked)
+    {
+        double elapsed = timer.elapsedMilliseconds(); // Checking Time
+        juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
+        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
+        sendToOutputs(message);
+        auto currentNote = std::make_unique<Note>();
+        currentNote->setNoteInfo(elapsed, 120, midiNoteNumber);
+        addText(textEditorForNotesTest, currentNote->getNoteFont());
+        CompositionConstants::notes.push_back(std::move(currentNote));
+    }
 }
 
 void MidiCore::addText(juce::TextEditor& editor, const juce::String& text)
@@ -543,6 +549,8 @@ void MidiCore::startPlayback() {
 	stopButton->setEnabled(true);
 	pauseButton->setEnabled(true);
 	playButton->setEnabled(false);
+
+    lockInputs();
 }
 
 void MidiCore::pausePlayback() {
@@ -562,6 +570,8 @@ void MidiCore::stopPlayback() {
 	stopButton->setEnabled(false);
 	pauseButton->setEnabled(false);
 	playButton->setEnabled(true);
+
+    unlockInputs();
 }
 
 void MidiCore::playbackWorker() {
@@ -624,6 +634,7 @@ void MidiCore::playbackWorker() {
             playButton->setEnabled(true);
             pauseButton->setEnabled(false);
             stopButton->setEnabled(false);
+            unlockInputs();
         });
 
 }
@@ -858,4 +869,46 @@ void MidiCore::updateCompositionName()
 {
     if(!nameSongEditor->isEmpty())
         compositionName = nameSongEditor->getText();
+}
+
+void MidiCore::lockInputs()
+{
+    backspaceButton->setEnabled(false);
+    saveButton->setEnabled(false);
+    folderButton->setEnabled(false);
+
+
+    cButton->setEnabled(false);
+    dButton->setEnabled(false);
+    eButton->setEnabled(false);
+    fButton->setEnabled(false);
+    gButton->setEnabled(false);
+    aButton->setEnabled(false);
+    bButton->setEnabled(false);
+    c2Button->setEnabled(false);
+    d2Button->setEnabled(false);
+    e2Button->setEnabled(false);
+
+    isKeyboardLocked = true;
+}
+
+void MidiCore::unlockInputs()
+{
+    backspaceButton->setEnabled(true);
+    saveButton->setEnabled(true);
+    folderButton->setEnabled(true);
+
+
+    cButton->setEnabled(true);
+    dButton->setEnabled(true);
+    eButton->setEnabled(true);
+    fButton->setEnabled(true);
+    gButton->setEnabled(true);
+    aButton->setEnabled(true);
+    bButton->setEnabled(true);
+    c2Button->setEnabled(true);
+    d2Button->setEnabled(true);
+    e2Button->setEnabled(true);
+
+    isKeyboardLocked = false;
 }

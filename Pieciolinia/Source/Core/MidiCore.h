@@ -67,6 +67,10 @@ private:
 
     void updateCompositionName();
 
+    void lockInputs();
+
+    void unlockInputs();
+
 
     //Private properties:
 
@@ -75,6 +79,8 @@ private:
 	Note::NoteName chosenNoteName = Note::NoteName::a1;
 
     juce::String compositionName;
+
+    bool isKeyboardLocked = false;
 
 	//Playback properties
     std::thread playbackThread;
