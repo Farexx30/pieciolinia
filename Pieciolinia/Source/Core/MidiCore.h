@@ -65,12 +65,16 @@ private:
 
     void DeleteLastNote();
 
+    void updateCompositionName();
+
 
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
 	Note::NoteName chosenNoteName = Note::NoteName::a1;
+
+    juce::String compositionName;
 
 	//Playback properties
     std::thread playbackThread;

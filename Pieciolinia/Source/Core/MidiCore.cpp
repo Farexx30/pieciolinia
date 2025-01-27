@@ -84,6 +84,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
     verifyButton->setImages(verifyImage.get());
     element5.addAndMakeVisible(verifyButton.get());
+    verifyButton->onClick = [this] {updateCompositionName(); };
 
 
     // Staff Button
@@ -851,4 +852,9 @@ void MidiCore::DeleteLastNote()
     }
     textEditorForNotesTest.setText(text);
     CompositionConstants::notes.pop_back();
+}
+
+void MidiCore::updateCompositionName()
+{
+    compositionName = nameSongEditor->getText();
 }
