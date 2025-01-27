@@ -849,12 +849,13 @@ void MidiCore::DeleteLastNote()
         {
             text = text.dropLastCharacters(1);
         }
+        CompositionConstants::notes.pop_back();
     }
     textEditorForNotesTest.setText(text);
-    CompositionConstants::notes.pop_back();
 }
 
 void MidiCore::updateCompositionName()
 {
-    compositionName = nameSongEditor->getText();
+    if(!nameSongEditor->isEmpty())
+        compositionName = nameSongEditor->getText();
 }
