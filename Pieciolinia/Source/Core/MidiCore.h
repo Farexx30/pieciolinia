@@ -42,6 +42,8 @@ public:
     void pausePlayback();
     void stopPlayback();
 
+
+
 private:
     //Custom private methods:
     void showSettingsWindow();
@@ -50,10 +52,29 @@ private:
     void addText(juce::TextEditor& editor, const juce::String& text);
     void playbackWorker();
 
+    juce::String setHigherNote(juce::String text);
+
+    juce::String setNoteLower(juce::String text);
+
+    void ArrowUpClick();
+    void ArrowDownClick();
+
+    void AddNoteByButton(Note::NoteLength noteLength);
+
+    void AddNoteRestByButton(Note::NoteLength noteLength);
+
+    void DeleteLastNote();
+
+    void updateCompositionName();
+
+
     //Private properties:
 
     juce::TextEditor textEditorForNotesTest;
     Timer timer;
+	Note::NoteName chosenNoteName = Note::NoteName::a1;
+
+    juce::String compositionName;
 
 	//Playback properties
     std::thread playbackThread;

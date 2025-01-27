@@ -29,18 +29,21 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
     arrowDownButton->setImages(arrowDownImage.get());
     element33.addAndMakeVisible(arrowDownButton.get());
+	arrowDownButton->onClick = [this] {ArrowDownClick(); };
 
     // Arrow Up Button
     arrowUpButton = std::make_unique<juce::DrawableButton>("ArrowUpButton", juce::DrawableButton::ImageFitted);
     auto arrowUpImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowup50_png, BinaryData::icons8arrowup50_pngSize));
     arrowUpButton->setImages(arrowUpImage.get());
     element22.addAndMakeVisible(arrowUpButton.get());
+    arrowUpButton->onClick = [this] {ArrowUpClick(); };
 
     // Backspace Button
     backspaceButton = std::make_unique<juce::DrawableButton>("BackspaceButton", juce::DrawableButton::ImageFitted);
     auto backspaceImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8backspace50_png, BinaryData::icons8backspace50_pngSize));
     backspaceButton->setImages(backspaceImage.get());
     element44.addAndMakeVisible(backspaceButton.get());
+    backspaceButton->onClick = [this] {DeleteLastNote(); };
 
     // Pause Button
     pauseButton = std::make_unique<juce::DrawableButton>("PauseButton", juce::DrawableButton::ImageFitted);
@@ -81,6 +84,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
     verifyButton->setImages(verifyImage.get());
     element5.addAndMakeVisible(verifyButton.get());
+    verifyButton->onClick = [this] {updateCompositionName(); };
 
 
     // Staff Button
@@ -94,59 +98,69 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto cImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::cnote_png, BinaryData::cnote_pngSize));
     cButton->setImages(cImage.get());
     element88.addAndMakeVisible(cButton.get());
+	cButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Whole); };
     // D Button
     dButton = std::make_unique<juce::DrawableButton>("dButton", juce::DrawableButton::ImageFitted);
     auto dImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::dnote_png, BinaryData::dnote_pngSize));
     dButton->setImages(dImage.get());
     element99.addAndMakeVisible(dButton.get());
+    dButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Whole); };
 
     // E Button
     eButton = std::make_unique<juce::DrawableButton>("eButton", juce::DrawableButton::ImageFitted);
     auto eImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::enote_png, BinaryData::enote_pngSize));
     eButton->setImages(eImage.get());
     element111.addAndMakeVisible(eButton.get());
+	eButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Half); };
 
     // F Button
     fButton = std::make_unique<juce::DrawableButton>("fButton", juce::DrawableButton::ImageFitted);
     auto fImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::fnote_png, BinaryData::fnote_pngSize));
     fButton->setImages(fImage.get());
     element222.addAndMakeVisible(fButton.get());
+    fButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Half); };
 
     // G Button
     gButton = std::make_unique<juce::DrawableButton>("gButton", juce::DrawableButton::ImageFitted);
     auto gImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::gnote_png, BinaryData::gnote_pngSize));
     gButton->setImages(gImage.get());
     element333.addAndMakeVisible(gButton.get());
+    gButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Quarter); };
 
     // A Button
     aButton = std::make_unique<juce::DrawableButton>("aButton", juce::DrawableButton::ImageFitted);
     auto aImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::anote_png, BinaryData::anote_pngSize));
     aButton->setImages(aImage.get());
     element444.addAndMakeVisible(aButton.get());
+    aButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Quarter); };
 
     // B Button
     bButton = std::make_unique<juce::DrawableButton>("bButton", juce::DrawableButton::ImageFitted);
     auto bImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::Bnote_png, BinaryData::Bnote_pngSize));
     bButton->setImages(bImage.get());
     element555.addAndMakeVisible(bButton.get());
+	bButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Eighth); };
 
     // C2 Button
     c2Button = std::make_unique<juce::DrawableButton>("c2Button", juce::DrawableButton::ImageFitted);
     auto c2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::c2note_png, BinaryData::c2note_pngSize));
     c2Button->setImages(c2Image.get());
     element666.addAndMakeVisible(c2Button.get());
+    c2Button->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Eighth); };
 
     // D2 Button
     d2Button = std::make_unique<juce::DrawableButton>("d2Button", juce::DrawableButton::ImageFitted);
     auto d2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::d2note_png, BinaryData::d2note_pngSize));
     d2Button->setImages(d2Image.get());
     element66.addAndMakeVisible(d2Button.get());
+	d2Button->onClick = [this] { AddNoteByButton(Note::NoteLength::Sixteenth); };
 
     // E2 Button
     e2Button = std::make_unique<juce::DrawableButton>("e2Button", juce::DrawableButton::ImageFitted);
     auto e2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::e2note_png, BinaryData::e2note_pngSize));
     e2Button->setImages(e2Image.get());
     element77.addAndMakeVisible(e2Button.get());
+    e2Button->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Sixteenth); };
 #pragma endregion
 
     element2.addAndMakeVisible(saveButton.get());
@@ -161,7 +175,6 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 #pragma region elements
 
 
-
     element3.addAndMakeVisible(folderButton.get());
 
     element2.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -170,17 +183,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     element3.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82)); 
     addAndMakeVisible(element3);
 
-    nameSongEditor = std::make_unique<juce::TextEditor>();
-    nameSongEditor->setMultiLine(false); 
-    nameSongEditor->setReturnKeyStartsNewLine(false);
-    nameSongEditor->setFont(juce::Font(35.0f));
-    nameSongEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
-    nameSongEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
-    nameSongEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
-    nameSongEditor->setJustification(juce::Justification::centred);
-    nameSongEditor->setText("Nazwa Utworu");
-
-    addAndMakeVisible(*nameSongEditor);
+   
 
     element5.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element5);
@@ -201,11 +204,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(orangeContent);
 
-    switchNoteEditor = std::make_unique<juce::TextEditor>();
-    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
-    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
-    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
-    addAndMakeVisible(*switchNoteEditor);
+
 
     element22.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element22);
@@ -266,7 +265,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 
     auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
     juce::Font customFont(typeface);
-    customFont.setHeight(100.0f);
+    customFont.setHeight(128.0f);
 
     textEditorForNotesTest.setMultiLine(true);
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
@@ -275,6 +274,35 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     textEditorForNotesTest.setBounds(0, 0, 1300, 450);
 	textEditorForNotesTest.setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
 	textEditorForNotesTest.setColour(juce::TextEditor::textColourId, juce::Colours::black);
+
+
+    switchNoteEditor = std::make_unique<juce::TextEditor>();
+    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    switchNoteEditor->setJustification(juce::Justification::centred);
+    switchNoteEditor->setEnabled(false);
+    switchNoteEditor->setReadOnly(true);
+    switchNoteEditor->applyFontToAllText(customFont);
+	switchNoteEditor->setText("000;000");
+    
+
+
+    addAndMakeVisible(*switchNoteEditor);
+
+
+    nameSongEditor = std::make_unique<juce::TextEditor>();
+    nameSongEditor->setMultiLine(false);
+    nameSongEditor->setReturnKeyStartsNewLine(false);
+    nameSongEditor->setFont(juce::Font(35.0f));
+    nameSongEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    nameSongEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    nameSongEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    nameSongEditor->setJustification(juce::Justification::centred);
+    nameSongEditor->setInputRestrictions(50);
+
+    addAndMakeVisible(*nameSongEditor);
+
 
     orangeContent.addAndMakeVisible(textEditorForNotesTest);
     midiKeyboardState.addListener(this);
@@ -360,6 +388,7 @@ void MidiCore::resized()
 
 
     saveButton->setBounds(element2.getLocalBounds().reduced(10));
+    staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
 
     element2.setBounds(headerArea.removeFromLeft(sectionWidth));
@@ -396,7 +425,6 @@ void MidiCore::resized()
     int bigSectionWidth = smallSectionWidth * 9;
 
     switchNoteEditor->setBounds(footerArea.removeFromLeft(mediumSectionWidth));
-    staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
     juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
     int smallColumnHeight = footerHeight / 2;
@@ -409,10 +437,6 @@ void MidiCore::resized()
     element44.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     backspaceButton->setBounds(element44.getLocalBounds().reduced(10));
     element55.setBounds(footerArea.removeFromLeft(bigSectionWidth));
-
-    
-
-    
 
     juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
     element88.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
@@ -515,7 +539,7 @@ void MidiCore::startPlayback() {
     isPlaying = true;
 
     playbackThread = std::thread(&MidiCore::playbackWorker, this);
-
+    textEditorForNotesTest.setCaretPosition(0);
 	stopButton->setEnabled(true);
 	pauseButton->setEnabled(true);
 	playButton->setEnabled(false);
@@ -548,25 +572,289 @@ void MidiCore::playbackWorker() {
             std::unique_lock<std::mutex> lock(pauseMutex);
             pauseCondition.wait(lock, [this] { return !isPaused || !isPlaying; });
 
-            if (!isPlaying) return; 
+            if (!isPlaying) return;
         }
 
         auto& note = notes[i];
-        int midiNote = NoteMapper::noteToIndex.at(note->info.name);
-        juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
-        sendToOutputs(onMsg);
-        
-        int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
+        if (note->info.name != Note::NoteName::rest)
+        {
+            int midiNote = NoteMapper::noteToIndex.at(note->info.name);
 
-        juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
-        sendToOutputs(offMsg);
+            juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
+            sendToOutputs(onMsg);
+
+            int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
+            std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
+            
+            juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
+            sendToOutputs(offMsg);
+        }
+        else
+        {
+            int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
+            std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
+        }
+        juce::MessageManager::callAsync([this]
+            {
+                int currentPosition = textEditorForNotesTest.getCaretPosition();
+                int textLength = textEditorForNotesTest.getText().length();
+
+                if (currentPosition < textLength)
+                {
+                    auto text = textEditorForNotesTest.getText();
+                    int n = 0;
+                    for (int i = currentPosition; i < textLength; ++i)
+                    {
+                        n++;
+                        if (text[i] == '0')
+                        {
+                            break;
+                        }
+                    }
+
+                    textEditorForNotesTest.setCaretPosition(currentPosition + n);
+                }
+            });
     }
 
     isPlaying = false;
+    juce::MessageManager::callAsync([this]
+        {
+            playButton->setEnabled(true);
+            pauseButton->setEnabled(false);
+            stopButton->setEnabled(false);
+        });
 
-	playButton->setEnabled(true);
-	pauseButton->setEnabled(false);
-	stopButton->setEnabled(false);
+}
+
+
+
+juce::String MidiCore::setHigherNote(juce::String text)
+{
+	char note = text[3];
+    switch (note)
+    {
+	case '6':
+		chosenNoteName = Note::NoteName::cSharp1;
+		return("000r600");
+		break;
+	case 'r':
+		chosenNoteName = Note::NoteName::d1;
+        return("0007000");
+        break;
+	case '7':
+		chosenNoteName = Note::NoteName::dSharp1;
+		return("000s700");
+        break;
+	case 's':
+		chosenNoteName = Note::NoteName::e1;
+		return("0008000");
+		break;
+	case '8':
+		chosenNoteName = Note::NoteName::f1;
+		return("0009000");
+		break;
+	case '9':
+		chosenNoteName = Note::NoteName::fSharp1;
+		return("000u900");
+		break;
+	case 'u':
+		chosenNoteName = Note::NoteName::g1;
+		return("000:000");
+    case ':':
+		chosenNoteName = Note::NoteName::gSharp1;
+		return("000v:00");
+		break;
+    case 'v':
+		chosenNoteName = Note::NoteName::a1;
+		return("000;000");
+	case ';':
+		chosenNoteName = Note::NoteName::aSharp1;
+		return("000w;00");
+        break;
+	case 'w':
+		chosenNoteName = Note::NoteName::h1;
+        return("000<000");
+		break;
+	case '<':
+		chosenNoteName = Note::NoteName::c2;
+		return("000=000");
+		break;
+	case '=':
+		chosenNoteName = Note::NoteName::cSharp2;
+		return("000y=00");
+		break;
+	case 'y':
+		chosenNoteName = Note::NoteName::d2;
+		return("000>000");
+		break;
+	case '>':
+		chosenNoteName = Note::NoteName::dSharp2;
+		return("000z>00");
+		break;
+	case 'z':
+		chosenNoteName = Note::NoteName::e2;
+		return("000?000");
+		break;
+	case '?':
+		chosenNoteName = Note::NoteName::f2;
+		return("000@000");
+		break;
+	case '@':
+		chosenNoteName = Note::NoteName::fSharp2;
+		return("000|@00");
+		break;
+	case '|':
+		chosenNoteName = Note::NoteName::g2;
+		return("000A000");
+		break;
+	case 'A':
+		return("000A000");
+		break;
+    default:
+		chosenNoteName = Note::NoteName::a1;
+		return("000;000");
+        break;
+    }
+}
+
+juce::String MidiCore::setNoteLower(juce::String text)
+{
+    char note = text[3];
+    switch (note)
+    {
+    case '6':
+        chosenNoteName = Note::NoteName::c1;
+        return("000600");
+        break;
+	case 'r':
+		chosenNoteName = Note::NoteName::c1;
+		return("000600");
+		break;
+	case '7':
+		chosenNoteName = Note::NoteName::cSharp1;
+		return("000r600");
+		break;
+	case 's':
+		chosenNoteName = Note::NoteName::d1;
+		return("0007000");
+		break;
+	case '8':
+		chosenNoteName = Note::NoteName::dSharp1;
+		return("000s700");
+		break;
+	case '9':
+		chosenNoteName = Note::NoteName::e1;
+		return("0008000");
+		break;
+	case 'u':
+		chosenNoteName = Note::NoteName::f1;
+		return("0009000");
+		break;
+	case ':':
+		chosenNoteName = Note::NoteName::fSharp1;
+		return("000u900");
+		break;
+	case 'v':
+		chosenNoteName = Note::NoteName::g1;
+		return("000:000");
+		break;
+	case ';':
+		chosenNoteName = Note::NoteName::gSharp1;
+		return("000v:00");
+		break;
+	case 'w':
+		chosenNoteName = Note::NoteName::a1;
+		return("000;000");
+		break;
+	case '<':
+		chosenNoteName = Note::NoteName::aSharp1;
+		return("000w;00");
+		break;
+	case '=':
+		chosenNoteName = Note::NoteName::h1;
+		return("000<000");
+		break;
+	case 'y':
+		chosenNoteName = Note::NoteName::c2;
+		return("000=000");
+		break;
+	case '>':
+		chosenNoteName = Note::NoteName::cSharp2;
+		return("000y=00");
+		break;
+	case 'z':
+		chosenNoteName = Note::NoteName::d2;
+		return("000>000");
+		break;
+	case '?':
+		chosenNoteName = Note::NoteName::dSharp2;
+		return("000z>00");
+		break;
+	case '@':
+		chosenNoteName = Note::NoteName::e2;
+		return("000?000");
+		break;
+	case '|':
+		chosenNoteName = Note::NoteName::f2;
+		return("000@000");
+		break;
+	case 'A':
+		chosenNoteName = Note::NoteName::fSharp2;
+		return("000|@00");
+		break;
+	default:
+		chosenNoteName = Note::NoteName::a1;
+		return("000;000");
+		break;
+    }
+
+}
+
+void MidiCore::ArrowUpClick()
+{
+	switchNoteEditor->setText(setHigherNote(switchNoteEditor->getText()));
+}
+
+void MidiCore::ArrowDownClick()
+{
+	switchNoteEditor->setText(setNoteLower(switchNoteEditor->getText()));
+}
+
+void MidiCore::AddNoteByButton(Note::NoteLength noteLength)
+{
+	auto currentNote = std::make_unique<Note>();
+	currentNote->info.length = noteLength;
+    currentNote->info.name = chosenNoteName;
+	addText(textEditorForNotesTest, currentNote->getNoteFont());
+	CompositionConstants::notes.push_back(std::move(currentNote));
+}
+void MidiCore::AddNoteRestByButton(Note::NoteLength noteLength)
+{
+	auto currentNote = std::make_unique<Note>();
+	currentNote->info.length = noteLength;
+    currentNote->info.name = Note::NoteName::rest;
+	addText(textEditorForNotesTest, currentNote->getNoteFont());
+	CompositionConstants::notes.push_back(std::move(currentNote));
+}
+
+void MidiCore::DeleteLastNote()
+{
+    auto text = textEditorForNotesTest.getText();
+    if (!text.isEmpty()) 
+    {
+        text = text.dropLastCharacters(1);
+        while (text.getLastCharacter() != '0' && !text.isEmpty())
+        {
+            text = text.dropLastCharacters(1);
+        }
+    }
+    textEditorForNotesTest.setText(text);
+    CompositionConstants::notes.pop_back();
+}
+
+void MidiCore::updateCompositionName()
+{
+    compositionName = nameSongEditor->getText();
 }
