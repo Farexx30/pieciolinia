@@ -263,7 +263,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 
     midiKeyboardState.addListener(this);
 
-    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::MusiQwikPieciolinia_ttf, BinaryData::MusiQwikPieciolinia_ttfSize);
+    auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::PiecioliniaMusiQwik_ttf, BinaryData::PiecioliniaMusiQwik_ttfSize);
     juce::Font customFont(typeface);
     customFont.setHeight(128.0f);
 
