@@ -170,10 +170,17 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     element3.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82)); 
     addAndMakeVisible(element3);
 
-    element4.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    element4.setButtonText("Nazwa Utworu");
-    element4.setColour(juce::TextButton::textColourOffId, juce::Colours::black);
-    addAndMakeVisible(element4);
+    nameSongEditor = std::make_unique<juce::TextEditor>();
+    nameSongEditor->setMultiLine(false); 
+    nameSongEditor->setReturnKeyStartsNewLine(false);
+    nameSongEditor->setFont(juce::Font(35.0f));
+    nameSongEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    nameSongEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    nameSongEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    nameSongEditor->setJustification(juce::Justification::centred);
+    nameSongEditor->setText("Nazwa Utworu");
+
+    addAndMakeVisible(*nameSongEditor);
 
     element5.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element5);
@@ -194,10 +201,11 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     orangeContent.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(orangeContent);
 
-    
-
-    element11.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    addAndMakeVisible(element11);
+    switchNoteEditor = std::make_unique<juce::TextEditor>();
+    switchNoteEditor->setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+    switchNoteEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
+    switchNoteEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
+    addAndMakeVisible(*switchNoteEditor);
 
     element22.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element22);
@@ -358,7 +366,7 @@ void MidiCore::resized()
 
     folderButton -> setBounds(element3.getLocalBounds().reduced(10));
     element3.setBounds(headerArea.removeFromLeft(sectionWidth));
-    element4.setBounds(headerArea.removeFromLeft(bigsection));
+    nameSongEditor->setBounds(headerArea.removeFromLeft(bigsection));
     element5.setBounds(headerArea.removeFromLeft(sectionWidth));
     verifyButton->setBounds(element5.getLocalBounds().reduced(10));
     element6.setBounds(headerArea.removeFromLeft(sectionWidth));
@@ -387,7 +395,7 @@ void MidiCore::resized()
     int mediumSectionWidth = smallSectionWidth * 2;
     int bigSectionWidth = smallSectionWidth * 9;
 
-    element11.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
+    switchNoteEditor->setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     staffButton->setBounds(element11.getLocalBounds().reduced(10));
 
     juce::Rectangle<int> firstColumn = footerArea.removeFromLeft(smallSectionWidth); // Kopia prostokąta dla prawej kolumny
