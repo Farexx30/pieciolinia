@@ -2,6 +2,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 #include <vector>
+#include <memory>
 #include "Note.h"
 
 namespace ListBoxConstants
@@ -23,7 +24,7 @@ namespace LabelConstants
 namespace CompositionConstants
 {
     // Global vector with notes
-    inline std::vector<Note*> notes;
+    inline std::vector<std::unique_ptr<Note>> notes;
 
     //Global bpm
     inline int bpm = 120;

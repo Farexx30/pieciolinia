@@ -9,6 +9,7 @@ public:
     Note();
 
     void setNoteInfo(double time, int bpm, int keyIndex);
+    int Note::calculateNoteDuration(int bpm);
     std::string getNoteFont();
 
     //which symbol 

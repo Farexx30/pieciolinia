@@ -3,8 +3,8 @@
 #include "MidiDeviceListEntry.h"
 #include "MidiDeviceListBox.h"
 #include "SettingsWindow.h"
-
-
+#include "../Common/Mappers.h"
+#include "../Common/Note.h"
 
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
@@ -22,6 +22,8 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     );
 
     saveButton->setImages(saveImage.get());
+
+#pragma region Buttons
     // Arrow Down Button
     arrowDownButton = std::make_unique<juce::DrawableButton>("ArrowDownButton", juce::DrawableButton::ImageFitted);
     auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
@@ -45,12 +47,14 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto pauseImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8pause50_png, BinaryData::icons8pause50_pngSize));
     pauseButton->setImages(pauseImage.get());
     element7.addAndMakeVisible(pauseButton.get());
+	pauseButton->onClick = [this] { pausePlayback(); };
 
     // Play Button
     playButton = std::make_unique<juce::DrawableButton>("PlayButton", juce::DrawableButton::ImageFitted);
     auto playImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8play50_png, BinaryData::icons8play50_pngSize));
     playButton->setImages(playImage.get());
     element6.addAndMakeVisible(playButton.get());
+	playButton->onClick = [this] { startPlayback(); };
 
     // Settings Button
     settingsButton = std::make_unique<juce::DrawableButton>("SettingsButton", juce::DrawableButton::ImageFitted);
@@ -63,6 +67,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto stopImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8stop50_png, BinaryData::icons8stop50_pngSize));
     stopButton->setImages(stopImage.get());
     element8.addAndMakeVisible(stopButton.get());
+	stopButton->onClick = [this] { stopPlayback(); };
 
     // Logo Button
     logoButton = std::make_unique<juce::DrawableButton>("LogoButton", juce::DrawableButton::ImageFitted);
@@ -142,7 +147,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto e2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::e2note_png, BinaryData::e2note_pngSize));
     e2Button->setImages(e2Image.get());
     element77.addAndMakeVisible(e2Button.get());
-
+#pragma endregion
 
     element2.addAndMakeVisible(saveButton.get());
 
@@ -152,6 +157,10 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
         juce::ImageCache::getFromMemory(BinaryData::icons8folder50_png, BinaryData::icons8folder50_pngSize)
     );
     folderButton->setImages(folderImage.get());
+
+#pragma region elements
+
+
 
     element3.addAndMakeVisible(folderButton.get());
 
@@ -236,7 +245,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     element77.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(element77);
 
-    //addLabelAndSetStyle(midiOutputLabel);
+#pragma endregion
     settingsButton->onClick = [this] { showSettingsWindow(); };
 
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
@@ -255,7 +264,9 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     textEditorForNotesTest.setReturnKeyStartsNewLine(true);
     textEditorForNotesTest.setReadOnly(true);        
     textEditorForNotesTest.applyFontToAllText(customFont);
-    textEditorForNotesTest.setBounds(0, 0, 1300, 500);
+    textEditorForNotesTest.setBounds(0, 0, 1300, 450);
+	textEditorForNotesTest.setColour(juce::TextEditor::backgroundColourId, juce::Colour(0xFFE4E6D9));
+	textEditorForNotesTest.setColour(juce::TextEditor::textColourId, juce::Colours::black);
 
     orangeContent.addAndMakeVisible(textEditorForNotesTest);
     midiKeyboardState.addListener(this);
@@ -269,6 +280,10 @@ MidiCore::~MidiCore()
     {
         settingsWindow->removeChangeListener(this);
         settingsWindow.deleteAndZero();
+    }
+    stopPlayback(); // Upewniamy się, że wątek jest zakończony przy destrukcji obiektu
+    if (playbackThread.joinable()) {
+        playbackThread.join();
     }
     midiKeyboardState.removeListener(this);
 }
@@ -291,10 +306,10 @@ void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midi
     juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
     message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
     sendToOutputs(message);
-    auto currentNote = new Note();
+    auto currentNote = std::make_unique<Note>();
     currentNote->setNoteInfo(elapsed, 120, midiNoteNumber);
-    CompositionConstants::notes.push_back(currentNote);
     addText(textEditorForNotesTest, currentNote->getNoteFont());
+    CompositionConstants::notes.push_back(std::move(currentNote));
 }
 
 void MidiCore::addText(juce::TextEditor& editor, const juce::String& text)
@@ -466,4 +481,84 @@ void MidiCore::addLabelAndSetStyle(juce::Label& label)
     label.setColour(juce::TextEditor::backgroundColourId, juce::Colour(0x00000000));
 
     addAndMakeVisible(label);
+}
+
+void MidiCore::startPlayback() {
+    if (isPlaying)
+    {
+        if (isPaused)
+        {
+            isPaused = false;
+            pauseCondition.notify_one();
+            pauseButton->setEnabled(true);
+			playButton->setEnabled(false);
+            return;
+        }
+        return;
+    }
+
+    //Checking if a thread is joinable, meaning it can be joined with the calling thread, by verifying that its thread ID is not zero.
+	//It is important to join the thread before starting a new one(for example: by starting playing composition second time during the session),
+    //otherwise the program will crash.
+    if (playbackThread.joinable()) {
+        playbackThread.join();
+    }
+
+    isPlaying = true;
+
+    playbackThread = std::thread(&MidiCore::playbackWorker, this);
+
+	stopButton->setEnabled(true);
+	pauseButton->setEnabled(true);
+	playButton->setEnabled(false);
+}
+
+void MidiCore::pausePlayback() {
+	if (!isPlaying) return;
+    isPaused = true;
+
+	playButton->setEnabled(true);
+	pauseButton->setEnabled(false);
+}
+
+void MidiCore::stopPlayback() {
+    isPlaying = false;
+    isPaused = false;
+
+    pauseCondition.notify_one();
+
+	stopButton->setEnabled(false);
+	pauseButton->setEnabled(false);
+	playButton->setEnabled(true);
+}
+
+void MidiCore::playbackWorker() {
+    auto& notes = CompositionConstants::notes;
+
+    for (size_t i = 0; i < notes.size(); ++i) {
+        {
+            std::unique_lock<std::mutex> lock(pauseMutex);
+            pauseCondition.wait(lock, [this] { return !isPaused || !isPlaying; });
+
+            if (!isPlaying) return; 
+        }
+
+        auto& note = notes[i];
+        int midiNote = NoteMapper::noteToIndex.at(note->info.name);
+        juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
+        sendToOutputs(onMsg);
+        
+        int noteDurationMs = note->calculateNoteDuration(CompositionConstants::bpm);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(noteDurationMs));
+
+        juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
+        sendToOutputs(offMsg);
+    }
+
+    isPlaying = false;
+
+	playButton->setEnabled(true);
+	pauseButton->setEnabled(false);
+	stopButton->setEnabled(false);
 }
