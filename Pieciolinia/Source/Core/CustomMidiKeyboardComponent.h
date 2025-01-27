@@ -3,7 +3,7 @@
  
  
  
- 
+//TODO: change comment language
  //!!!TO SIE MOZE PRZYDAC NA POTEM (MOZNA ZCUSTOMIZOWAC KEYBOARD COMPONENT, NP. POD WZGLEDEM WYGLADU).!!!
  //Oczywiscie sama ta implementacja ponizej nie jest gotowa do wykorzystania, chodzi tylko o sens.
  

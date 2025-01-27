@@ -19,7 +19,6 @@ int MidiDeviceListBox::getNumRows()
     return _parent.getNumberOfMidiOutputs();
 }
 
-//Rysowanie pojedynczego elementu z listboxa:
 void MidiDeviceListBox::paintListBoxItem(int rowNumber, juce::Graphics& graphics, int width, int height, bool isRowSelected)
 {
     auto textColor = getLookAndFeel()
@@ -43,6 +42,7 @@ void MidiDeviceListBox::paintListBoxItem(int rowNumber, juce::Graphics& graphics
     }
 }
 
+//TODO: change comment language
 //Jesli zostalo zmienione zaznaczenie wierszy w listboxie to otwieramy/zamykamy urzadzenia (zalezy czy zaznaczylismy czy odznaczylismy urzadzenie):
 void MidiDeviceListBox::selectedRowsChanged(int)
 {
@@ -70,6 +70,7 @@ void MidiDeviceListBox::selectedRowsChanged(int)
 }
 
 
+//TODO: change comment language
 //Custom PUBLIC methods:
 //Metoda potrzebna nam do aktualizacji zaznaczonych elementow (czysto graficznie) jesli wpielibysmy/odpielibysmy jakies urzadzenie:
 void MidiDeviceListBox::syncSelectedItemsWithDeviceList(const juce::ReferenceCountedArray<MidiDeviceListEntry>& midiDevices)

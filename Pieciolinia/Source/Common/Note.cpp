@@ -3,15 +3,13 @@
 
 Note::Note() 
 {
-    //some domylnie wartosci
     info.length = NoteLength::Quarter;
     info.name = NoteName::c1;
 }
 
-//usunelam przekazanie note w metodzie, poniewaz nie modyfikowaloby to wartosci obiektu
+
 void Note::setNoteLength(double time, int bpm) 
 {
-
     double beatDuration = 60000.0 / bpm; 
 
     if (time >= beatDuration * 4) 
@@ -40,11 +38,13 @@ void Note::setNoteInfo(double time, int bpm, int keyIndex)
     setNoteName(keyIndex);
 }
 
+
 std::string Note::getNoteFont()
 {
     auto& noteFont = NoteMapper::noteToFont.at(info.length).at(info.name);
     return noteFont;
 }
+
 
 int Note::calculateNoteDuration(int bpm) 
 {
