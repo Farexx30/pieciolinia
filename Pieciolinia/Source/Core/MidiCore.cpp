@@ -6,6 +6,10 @@
 #include "../Common/Mappers.h"
 #include "../Common/Note.h"
 
+//==============================================================================
+// PUBLIC MEMBERS
+//==============================================================================
+
 //Ctors/Dtors (Constructors/Destructors):
 MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     : _midiDeviceList(midiDeviceList),
@@ -28,7 +32,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
     arrowDownButton->setImages(arrowDownImage.get());
     arrowDownElement.addAndMakeVisible(arrowDownButton.get());
-    arrowDownButton->onClick = [this] {ArrowDownClick(); };
+    arrowDownButton->onClick = [this] {arrowDownClick(); };
     
     arrowDownElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(arrowDownElement);
@@ -38,7 +42,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowUpImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowup50_png, BinaryData::icons8arrowup50_pngSize));
     arrowUpButton->setImages(arrowUpImage.get());
     arrowUpElement.addAndMakeVisible(arrowUpButton.get());
-    arrowUpButton->onClick = [this] {ArrowUpClick(); };
+    arrowUpButton->onClick = [this] {arrowUpClick(); };
 
     arrowUpElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(arrowUpElement);
@@ -48,7 +52,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto backspaceImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8backspace50_png, BinaryData::icons8backspace50_pngSize));
     backspaceButton->setImages(backspaceImage.get());
     backspaceElement.addAndMakeVisible(backspaceButton.get());
-    backspaceButton->onClick = [this] {DeleteLastNote(); };
+    backspaceButton->onClick = [this] {deleteLastNote(); };
 
     backspaceElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(backspaceElement);
@@ -106,7 +110,6 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
     saveCompositionNameButton->setImages(verifyImage.get());
     saveCompositionNameElement.addAndMakeVisible(saveCompositionNameButton.get());
-    saveCompositionNameButton->onClick = [this] {updateCompositionName(); };
 
     saveCompositionNameElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(saveCompositionNameElement);
@@ -150,7 +153,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto cImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::cnote_png, BinaryData::cnote_pngSize));
     wholeNoteButton->setImages(cImage.get());
     wholeNoteElement.addAndMakeVisible(wholeNoteButton.get());
-	wholeNoteButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Whole); };
+	wholeNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Whole); };
 
     wholeNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(wholeNoteElement);
@@ -160,7 +163,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto dImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::dnote_png, BinaryData::dnote_pngSize));
     wholeNoteRestButton->setImages(dImage.get());
     wholeNoteRestElement.addAndMakeVisible(wholeNoteRestButton.get());
-    wholeNoteRestButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Whole); };
+    wholeNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Whole); };
 
     wholeNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(wholeNoteRestElement);
@@ -170,7 +173,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto eImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::enote_png, BinaryData::enote_pngSize));
     halfNoteButton->setImages(eImage.get());
     halfNoteElement.addAndMakeVisible(halfNoteButton.get());
-	halfNoteButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Half); };
+	halfNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Half); };
 
     halfNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(halfNoteElement);
@@ -180,7 +183,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto fImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::fnote_png, BinaryData::fnote_pngSize));
     halfNoteRestButton->setImages(fImage.get());
     halfNoteRestElement.addAndMakeVisible(halfNoteRestButton.get());
-    halfNoteRestButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Half); };
+    halfNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Half); };
 
     halfNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(halfNoteRestElement);
@@ -190,7 +193,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto gImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::gnote_png, BinaryData::gnote_pngSize));
     quarterNoteButton->setImages(gImage.get());
     quarterNoteElement.addAndMakeVisible(quarterNoteButton.get());
-    quarterNoteButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Quarter); };
+    quarterNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Quarter); };
 
     quarterNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(quarterNoteElement);
@@ -200,7 +203,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto aImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::anote_png, BinaryData::anote_pngSize));
     quarterNoteRestButton->setImages(aImage.get());
     quarterNoteRestElement.addAndMakeVisible(quarterNoteRestButton.get());
-    quarterNoteRestButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Quarter); };
+    quarterNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Quarter); };
     
     quarterNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(quarterNoteRestElement);
@@ -210,7 +213,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto bImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::Bnote_png, BinaryData::Bnote_pngSize));
     eighthNoteButton->setImages(bImage.get());
     eighthNoteElement.addAndMakeVisible(eighthNoteButton.get());
-	eighthNoteButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Eighth); };
+	eighthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Eighth); };
     
     eighthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(eighthNoteElement);
@@ -220,7 +223,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto c2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::c2note_png, BinaryData::c2note_pngSize));
     eighthNoteRestButton->setImages(c2Image.get());
     eighthNoteRestElement.addAndMakeVisible(eighthNoteRestButton.get());
-    eighthNoteRestButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Eighth); };
+    eighthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Eighth); };
     
     eighthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(eighthNoteRestElement);
@@ -230,7 +233,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto d2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::d2note_png, BinaryData::d2note_pngSize));
     sixteenthNoteButton->setImages(d2Image.get());
     sixteenthNoteElement.addAndMakeVisible(sixteenthNoteButton.get());
-	sixteenthNoteButton->onClick = [this] { AddNoteByButton(Note::NoteLength::Sixteenth); };
+	sixteenthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(sixteenthNoteElement);
@@ -240,7 +243,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto e2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::e2note_png, BinaryData::e2note_pngSize));
     sixteenthNoteRestButton->setImages(e2Image.get());
     sixteenthNoteRestElement.addAndMakeVisible(sixteenthNoteRestButton.get());
-    sixteenthNoteRestButton->onClick = [this] { AddNoteRestByButton(Note::NoteLength::Sixteenth); };
+    sixteenthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(sixteenthNoteRestElement);
@@ -292,7 +295,10 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     addAndMakeVisible(*nameSongTextEditor);
 #pragma endregion
 
+	saveFileButton->onClick = [this] { saveToFile(); };
+	folderButton->onClick = [this] { readFromFile(); };
 
+    setSize(1301, 751);
     setSize(1300, 750);
 }
 
@@ -430,7 +436,10 @@ void MidiCore::resized()
     backspaceElement.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     backspaceButton->setBounds(backspaceElement.getLocalBounds().reduced(10));
 
-   
+
+
+    midiKeyboard.setBounds(midiKeyboardElement.getLocalBounds());
+    midiKeyboardElement.setBounds(footerArea.removeFromLeft(bigSectionWidth));
     juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
 
     wholeNoteElement.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
@@ -472,19 +481,14 @@ void MidiCore::resized()
     sixteenthNoteRestButton->setBounds(wholeNoteElement.getLocalBounds().reduced(10));
     sixteenthNoteRestElement.setBounds(secondColumn);
 
-
-    midiKeyboard.setBounds(midiKeyboardElement.getLocalBounds());
-    midiKeyboardElement.setBounds(footerArea.removeFromLeft(bigSectionWidth));
-
 }
 
 
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Custom methods !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//==============================================================================
+// PRIVATE MEMBERS
+//==============================================================================
 
-//==============================================================================
-// PUBLIC MEMBERS
-//==============================================================================
 void MidiCore::showSettingsWindow()
 {
     settingsWindow = new SettingsWindow("Settings", _midiDeviceList);
@@ -492,11 +496,6 @@ void MidiCore::showSettingsWindow()
     settingsWindow->addChangeListener(this);
     settingsButton->setEnabled(false);
 }
-
-//==============================================================================
-// PRIVATE MEMBERS
-//==============================================================================
-
 
 void MidiCore::sendToOutputs(const juce::MidiMessage& message)
 {
@@ -696,19 +695,19 @@ void MidiCore::unlockInputs()
 
 
 #pragma region Notes management by buttons
-void MidiCore::ArrowUpClick()
+void MidiCore::arrowUpClick()
 {
     switchNoteTextEditor->setText(setHigherNote(switchNoteTextEditor->getText()));
 }
 
 
-void MidiCore::ArrowDownClick()
+void MidiCore::arrowDownClick()
 {
     switchNoteTextEditor->setText(setNoteLower(switchNoteTextEditor->getText()));
 }
 
 
-void MidiCore::AddNoteByButton(Note::NoteLength noteLength)
+void MidiCore::addNoteByButton(Note::NoteLength noteLength)
 {
     auto currentNote = std::make_unique<Note>();
     currentNote->info.length = noteLength;
@@ -718,7 +717,7 @@ void MidiCore::AddNoteByButton(Note::NoteLength noteLength)
 }
 
 
-void MidiCore::AddNoteRestByButton(Note::NoteLength noteLength)
+void MidiCore::addNoteRestByButton(Note::NoteLength noteLength)
 {
     auto currentNote = std::make_unique<Note>();
     currentNote->info.length = noteLength;
@@ -728,7 +727,7 @@ void MidiCore::AddNoteRestByButton(Note::NoteLength noteLength)
 }
 
 
-void MidiCore::DeleteLastNote()
+void MidiCore::deleteLastNote()
 {
     auto text = compositionNotesTextEditor.getText();
     if (!text.isEmpty())
@@ -926,20 +925,172 @@ juce::String MidiCore::setNoteLower(juce::String text)
     }
 
 }
+void MidiCore::showMessageBox(const juce::AlertWindow::AlertIconType& iconType, const juce::String& title, const juce::String& message)
+{
+    juce::AlertWindow::showMessageBoxAsync(iconType,
+        title,
+        message);
+}
 #pragma endregion
 
 
 #pragma region File management
-void MidiCore::updateCompositionName()
+// --- File export (only .pieciolinia or .midi) ---
+void MidiCore::saveToFile()
 {
-    if (!nameSongTextEditor->isEmpty())
-        compositionName = nameSongTextEditor->getText();
+    fileChooser = std::make_unique<juce::FileChooser>("Select a location to save the file...",
+        juce::File{},
+        "Pieciolinia Files (*.pieciolinia)|MIDI Files (*.midi)");
+
+    auto chooserFlags = juce::FileBrowserComponent::saveMode
+        | juce::FileBrowserComponent::canSelectFiles;
+
+    fileChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& fc)
+        {
+            auto file = fc.getResult();
+
+            if (file != juce::File{})
+            {
+                auto fileExtenstion = file.getFileExtension();
+				if (fileExtenstion.equalsIgnoreCase(".pieciolinia"))
+				{
+					saveAsPiecioliniaFile(file);
+				}
+				else if (fileExtenstion.equalsIgnoreCase(".midi"))
+				{
+					saveAsMidiFile(file);
+				}
+                else
+                {
+                    showMessageBox(juce::AlertWindow::AlertIconType::WarningIcon,
+                        "Invalid file extension!",
+                        "Please select a valid file extension (.pieciolinia or .midi)");
+                }
+            }
+        });
 }
 
-//TODO: LUKE'S PART
+void MidiCore::saveAsPiecioliniaFile(const juce::File& file)
+{
+    std::string contentToSave = "";
+    for (auto& note : CompositionConstants::notes)
+    {
+        contentToSave += NoteMapper::noteToFont.at(note->info.length).at(note->info.name);
+    }
+    file.replaceWithText(contentToSave);
+}
 
-// --- File export ---
+void MidiCore::saveAsMidiFile(const juce::File& file)
+{
+    juce::MidiMessageSequence midiMessageSequence;
+    double standardMidiResolution = 960.0;
+    double currentTime = 0.0;
 
-// --- File import (only in txt) ---
+    for (const auto& note : CompositionConstants::notes)
+    {
+        //Calculate note duration in MIDI ticks:
+        double noteDurationBeats = (note->calculateNoteDuration(CompositionConstants::bpm) / 1000.0)
+            * (CompositionConstants::bpm / 60.0);
+        double noteDurationTicks = noteDurationBeats * standardMidiResolution;
 
+        if (note->info.name != Note::NoteName::rest)
+        {
+            //Map to midiNote:
+            int midiNote = NoteMapper::noteToIndex.at(note->info.name);
+
+            //noteOn message:
+            juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
+            midiMessageSequence.addEvent(onMsg, currentTime);
+
+            //noteOff message:
+            juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
+            midiMessageSequence.addEvent(offMsg, currentTime + noteDurationTicks);
+        }
+        //Update time position for next note:
+        currentTime += noteDurationTicks;
+    }
+    midiMessageSequence.updateMatchedPairs();
+
+    juce::MidiFile midiFile;
+    midiFile.setTicksPerQuarterNote(standardMidiResolution);
+    midiFile.addTrack(midiMessageSequence);
+
+    juce::FileOutputStream outputStream(file);
+    if (outputStream.openedOk())
+    {
+        midiFile.writeTo(outputStream);
+        outputStream.flush();
+    }
+    else
+    {
+        showMessageBox(juce::AlertWindow::AlertIconType::WarningIcon,
+            "Error!",
+            "An error occurred during saving a MIDI file");
+    }
+}
+
+// --- File import (only .pieciolinia) ---
+void MidiCore::readFromFile()
+{
+    fileChooser = std::make_unique<juce::FileChooser>("Select a .pieciolinia file to import...",
+        juce::File{},
+        "*.pieciolinia");
+
+    auto chooserFlags = juce::FileBrowserComponent::openMode
+        | juce::FileBrowserComponent::canSelectFiles;
+
+    fileChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& fc)
+        {
+            auto file = fc.getResult();
+
+            if (file != juce::File{})
+            {
+				auto fileExtenstion = file.getFileExtension();
+                if (fileExtenstion.equalsIgnoreCase(".pieciolinia"))
+                {
+                    //Reads file content:
+                    auto content = file.loadFileAsString();
+
+                    //Getting content file ready to play and display:
+                    getNotesFromImportedFile(content);
+                    setLoadedCompositionData(content, file.getFileNameWithoutExtension());
+                }
+                else
+                {
+                    showMessageBox(juce::AlertWindow::AlertIconType::WarningIcon,
+                        "Invalid file extension!",
+                        "Please select a file with valid extension (.pieciolinia)");
+                }
+            }
+        });
+}
+
+
+void MidiCore::getNotesFromImportedFile(const juce::String& content)
+{
+    std::string fontSymbol = "";
+    for (int i = 0; i < content.length(); ++i)
+    {
+        if (content[i] != '0')
+        {
+            fontSymbol.push_back(content[i]);
+        }
+        else
+        {
+            fontSymbol.push_back(content[i]);
+            
+            auto& notePair = NoteMapper::fontToNote[fontSymbol];
+            auto currentNote = std::make_unique<Note>();
+            currentNote->setNoteData(notePair.first, notePair.second);
+            CompositionConstants::notes.push_back(std::move(currentNote));
+            fontSymbol.clear();
+        }
+    }
+}
+
+void MidiCore::setLoadedCompositionData(const juce::String& content, const juce::String& fileNameWithoutExtension)
+{
+    nameSongTextEditor->setText(fileNameWithoutExtension);
+    compositionNotesTextEditor.setText(content);
+}
 #pragma endregion

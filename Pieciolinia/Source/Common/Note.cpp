@@ -20,9 +20,8 @@ void Note::setNoteLength(double time, int bpm)
         info.length = NoteLength::Quarter;
     else if (time >= beatDuration / 2) 
         info.length = NoteLength::Eighth;
-    else {
+    else
         info.length = NoteLength::Sixteenth;
-    }
 }
 
 void Note::setNoteName(int keyIndex)
@@ -30,7 +29,11 @@ void Note::setNoteName(int keyIndex)
     info.name = NoteMapper::indexToNoteName[keyIndex];
 }
 
-
+void Note::setNoteData(Note::NoteName name, Note::NoteLength length)
+{
+    info.name = name;
+    info.length = length;
+}
 
 void Note::setNoteInfo(double time, int bpm, int keyIndex)
 {

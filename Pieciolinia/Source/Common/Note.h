@@ -33,12 +33,13 @@ public:
     };
 
 
+    void setNoteData(Note::NoteName name, Note::NoteLength length);
+
     //int whichNote;
     NoteInfo info;
 private:
     void setNoteLength(double time, int bpm);
     void setNoteName(int keyIndex);
-
 };
 
 #endif
