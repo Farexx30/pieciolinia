@@ -5,6 +5,8 @@
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
       <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+        <FILE id="Aq4FG9" name="PiecioliniaMusiQwik.ttf" compile="0" resource="1"
+              file="Source/Assets/PiecioliniaMusiQwik.ttf"/>
         <FILE id="KniiyO" name="anote.png" compile="0" resource="1" file="Source/Assets/anote.png"/>
         <FILE id="rcG5W4" name="Bnote.png" compile="0" resource="1" file="Source/Assets/Bnote.png"/>
         <FILE id="xo1Sip" name="c2note.png" compile="0" resource="1" file="Source/Assets/c2note.png"/>
@@ -40,8 +42,6 @@
         <FILE id="XwCfTh" name="icons8-verified-50.png" compile="0" resource="1"
               file="Source/Assets/icons8-verified-50.png"/>
       </GROUP>
-      <FILE id="gDiq7p" name="MusiQwikPieciolinia.ttf" compile="0" resource="1"
-            file="Source/Assets/MusiQwikPieciolinia.ttf"/>
     </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
       <GROUP id="{4E6D3107-5768-D2B6-D57D-5E2848ED4038}" name="Core">
@@ -74,11 +74,7 @@
       </GROUP>
       <GROUP id="{4DAE2081-434B-7016-E858-87EC698EB68E}" name="Common">
         <FILE id="pk2xOn" name="Constants.h" compile="0" resource="0" file="Source/Common/Constants.h"/>
-        <FILE id="UCjQXH" name="KeyboardInputHandler.cpp" compile="1" resource="0"
-              file="Source/Common/KeyboardInputHandler.cpp"/>
         <FILE id="FTENwP" name="Mappers.h" compile="0" resource="0" file="Source/Common/Mappers.h"/>
-        <FILE id="tLoW37" name="KeyboardInputHandler.h" compile="0" resource="0"
-              file="Source/Common/KeyboardInputHandler.h"/>
         <FILE id="LzjYfq" name="Note.h" compile="0" resource="0" file="Source/Common/Note.h"/>
         <FILE id="bbLdJn" name="Note.cpp" compile="1" resource="0" file="Source/Common/Note.cpp"/>
         <FILE id="SWWnUo" name="Timer.cpp" compile="1" resource="0" file="Source/Common/Timer.cpp"/>

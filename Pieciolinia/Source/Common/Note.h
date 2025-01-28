@@ -1,7 +1,6 @@
 #pragma once
 #ifndef NOTE_H
 #define NOTE_H
-
 #include <string>
 
 class Note {
@@ -20,6 +19,7 @@ public:
         Eighth,
         Sixteenth
     };
+
     //which note which means which line
     enum class NoteName {
         c1, cSharp1, d1, dSharp1, e1, f1, fSharp1, g1, gSharp1,

@@ -7,6 +7,8 @@
 #include "CustomMidiKeyboardComponent.h"
 #include "../Common/Timer.h"
 
+
+//TODO: change comment language
 //Zadeklarowanie, ze takie struktury/klasy istnieja (pliki naglowkowe zaimportowane w pliku .cpp).
 //Powod? Musimy odwolac sie z tej klasy do klasy MidiDeviceListBox, a z klasy klasy MidiDeviceListBox do tej klasy, wiec jest to konieczne jesli chcemy zachowac ich implementacje/definicje w osobnych plikach, a do tego nie popasc w nieskonczona petle importowania plikow naglowkowych (blad na etapie kompilacj).
 //Co prawda w przypadku struktury MidiDeviceListEntry nie byloby tego problemu, bo nie musimy się z MidiDeviceListEntry odwolywac do MidiCore, ale wydaje sie to byc mimo wszystko dobra praktyka promujaca zasade open-closed principle z SOLIDA.
@@ -37,7 +39,7 @@ public:
     void resized() override;
 
     //Custom public methods:
-
+    //Playback:
     void startPlayback();
     void pausePlayback();
     void stopPlayback();
@@ -50,31 +52,45 @@ private:
     void sendToOutputs(const juce::MidiMessage& message);
     void addLabelAndSetStyle(juce::Label& label);
     void addText(juce::TextEditor& editor, const juce::String& text);
+
+    //Buttons management:
+    void lockInputs();
+    void unlockInputs();
+
+    //Playback:
     void playbackWorker();
 
-    juce::String setHigherNote(juce::String text);
-
-    juce::String setNoteLower(juce::String text);
-
+    //Notes management:
     void ArrowUpClick();
     void ArrowDownClick();
-
     void AddNoteByButton(Note::NoteLength noteLength);
-
     void AddNoteRestByButton(Note::NoteLength noteLength);
-
     void DeleteLastNote();
 
+    juce::String setHigherNote(juce::String text);
+    juce::String setNoteLower(juce::String text);
+
+    //File management:
     void updateCompositionName();
 
 
-    //Private properties:
 
-    juce::TextEditor textEditorForNotesTest;
+    //Private properties:
+    juce::TextEditor compositionNotesTextEditor;
     Timer timer;
 	Note::NoteName chosenNoteName = Note::NoteName::a1;
-
     juce::String compositionName;
+    juce::TextEditor compositionNotesTextEditor;
+
+    bool isKeyboardLocked = false;
+
+    juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
+    MidiDeviceList& _midiDeviceList;
+
+    juce::MidiKeyboardState midiKeyboardState;
+    CustomMidiKeyboardComponent midiKeyboard;
+
+    juce::Component::SafePointer<SettingsWindow> settingsWindow;
 
 	//Playback properties
     std::thread playbackThread;
@@ -85,33 +101,32 @@ private:
 
     //For GUI
     juce::TextButton header;
-    juce::TextButton element1;
-    juce::TextButton element2;
-    juce::TextButton element3;
-    juce::TextButton element4;
-    juce::TextButton element5;
-    juce::TextButton element6;
-    juce::TextButton element7;
-    juce::TextButton element8;
-    juce::TextButton element9;
-    juce::TextButton element11;
-    juce::TextButton element22;
-    juce::TextButton element33;
-    juce::TextButton element44;
-    juce::TextButton element55;
-    juce::TextButton element66;
-    juce::TextButton element77;
-    juce::TextButton element88;
-    juce::TextButton element99;
-    juce::TextButton element111;
-    juce::TextButton element222;
-    juce::TextButton element333;
-    juce::TextButton element444;
-    juce::TextButton element555;
-    juce::TextButton element666;
-    juce::TextButton orangeContent;
 
-    std::unique_ptr<juce::DrawableButton> saveButton;
+    juce::TextButton LogoElement;
+    juce::TextButton saveFileElement;
+    juce::TextButton folderElement;
+    juce::TextButton saveCompositionNameElement;
+    juce::TextButton playElement;
+    juce::TextButton pauseElement;
+    juce::TextButton stopElement;
+    juce::TextButton settingsElement;
+    juce::TextButton arrowUpElement;
+    juce::TextButton arrowDownElement;
+    juce::TextButton backspaceElement;
+    juce::TextButton midiKeyboardElement;
+    juce::TextButton sixteenthNoteElement;
+    juce::TextButton sixteenthNoteRestElement;
+    juce::TextButton wholeNoteElement;
+    juce::TextButton wholeNoteRestElement;
+    juce::TextButton halfNoteElement;
+    juce::TextButton halfNoteRestElement;
+    juce::TextButton quarterNoteElement;
+    juce::TextButton quarterNoteRestElement;
+    juce::TextButton eighthNoteElement;
+    juce::TextButton eighthNoteRestElement;
+    juce::TextButton compositionNotesElement;
+
+    std::unique_ptr<juce::DrawableButton> saveFileButton;
     std::unique_ptr<juce::DrawableButton> folderButton;
     std::unique_ptr<juce::DrawableButton> pauseButton;
     std::unique_ptr<juce::DrawableButton> playButton;
@@ -120,33 +135,21 @@ private:
     std::unique_ptr<juce::DrawableButton> settingsButton;
     std::unique_ptr<juce::DrawableButton> arrowUpButton;
     std::unique_ptr<juce::DrawableButton> arrowDownButton;
-    std::unique_ptr<juce::DrawableButton> verifyButton;
+    std::unique_ptr<juce::DrawableButton> saveCompositionNameButton;
     std::unique_ptr<juce::DrawableButton> logoButton;
-    std::unique_ptr<juce::DrawableButton> staffButton;
-    std::unique_ptr<juce::DrawableButton> cButton;
-    std::unique_ptr<juce::DrawableButton> dButton;
-    std::unique_ptr<juce::DrawableButton> eButton;
-    std::unique_ptr<juce::DrawableButton> fButton;
-    std::unique_ptr<juce::DrawableButton> gButton;
-    std::unique_ptr<juce::DrawableButton> aButton;
-    std::unique_ptr<juce::DrawableButton> bButton;
-    std::unique_ptr<juce::DrawableButton> c2Button;
-    std::unique_ptr<juce::DrawableButton> d2Button;
-    std::unique_ptr<juce::DrawableButton> e2Button;
+    std::unique_ptr<juce::DrawableButton> wholeNoteButton;
+    std::unique_ptr<juce::DrawableButton> wholeNoteRestButton;
+    std::unique_ptr<juce::DrawableButton> halfNoteButton;
+    std::unique_ptr<juce::DrawableButton> halfNoteRestButton;
+    std::unique_ptr<juce::DrawableButton> quarterNoteButton;
+    std::unique_ptr<juce::DrawableButton> quarterNoteRestButton;
+    std::unique_ptr<juce::DrawableButton> eighthNoteButton;
+    std::unique_ptr<juce::DrawableButton> eighthNoteRestButton;
+    std::unique_ptr<juce::DrawableButton> sixteenthNoteButton;
+    std::unique_ptr<juce::DrawableButton> sixteenthNoteRestButton;
 
-    std::unique_ptr<juce::TextEditor> nameSongEditor;
-    std::unique_ptr<juce::TextEditor> switchNoteEditor;
-
-
-
-
-    juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
-    MidiDeviceList& _midiDeviceList;
-
-    juce::MidiKeyboardState midiKeyboardState; 
-    CustomMidiKeyboardComponent midiKeyboard;
-
-    juce::Component::SafePointer<SettingsWindow> settingsWindow;
+    std::unique_ptr<juce::TextEditor> nameSongTextEditor;
+    std::unique_ptr<juce::TextEditor> switchNoteTextEditor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiCore)
 };

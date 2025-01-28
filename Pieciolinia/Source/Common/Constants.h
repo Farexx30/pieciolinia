@@ -29,23 +29,4 @@ namespace CompositionConstants
     //Global bpm
     inline int bpm = 120;
 }
-
-
-//Na pozniej dodawanie do nut do globalnego wektora
-
-/*
-* void addNoteToComposition(Note newNote) {
-    CompositionConstants::notes.push_back(newNote);
-}
-* 
-* A tutaj czytanie
-* 
-void printComposition() {
-    for (const auto& note : CompositionConstants::notes) {
-        std::cout << "Note: " << static_cast<int>(note.info.name) 
-                  << ", Length: " << static_cast<int>(note.info.length) << std::endl;
-    }
-}
-*/
-
 #endif
