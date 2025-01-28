@@ -18,6 +18,7 @@ public:
 	juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> getMidiDevice(int index) const;
 	int getNumberOfMidiOutputs() const;
 private:
+	void openDevice(const juce::ReferenceCountedObjectPtr<MidiDeviceListEntry>& device);
 	juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> findDevice(const juce::MidiDeviceInfo& deviceInfo) const;
 	void closeUnpluggedDevices(const juce::Array<juce::MidiDeviceInfo>& currentlyPluggedInDevices);
 	void updateDeviceList(); //Only for output devices

@@ -42,8 +42,8 @@ void MidiDeviceListBox::paintListBoxItem(int rowNumber, juce::Graphics& graphics
     }
 }
 
-//TODO: change comment language
-//Jesli zostalo zmienione zaznaczenie wierszy w listboxie to otwieramy/zamykamy urzadzenia (zalezy czy zaznaczylismy czy odznaczylismy urzadzenie):
+
+//This method is executed when we change the selection of rows in the listbox, so we open/close devices depending on whether we selected or deselected the device:
 void MidiDeviceListBox::selectedRowsChanged(int)
 {
     auto currentSelectedItems = getSelectedRows();
@@ -70,9 +70,7 @@ void MidiDeviceListBox::selectedRowsChanged(int)
 }
 
 
-//TODO: change comment language
-//Custom PUBLIC methods:
-//Metoda potrzebna nam do aktualizacji zaznaczonych elementow (czysto graficznie) jesli wpielibysmy/odpielibysmy jakies urzadzenie:
+//Method we need to update selected items (purely graphically) if we plugged/unplugged some device:
 void MidiDeviceListBox::syncSelectedItemsWithDeviceList(const juce::ReferenceCountedArray<MidiDeviceListEntry>& midiDevices)
 {
     juce::SparseSet<int> selectedRows;

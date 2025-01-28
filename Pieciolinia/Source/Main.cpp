@@ -4,12 +4,12 @@
 #include "CssFile.h"
 #include "Core/MidiDeviceList.h"
 //==============================================================================
-class MyTestMidiAudioAppApplication
+class PiecioliniaApplication
     : public juce::JUCEApplication
 {
 public:
     //==============================================================================
-    MyTestMidiAudioAppApplication() {}
+    PiecioliniaApplication() {}
 
     const juce::String getApplicationName() override { return ProjectInfo::projectName; }
     const juce::String getApplicationVersion() override { return ProjectInfo::versionString; }
@@ -87,4 +87,4 @@ private:
 
 //==============================================================================
 // This macro generates the main() routine that launches the app.
-START_JUCE_APPLICATION(MyTestMidiAudioAppApplication)
+START_JUCE_APPLICATION(PiecioliniaApplication)

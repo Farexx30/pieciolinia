@@ -21,10 +21,6 @@ SettingsComponent::~SettingsComponent()
     midiOutputSelector.reset();
 }
 
-void SettingsComponent::paint(juce::Graphics&)
-{
-}
-
 void SettingsComponent::resized()
 {
     int margin = 10, width = getWidth(), height = getHeight();
@@ -61,9 +57,4 @@ void SettingsComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
         auto midiDevices = _midiDeviceList.getMidiDevices();
         midiOutputSelector->syncSelectedItemsWithDeviceList(midiDevices);
     }
-}
-
-void SettingsComponent::addLabelAndSetStyle(juce::Label& label)
-{
-
 }

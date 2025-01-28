@@ -3,9 +3,8 @@
 #define MIDIDEVICELISTBOX_H
 
 #include<JuceHeader.h>
-//TODO: change comment language
-//Zadeklarowanie, ze taka klasa istnieje (plik naglowkowy zaimportowany w pliku .cpp).
-//Powod? Musimy odwolac sie z tej klasy do klasy MidiCore, a z klasy MidiCore do tej klasy, wiec jest to konieczne jesli chcemy zachowac ich implementacje/definicje w osobnych plikach, a do tego nie popasc w nieskonczona petle importowania plikow naglowkowych (blad na etapie kompilacj).
+
+// --- Declarations ---
 class SettingsComponent;
 struct MidiDeviceListEntry;
 
