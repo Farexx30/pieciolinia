@@ -17,8 +17,7 @@ void MidiDeviceList::openDevice(int index)
     midiOutputs[index]->outputDevice = juce::MidiOutput::openDevice(midiOutputs[index]->deviceInfo.identifier);
     if (midiOutputs[index]->outputDevice == nullptr)
     {
-        //TODO: change comment
-        //NOT GOOD:( ERROR - czyli nie udalo sie otworzyc urzadzenia
+		jassert("Failed to open MIDI output device");
     }
 }
 
@@ -40,6 +39,15 @@ juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> MidiDeviceList::getMidiDevi
 int MidiDeviceList::getNumberOfMidiOutputs() const
 {
     return midiOutputs.size();
+}
+
+void MidiDeviceList::openDevice(const juce::ReferenceCountedObjectPtr<MidiDeviceListEntry>& device)
+{
+	device->outputDevice = juce::MidiOutput::openDevice(device->deviceInfo.identifier);
+    if (device->outputDevice == nullptr)
+    {
+        jassert("Failed to open MIDI output device");
+    }
 }
 
 juce::ReferenceCountedObjectPtr<MidiDeviceListEntry> MidiDeviceList::findDevice(const juce::MidiDeviceInfo& deviceInfo) const
@@ -88,10 +96,12 @@ void MidiDeviceList::updateDeviceList()
     {
         MidiDeviceListEntry::Ptr foundDevice = findDevice(device);
         //TODO: change comment language
-        //Jesli to urzadzenie nie jest nam jeszcze znane (czyli jest nowo podlaczone):
+        //If this device is unknown yet for our application (if it just has been connected):
         if (foundDevice == nullptr)
         {
+			//Create new MidiDeviceListEntry object and open the device:
             foundDevice = new MidiDeviceListEntry(device);
+			openDevice(foundDevice);
         }
 
         newMidiOutputs.add(foundDevice);
