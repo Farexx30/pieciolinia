@@ -61,23 +61,27 @@ private:
     void playbackWorker();
 
     //Notes management:
-    void ArrowUpClick();
-    void ArrowDownClick();
-    void AddNoteByButton(Note::NoteLength noteLength);
-    void AddNoteRestByButton(Note::NoteLength noteLength);
-    void DeleteLastNote();
+    void arrowUpClick();
+    void arrowDownClick();
+    void addNoteByButton(Note::NoteLength noteLength);
+    void addNoteRestByButton(Note::NoteLength noteLength);
+    void deleteLastNote();
 
     juce::String setHigherNote(juce::String text);
     juce::String setNoteLower(juce::String text);
 
+    //MessageBox management:
+	void showMessageBox(const juce::AlertWindow::AlertIconType& iconType, 
+        const juce::String& title, 
+        const juce::String& message);
+
     //File management:
-    void updateCompositionName();
-
-	//Save to file/read from file:
 	void saveToFile();
+	void saveAsPiecioliniaFile(const juce::File& file);
+	void saveAsMidiFile(const juce::File& file);
 	void readFromFile();
-
     void getNotesFromImportedFile(const juce::String& content);
+    void setLoadedCompositionData(const juce::String& content, const juce::String& fileNameWithoutExtension);
 
 
 

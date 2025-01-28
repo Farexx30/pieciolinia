@@ -295,6 +295,4 @@ namespace NoteMapper
         {"q0",         {Note::NoteName::g2,        Note::NoteLength::Sixteenth}},
         {"10",         {Note::NoteName::rest,      Note::NoteLength::Sixteenth}}
     };
-
-
 }

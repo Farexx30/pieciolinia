@@ -1,17 +1,8 @@
 #pragma once
-
+#ifndef CUSTOMMIDIKYEBOARDCOMPONENT_H
+#define CUSTOMMIDIKYEBOARDCOMPONENT_H
  
- 
- 
-//TODO: change comment language
- //!!!TO SIE MOZE PRZYDAC NA POTEM (MOZNA ZCUSTOMIZOWAC KEYBOARD COMPONENT, NP. POD WZGLEDEM WYGLADU).!!!
- //Oczywiscie sama ta implementacja ponizej nie jest gotowa do wykorzystania, chodzi tylko o sens.
- 
- 
- 
- 
- 
-//Custom MIDI Keyboard Component with Larger Keys
+//Custom MIDI Keyboard Component with larger keys (implementation kept in .h for simplicity):
 
 #include <JuceHeader.h>
 
@@ -54,11 +45,4 @@ public:
     }
 };
 
-
-
-
-
-
-
-
-
+#endif
