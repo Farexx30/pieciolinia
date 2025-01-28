@@ -77,6 +77,8 @@ private:
 	void saveToFile();
 	void readFromFile();
 
+    void getNotesFromImportedFile(const juce::String& content);
+
 
 
     //Private properties:

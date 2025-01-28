@@ -29,7 +29,11 @@ void Note::setNoteName(int keyIndex)
     info.name = NoteMapper::indexToNoteName[keyIndex];
 }
 
-
+void Note::setNoteData(Note::NoteName name, Note::NoteLength length)
+{
+    info.name = name;
+    info.length = length;
+}
 
 void Note::setNoteInfo(double time, int bpm, int keyIndex)
 {

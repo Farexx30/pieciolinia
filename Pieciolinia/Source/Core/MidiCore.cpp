@@ -966,7 +966,62 @@ void MidiCore::saveToFile()
 				}
 				else if (fileExtenstion == ".midi")
 				{
+                    juce::MidiFile midiFile;
+                    midiFile.setTicksPerQuarterNote(960);
 
+                    // Add a track to the MIDI file
+                    juce::MidiMessageSequence midiMessageSequence;
+
+                    // Calculate time in MIDI ticks (assuming 4/4 time signature)
+                    double standardMidiResolution = 960.0;
+                    double currentTime = 0.0;
+
+                    for (const auto& note : CompositionConstants::notes)
+                    {
+                        if (note->info.name != Note::NoteName::rest)
+                        {
+                            int midiNote = NoteMapper::noteToIndex.at(note->info.name);
+
+                            //noteOn message:
+                            juce::MidiMessage onMsg = juce::MidiMessage::noteOn(1, midiNote, 1.0f);
+                            midiMessageSequence.addEvent(onMsg, currentTime);
+
+                            //Calculate note duration in MIDI ticks
+                            double noteDurationBeats = (note->calculateNoteDuration(CompositionConstants::bpm) / 1000.0)
+                                * (CompositionConstants::bpm / 60.0);
+                            double noteDurationTicks = noteDurationBeats * standardMidiResolution;
+
+                            //noteOff message:
+                            juce::MidiMessage offMsg = juce::MidiMessage::noteOff(1, midiNote, 1.0f);
+                            midiMessageSequence.addEvent(offMsg, currentTime + noteDurationTicks);
+
+                            // Update time position for next note
+                            currentTime += noteDurationTicks;
+                        }
+                        else
+                        {
+                            double noteDurationBeats = (note->calculateNoteDuration(CompositionConstants::bpm) / 1000.0)
+                                * (CompositionConstants::bpm / 60.0);
+                            double noteDurationTicks = noteDurationBeats * standardMidiResolution;
+                            currentTime += noteDurationTicks;
+                        }                      
+                    }
+
+                    midiMessageSequence.updateMatchedPairs();
+                    midiFile.addTrack(midiMessageSequence);
+
+                    juce::FileOutputStream outputStream(file);
+                    if (outputStream.openedOk())
+                    {
+                        midiFile.writeTo(outputStream);
+                        outputStream.flush(); // Make sure all data is written
+                    }
+                    else
+                    {
+                        juce::AlertWindow::showMessageBoxAsync(juce::AlertWindow::AlertIconType::WarningIcon,
+                            "Error!",
+                            "An error occurred during saving a MIDI file");
+                    }
 				}
                 else
                 {
@@ -981,7 +1036,46 @@ void MidiCore::saveToFile()
 // --- File import (only in .pieciolinia) ---
 void MidiCore::readFromFile()
 {
+    fileChooser = std::make_unique<juce::FileChooser>("Select a .pieciolinia file to import...",
+        juce::File{},
+        "*.pieciolinia");
+    auto chooserFlags = juce::FileBrowserComponent::openMode
+        | juce::FileBrowserComponent::canSelectFiles;
 
+    fileChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& fc)
+        {
+            auto file = fc.getResult();
+
+            if (file != juce::File{})
+            {
+                auto content = file.loadFileAsString();
+				getNotesFromImportedFile(content);
+                nameSongTextEditor->setText(file.getFileNameWithoutExtension());
+            }
+        });
 }
 
 #pragma endregion
+void MidiCore::getNotesFromImportedFile(const juce::String& content)
+{
+    std::string fontSymbol = "";
+    for (int i = 0; i < content.length(); i++)
+    {
+        if (content[i] != '0')
+        {
+            fontSymbol.push_back(content[i]);
+        }
+        else
+        {
+            fontSymbol.push_back(content[i]);
+            
+            auto& notePair = NoteMapper::fontToNote[fontSymbol];
+            auto currentNote = std::make_unique<Note>();
+            currentNote->setNoteData(notePair.first, notePair.second);
+            CompositionConstants::notes.push_back(std::move(currentNote));
+            fontSymbol.clear();
+        }
+    }
+
+	compositionNotesTextEditor.setText(content);
+}
