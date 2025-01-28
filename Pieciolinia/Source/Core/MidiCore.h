@@ -8,10 +8,7 @@
 #include "../Common/Timer.h"
 
 
-//TODO: change comment language
-//Zadeklarowanie, ze takie struktury/klasy istnieja (pliki naglowkowe zaimportowane w pliku .cpp).
-//Powod? Musimy odwolac sie z tej klasy do klasy MidiDeviceListBox, a z klasy klasy MidiDeviceListBox do tej klasy, wiec jest to konieczne jesli chcemy zachowac ich implementacje/definicje w osobnych plikach, a do tego nie popasc w nieskonczona petle importowania plikow naglowkowych (blad na etapie kompilacj).
-//Co prawda w przypadku struktury MidiDeviceListEntry nie byloby tego problemu, bo nie musimy się z MidiDeviceListEntry odwolywac do MidiCore, ale wydaje sie to byc mimo wszystko dobra praktyka promujaca zasade open-closed principle z SOLIDA.
+// --- Declarations ---
 class MidiDeviceList;
 struct MidiDeviceListEntry;
 class SettingsWindow;
@@ -35,7 +32,6 @@ public:
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     //Overriden virtual members from juce::Component:
-    void paint(juce::Graphics&) override;
     void resized() override;
 
     //Custom public methods:
@@ -93,7 +89,6 @@ private:
 
     bool isKeyboardLocked = false;
 
-    juce::Label midiOutputLabel{ LabelConstants::midiOutputName, LabelConstants::midiOutputText };
     MidiDeviceList& _midiDeviceList;
 
     juce::MidiKeyboardState midiKeyboardState;
@@ -161,6 +156,10 @@ private:
 
     std::unique_ptr<juce::TextEditor> nameSongTextEditor;
     std::unique_ptr<juce::TextEditor> switchNoteTextEditor;
+
+    //const properties:
+    const int lowestNote = 72;
+    const int highestNote = 91;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiCore)
 };

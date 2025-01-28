@@ -15,12 +15,6 @@ namespace MidiKeyboardConstants
     constexpr const char* midiKeyboardName = "Midi Keyboard";
 }
 
-namespace LabelConstants
-{
-    constexpr const char* midiOutputName = "Midi Output Label";
-    constexpr const char* midiOutputText = "Midi Output:";
-}
-
 namespace CompositionConstants
 {
     // Global vector with notes

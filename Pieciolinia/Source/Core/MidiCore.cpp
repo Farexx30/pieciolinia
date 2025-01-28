@@ -10,7 +10,7 @@
 // PUBLIC MEMBERS
 //==============================================================================
 
-//Ctors/Dtors (Constructors/Destructors):
+//--- Ctors/Dtors (Constructors/Destructors) ---
 MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     : _midiDeviceList(midiDeviceList),
     midiKeyboard(midiKeyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
@@ -21,7 +21,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     midiKeyboardElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(midiKeyboardElement);
     midiKeyboard.setName(MidiKeyboardConstants::midiKeyboardName);
-    midiKeyboard.setAvailableRange(72, 91);
+    midiKeyboard.setAvailableRange(lowestNote, highestNote);
     midiKeyboardState.addListener(this);
 
 
@@ -320,14 +320,14 @@ MidiCore::~MidiCore()
 
 
 
-//Overriden virtual members from juce::MidiKeyboardState::Listener:
+// --- Overriden virtual members from juce::MidiKeyboardState::Listener ---
 void MidiCore::handleNoteOn(juce::MidiKeyboardState*, int midiChannel, int midiNoteNumber, float velocity)
 {
     if (!isKeyboardLocked)
     {
         timer.reset(); // Start of measuring time
         juce::MidiMessage message(juce::MidiMessage::noteOn(midiChannel, midiNoteNumber, velocity));
-        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001);//TODO: change comment //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
+        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //Recommended timestamp value for clean and precise sound. We also multiply by the * 0.001 because this value should be specified in seconds by default, and "getMillisecondCounterHiRes()" returns the result in milliseconds.
         sendToOutputs(message);
     }
 }
@@ -336,9 +336,9 @@ void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midi
 {
     if (!isKeyboardLocked)
     {
-        double elapsed = timer.elapsedMilliseconds(); // Checking Time
+        double elapsed = timer.elapsedMilliseconds(); //Checking Time
         juce::MidiMessage message(juce::MidiMessage::noteOff(midiChannel, midiNoteNumber, velocity));
-        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001);//TODO: change comment //po prostu zalecana wartosc timestampa dla czystego i precyzyjnego brzmienia, a * 0.001, poniewaz wartosc ta jest okreslana domyslnie w sekundach, a "getMillisecondCounterHiRes()" zwraca wynik w milisekundach.
+        message.setTimeStamp(juce::Time::getMillisecondCounterHiRes() * 0.001); //Recommended timestamp value for clean and precise sound. We also multiply by the * 0.001 because this value should be specified in seconds by default, and "getMillisecondCounterHiRes()" returns the result in milliseconds.
         sendToOutputs(message);
         auto currentNote = std::make_unique<Note>();
         currentNote->setNoteInfo(elapsed, 120, midiNoteNumber);
@@ -347,7 +347,7 @@ void MidiCore::handleNoteOff(juce::MidiKeyboardState*, int midiChannel, int midi
     }
 }
 
-
+// --- Listeners methods ---
 void MidiCore::changeListenerCallback(juce::ChangeBroadcaster* source)
 {
     if (source == settingsWindow)
@@ -357,13 +357,8 @@ void MidiCore::changeListenerCallback(juce::ChangeBroadcaster* source)
     }
 }
 
-//TODO: Delete?
-//Virtual members from juce::Component:
-void MidiCore::paint(juce::Graphics&)
-{
-    //Empty - nothing to be added.
-}
 
+// --- Virtual members from juce::Component ---
 void MidiCore::resized()
 {
     auto area = getLocalBounds();
@@ -406,12 +401,6 @@ void MidiCore::resized()
 
     auto contentItemHeight = 450;
     compositionNotesElement.setBounds(area.removeFromTop(contentItemHeight));
-
-    //TODO: delete?
-    /*
-    auto headerFooterHeight = 60;
-    footer.setBounds(area.removeFromBottom(headerFooterHeight));
-    */
 
     auto footerHeight = 200;
     juce::Rectangle<int> footerArea = area.removeFromTop(footerHeight);
@@ -1068,6 +1057,9 @@ void MidiCore::readFromFile()
 
 void MidiCore::getNotesFromImportedFile(const juce::String& content)
 {
+	//First, we need to clear the current notes vector:
+	CompositionConstants::notes.clear();
+
     std::string fontSymbol = "";
     for (int i = 0; i < content.length(); ++i)
     {

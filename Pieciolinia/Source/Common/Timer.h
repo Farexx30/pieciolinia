@@ -9,7 +9,7 @@ class Timer {
 public:
     Timer();
 
-    //Method which resetes time
+    //Method which resets the timer
     void reset();
 
     //Method which returns time in Miliseconds
