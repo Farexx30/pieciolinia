@@ -150,103 +150,95 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 
     // --- Notes ---
     wholeNoteButton = std::make_unique<juce::DrawableButton>("wholeNoteButton", juce::DrawableButton::ImageFitted);
-    auto cImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::cnote_png, BinaryData::cnote_pngSize));
-    wholeNoteButton->setImages(cImage.get());
+    auto wholeNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::wholeNote_png, BinaryData::wholeNote_pngSize));
+    wholeNoteButton->setImages(wholeNoteImage.get());
     wholeNoteElement.addAndMakeVisible(wholeNoteButton.get());
-	wholeNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Whole); };
+    wholeNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Whole); };
 
     wholeNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(wholeNoteElement);
 
-
     wholeNoteRestButton = std::make_unique<juce::DrawableButton>("wholeNoteRestButton", juce::DrawableButton::ImageFitted);
-    auto dImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::dnote_png, BinaryData::dnote_pngSize));
-    wholeNoteRestButton->setImages(dImage.get());
+    auto wholeNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::wholeNoteRest_png, BinaryData::wholeNoteRest_pngSize));
+    wholeNoteRestButton->setImages(wholeNoteRestImage.get());
     wholeNoteRestElement.addAndMakeVisible(wholeNoteRestButton.get());
     wholeNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Whole); };
 
     wholeNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(wholeNoteRestElement);
 
-
     halfNoteButton = std::make_unique<juce::DrawableButton>("halfNoteButton", juce::DrawableButton::ImageFitted);
-    auto eImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::enote_png, BinaryData::enote_pngSize));
-    halfNoteButton->setImages(eImage.get());
+    auto halfNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::halfNote_png, BinaryData::halfNote_pngSize));
+    halfNoteButton->setImages(halfNoteImage.get());
     halfNoteElement.addAndMakeVisible(halfNoteButton.get());
-	halfNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Half); };
+    halfNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Half); };
 
     halfNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(halfNoteElement);
 
-
     halfNoteRestButton = std::make_unique<juce::DrawableButton>("halfNoteRestButton", juce::DrawableButton::ImageFitted);
-    auto fImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::fnote_png, BinaryData::fnote_pngSize));
-    halfNoteRestButton->setImages(fImage.get());
+    auto halfNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::halfNoteRest_png, BinaryData::halfNoteRest_pngSize));
+    halfNoteRestButton->setImages(halfNoteRestImage.get());
     halfNoteRestElement.addAndMakeVisible(halfNoteRestButton.get());
     halfNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Half); };
 
     halfNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(halfNoteRestElement);
 
-
     quarterNoteButton = std::make_unique<juce::DrawableButton>("quarterNoteButton", juce::DrawableButton::ImageFitted);
-    auto gImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::gnote_png, BinaryData::gnote_pngSize));
-    quarterNoteButton->setImages(gImage.get());
+    auto quarterNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::quarterNote_png, BinaryData::quarterNote_pngSize));
+    quarterNoteButton->setImages(quarterNoteImage.get());
     quarterNoteElement.addAndMakeVisible(quarterNoteButton.get());
     quarterNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Quarter); };
 
     quarterNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(quarterNoteElement);
 
-
     quarterNoteRestButton = std::make_unique<juce::DrawableButton>("quarterNoteRestButton", juce::DrawableButton::ImageFitted);
-    auto aImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::anote_png, BinaryData::anote_pngSize));
-    quarterNoteRestButton->setImages(aImage.get());
+    auto quarterNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::quarterNoteRest_png, BinaryData::quarterNoteRest_pngSize));
+    quarterNoteRestButton->setImages(quarterNoteRestImage.get());
     quarterNoteRestElement.addAndMakeVisible(quarterNoteRestButton.get());
     quarterNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Quarter); };
-    
+
     quarterNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(quarterNoteRestElement);
 
-
     eighthNoteButton = std::make_unique<juce::DrawableButton>("eighthNoteButton", juce::DrawableButton::ImageFitted);
-    auto bImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::Bnote_png, BinaryData::Bnote_pngSize));
-    eighthNoteButton->setImages(bImage.get());
+    auto eighthNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::eighthNote_png, BinaryData::eighthNote_pngSize));
+    eighthNoteButton->setImages(eighthNoteImage.get());
     eighthNoteElement.addAndMakeVisible(eighthNoteButton.get());
-	eighthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Eighth); };
-    
+    eighthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Eighth); };
+
     eighthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(eighthNoteElement);
 
-
     eighthNoteRestButton = std::make_unique<juce::DrawableButton>("eighthNoteRestButton", juce::DrawableButton::ImageFitted);
-    auto c2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::c2note_png, BinaryData::c2note_pngSize));
-    eighthNoteRestButton->setImages(c2Image.get());
+    auto eighthNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::eightNoteRest_png, BinaryData::eightNoteRest_pngSize));
+    eighthNoteRestButton->setImages(eighthNoteRestImage.get());
     eighthNoteRestElement.addAndMakeVisible(eighthNoteRestButton.get());
     eighthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Eighth); };
-    
+
     eighthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(eighthNoteRestElement);
 
-
     sixteenthNoteButton = std::make_unique<juce::DrawableButton>("sixteenthNoteButton", juce::DrawableButton::ImageFitted);
-    auto d2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::d2note_png, BinaryData::d2note_pngSize));
-    sixteenthNoteButton->setImages(d2Image.get());
+    auto sixteenthNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::sixteenthNote_png, BinaryData::sixteenthNote_pngSize));
+    sixteenthNoteButton->setImages(sixteenthNoteImage.get());
     sixteenthNoteElement.addAndMakeVisible(sixteenthNoteButton.get());
-	sixteenthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Sixteenth); };
+    sixteenthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(sixteenthNoteElement);
 
-
     sixteenthNoteRestButton = std::make_unique<juce::DrawableButton>("sixteenthNoteRestButton", juce::DrawableButton::ImageFitted);
-    auto e2Image = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::e2note_png, BinaryData::e2note_pngSize));
-    sixteenthNoteRestButton->setImages(e2Image.get());
+    auto sixteenthNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::sixteenthNoteRest_png, BinaryData::sixteenthNoteRest_pngSize));
+    sixteenthNoteRestButton->setImages(sixteenthNoteRestImage.get());
     sixteenthNoteRestElement.addAndMakeVisible(sixteenthNoteRestButton.get());
     sixteenthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
     addAndMakeVisible(sixteenthNoteRestElement);
+
 #pragma endregion
 
 
@@ -369,7 +361,7 @@ void MidiCore::resized()
     // Divide header into 5 equal sections
     int sectionWidth = headerArea.getWidth() / 13;
     int minisection = sectionWidth / 2;
-    int bigsection = sectionWidth * 4;
+    int bigsection = sectionWidth * 5;
     int mediumbigsection = sectionWidth * 2;
 
     // Position each section
@@ -384,8 +376,6 @@ void MidiCore::resized()
 
     nameSongTextEditor->setBounds(headerArea.removeFromLeft(bigsection));
 
-    saveCompositionNameElement.setBounds(headerArea.removeFromLeft(sectionWidth));
-    saveCompositionNameButton->setBounds(saveCompositionNameElement.getLocalBounds().reduced(10));
 
     playButton->setBounds(playElement.getLocalBounds().reduced(10));
     playElement.setBounds(headerArea.removeFromLeft(sectionWidth));
