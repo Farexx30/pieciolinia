@@ -5,6 +5,27 @@
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
       <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+<<<<<<< Updated upstream
+=======
+        <FILE id="ZXAFmM" name="eighthNote.png" compile="0" resource="1" file="Source/Assets/eighthNote.png"/>
+        <FILE id="LHJRij" name="eightNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/eightNoteRest.png"/>
+        <FILE id="LmqSNj" name="halfNote.png" compile="0" resource="1" file="Source/Assets/halfNote.png"/>
+        <FILE id="nFrUDH" name="halfNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/halfNoteRest.png"/>
+        <FILE id="FlB6qN" name="quarterNote.png" compile="0" resource="1" file="Source/Assets/quarterNote.png"/>
+        <FILE id="pgmezq" name="quarterNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/quarterNoteRest.png"/>
+        <FILE id="XQR53N" name="sixteenthNote.png" compile="0" resource="1"
+              file="Source/Assets/sixteenthNote.png"/>
+        <FILE id="kcom1s" name="sixteenthNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/sixteenthNoteRest.png"/>
+        <FILE id="SMXn0M" name="wholeNote.png" compile="0" resource="1" file="Source/Assets/wholeNote.png"/>
+        <FILE id="bWiA6n" name="wholeNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/wholeNoteRest.png"/>
+        <FILE id="Aq4FG9" name="PiecioliniaMusiQwik.ttf" compile="0" resource="1"
+              file="Source/Assets/PiecioliniaMusiQwik.ttf"/>
+>>>>>>> Stashed changes
         <FILE id="KniiyO" name="anote.png" compile="0" resource="1" file="Source/Assets/anote.png"/>
         <FILE id="rcG5W4" name="Bnote.png" compile="0" resource="1" file="Source/Assets/Bnote.png"/>
         <FILE id="xo1Sip" name="c2note.png" compile="0" resource="1" file="Source/Assets/c2note.png"/>
