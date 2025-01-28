@@ -5,6 +5,22 @@
   <MAINGROUP id="ewNcDE" name="Pieciolinia">
     <GROUP id="{E4C3E24C-659F-626E-059F-A2F4F3F6DD57}" name="Assets">
       <GROUP id="{FC4AC7EA-9E41-1AA0-DAAD-6EE1700D4E1A}" name="Assets">
+        <FILE id="khZNxM" name="halfNote.png" compile="0" resource="1" file="Source/Assets/halfNote.png"/>
+        <FILE id="LXD3uh" name="halfNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/halfNoteRest.png"/>
+        <FILE id="FaShEN" name="eighthNote.png" compile="0" resource="1" file="Source/Assets/eighthNote.png"/>
+        <FILE id="tpVrht" name="eightNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/eightNoteRest.png"/>
+        <FILE id="fgkExq" name="quarterNote.png" compile="0" resource="1" file="Source/Assets/quarterNote.png"/>
+        <FILE id="e2qHZ5" name="quarterNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/quarterNoteRest.png"/>
+        <FILE id="PhhNdC" name="sixteenthNote.png" compile="0" resource="1"
+              file="Source/Assets/sixteenthNote.png"/>
+        <FILE id="Yn45pd" name="sixteenthNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/sixteenthNoteRest.png"/>
+        <FILE id="PGykyX" name="wholeNote.png" compile="0" resource="1" file="Source/Assets/wholeNote.png"/>
+        <FILE id="qHAh6X" name="wholeNoteRest.png" compile="0" resource="1"
+              file="Source/Assets/wholeNoteRest.png"/>
         <FILE id="Aq4FG9" name="PiecioliniaMusiQwik.ttf" compile="0" resource="1"
               file="Source/Assets/PiecioliniaMusiQwik.ttf"/>
         <FILE id="KniiyO" name="anote.png" compile="0" resource="1" file="Source/Assets/anote.png"/>
