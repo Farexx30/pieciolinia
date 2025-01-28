@@ -292,7 +292,10 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     addAndMakeVisible(*nameSongTextEditor);
 #pragma endregion
 
+	saveFileButton->onClick = [this] { saveToFile(); };
+	folderButton->onClick = [this] { readFromFile(); };
 
+    setSize(1301, 751);
     setSize(1300, 750);
 }
 
@@ -430,7 +433,10 @@ void MidiCore::resized()
     backspaceElement.setBounds(footerArea.removeFromLeft(mediumSectionWidth));
     backspaceButton->setBounds(backspaceElement.getLocalBounds().reduced(10));
 
-   
+
+
+    midiKeyboard.setBounds(midiKeyboardElement.getLocalBounds());
+    midiKeyboardElement.setBounds(footerArea.removeFromLeft(bigSectionWidth));
     juce::Rectangle<int> thirdColumn = footerArea.removeFromLeft(smallSectionWidth);
 
     wholeNoteElement.setBounds(thirdColumn.removeFromTop(smallColumnHeight));
@@ -471,10 +477,6 @@ void MidiCore::resized()
 
     sixteenthNoteRestButton->setBounds(wholeNoteElement.getLocalBounds().reduced(10));
     sixteenthNoteRestElement.setBounds(secondColumn);
-
-
-    midiKeyboard.setBounds(midiKeyboardElement.getLocalBounds());
-    midiKeyboardElement.setBounds(footerArea.removeFromLeft(bigSectionWidth));
 
 }
 
@@ -936,10 +938,50 @@ void MidiCore::updateCompositionName()
         compositionName = nameSongTextEditor->getText();
 }
 
-//TODO: LUKE'S PART
+// --- File export in .pieciolinia or as MIDI ---
+void MidiCore::saveToFile()
+{
+    fileChooser = std::make_unique<juce::FileChooser>("Select a location to save the file...",
+        juce::File{},
+        "Pieciolinia Files (*.pieciolinia)|MIDI Files (*.midi)");
 
-// --- File export ---
+    auto chooserFlags = juce::FileBrowserComponent::saveMode
+        | juce::FileBrowserComponent::canSelectFiles;
 
-// --- File import (only in txt) ---
+    fileChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& fc)
+        {
+            auto file = fc.getResult();
+
+            if (file != juce::File{})
+            {
+                auto fileExtenstion = file.getFileExtension();
+				if (fileExtenstion.equalsIgnoreCase(".pieciolinia"))
+				{
+                    std::string contentToSave = "";
+                    for (auto& note : CompositionConstants::notes)
+                    {
+                        contentToSave += NoteMapper::noteToFont.at(note->info.length).at(note->info.name);
+                    }
+                    file.replaceWithText(contentToSave);
+				}
+				else if (fileExtenstion == ".midi")
+				{
+
+				}
+                else
+                {
+					juce::AlertWindow::showMessageBoxAsync(juce::AlertWindow::AlertIconType::WarningIcon,
+						"Invalid file extension",
+						"Please select a valid file extension (.pieciolinia or .midi)");
+                }
+            }
+        });
+}
+
+// --- File import (only in .pieciolinia) ---
+void MidiCore::readFromFile()
+{
+
+}
 
 #pragma endregion

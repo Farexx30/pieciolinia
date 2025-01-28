@@ -73,10 +73,13 @@ private:
     //File management:
     void updateCompositionName();
 
+	//Save to file/read from file:
+	void saveToFile();
+	void readFromFile();
+
 
 
     //Private properties:
-    juce::TextEditor compositionNotesTextEditor;
     Timer timer;
 	Note::NoteName chosenNoteName = Note::NoteName::a1;
     juce::String compositionName;
@@ -99,9 +102,11 @@ private:
     std::condition_variable pauseCondition;
     std::mutex pauseMutex;
 
+    //For file saving/reading:
+	std::unique_ptr<juce::FileChooser> fileChooser;
+
     //For GUI
     juce::TextButton header;
-
     juce::TextButton LogoElement;
     juce::TextButton saveFileElement;
     juce::TextButton folderElement;

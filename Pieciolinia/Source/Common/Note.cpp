@@ -20,9 +20,8 @@ void Note::setNoteLength(double time, int bpm)
         info.length = NoteLength::Quarter;
     else if (time >= beatDuration / 2) 
         info.length = NoteLength::Eighth;
-    else {
+    else
         info.length = NoteLength::Sixteenth;
-    }
 }
 
 void Note::setNoteName(int keyIndex)
