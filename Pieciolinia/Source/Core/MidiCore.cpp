@@ -290,6 +290,10 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
 	saveFileButton->onClick = [this] { saveToFile(); };
 	folderButton->onClick = [this] { readFromFile(); };
 
+    nameSongTextEditor->setReadOnly(true);
+	nameSongTextEditor->setText("New composition", juce::dontSendNotification);
+
+
     setSize(1301, 751);
     setSize(1300, 750);
 }
@@ -919,7 +923,7 @@ void MidiCore::saveToFile()
 {
     fileChooser = std::make_unique<juce::FileChooser>("Select a location to save the file...",
         juce::File{},
-        "Pieciolinia Files (*.pieciolinia)|MIDI Files (*.midi)");
+        "Pieciolinia files (*.pieciolinia);MIDI files (*.midi)");
 
     auto chooserFlags = juce::FileBrowserComponent::saveMode
         | juce::FileBrowserComponent::canSelectFiles;
@@ -934,6 +938,7 @@ void MidiCore::saveToFile()
 				if (fileExtenstion.equalsIgnoreCase(".pieciolinia"))
 				{
 					saveAsPiecioliniaFile(file);
+					nameSongTextEditor->setText(file.getFileNameWithoutExtension(), juce::dontSendNotification);
 				}
 				else if (fileExtenstion.equalsIgnoreCase(".midi"))
 				{
@@ -1072,7 +1077,7 @@ void MidiCore::getNotesFromImportedFile(const juce::String& content)
 
 void MidiCore::setLoadedCompositionData(const juce::String& content, const juce::String& fileNameWithoutExtension)
 {
-    nameSongTextEditor->setText(fileNameWithoutExtension);
+    nameSongTextEditor->setText(fileNameWithoutExtension, juce::dontSendNotification);
     compositionNotesTextEditor.setText(content);
 }
 #pragma endregion

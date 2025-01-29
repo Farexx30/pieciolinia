@@ -17,7 +17,6 @@ public:
     //==============================================================================
     void initialise(const juce::String&) override
     {
-        // This method is where you should put your application's initialisation code..
         midiDeviceList = std::make_unique<MidiDeviceList>();
         auto midiCore = new MidiCore(*midiDeviceList);
         mainWindow = std::make_unique<MainWindow>(getApplicationName(), midiCore);
@@ -33,16 +32,8 @@ public:
     //==============================================================================
     void systemRequestedQuit() override
     {
-        // This is called when the app is being asked to quit: you can ignore this
-        // request and let the app carry on running, or call quit() to allow the app to close.
         quit();
     }
-
-    //==============================================================================
-    /*
-        This class implements the desktop window that contains an instance of
-        our MainComponent class.
-    */
 
     class MainWindow
         : public juce::DocumentWindow
@@ -59,7 +50,7 @@ public:
 #if JUCE_IOS || JUCE_ANDROID
             setFullScreen(true);
 #else
-            setResizable(true, true);
+            setResizable(false, false);
             setResizeLimits(300, 250, 10000, 10000);
             centreWithSize(getWidth(), getHeight());
 #endif
@@ -69,9 +60,6 @@ public:
 
         void closeButtonPressed() override
         {         
-            // This is called when the user tries to close this window. Here, we'll just
-            // ask the app to quit when this happens, but you can change this to do
-            // whatever you need.
             JUCEApplication::getInstance()->systemRequestedQuit();
         }
 

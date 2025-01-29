@@ -16,8 +16,8 @@ SettingsWindow::SettingsWindow(const juce::String& name, MidiDeviceList& midiDev
 #if JUCE_IOS || JUCE_ANDROID
     setFullScreen(true);
 #else
-    setResizable(true, true);
-    setResizeLimits(300, 250, 10000, 10000);
+    setResizable(false, false); 
+	setResizeLimits(getWidth(), getHeight(), getWidth(), getHeight());
     centreWithSize(getWidth(), getHeight());
 #endif
 
