@@ -32,6 +32,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowDownImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowdown50_png, BinaryData::icons8arrowdown50_pngSize));
     arrowDownButton->setImages(arrowDownImage.get());
     arrowDownElement.addAndMakeVisible(arrowDownButton.get());
+	arrowDownElement.onClick = [this] {arrowDownClick(); };
     arrowDownButton->onClick = [this] {arrowDownClick(); };
     
     arrowDownElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -42,6 +43,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto arrowUpImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8arrowup50_png, BinaryData::icons8arrowup50_pngSize));
     arrowUpButton->setImages(arrowUpImage.get());
     arrowUpElement.addAndMakeVisible(arrowUpButton.get());
+	arrowUpElement.onClick = [this] {arrowUpClick(); };
     arrowUpButton->onClick = [this] {arrowUpClick(); };
 
     arrowUpElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -52,6 +54,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto backspaceImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8backspace50_png, BinaryData::icons8backspace50_pngSize));
     backspaceButton->setImages(backspaceImage.get());
     backspaceElement.addAndMakeVisible(backspaceButton.get());
+	backspaceElement.onClick = [this] {deleteLastNote(); };
     backspaceButton->onClick = [this] {deleteLastNote(); };
 
     backspaceElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -66,6 +69,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     pauseButton->setImages(pauseImage.get());
     pauseButton->setEnabled(false);
     pauseElement.addAndMakeVisible(pauseButton.get());
+	pauseElement.onClick = [this] { pausePlayback(); };
     pauseButton->onClick = [this] { pausePlayback(); };
 
     pauseElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -76,6 +80,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto playImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8play50_png, BinaryData::icons8play50_pngSize));
     playButton->setImages(playImage.get());
     playElement.addAndMakeVisible(playButton.get());
+	playElement.onClick = [this] { startPlayback(); };
     playButton->onClick = [this] { startPlayback(); };
 
     playElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -87,6 +92,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     stopButton->setImages(stopImage.get());
     stopButton->setEnabled(false);
     stopElement.addAndMakeVisible(stopButton.get());
+	stopElement.onClick = [this] { stopPlayback(); };
     stopButton->onClick = [this] { stopPlayback(); };
 
     stopElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -100,24 +106,18 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto settingsImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8settings50_png, BinaryData::icons8settings50_pngSize));
     settingsButton->setImages(settingsImage.get());
     settingsElement.addAndMakeVisible(settingsButton.get());
+	settingsElement.onClick = [this] { showSettingsWindow(); };
     settingsButton->onClick = [this] { showSettingsWindow(); };
 
     settingsElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
     addAndMakeVisible(settingsElement);
 
-    
-    saveCompositionNameButton = std::make_unique<juce::DrawableButton>("saveCompositionNameButton", juce::DrawableButton::ImageFitted);
-    auto verifyImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8verified50_png, BinaryData::icons8verified50_pngSize));
-    saveCompositionNameButton->setImages(verifyImage.get());
-    saveCompositionNameElement.addAndMakeVisible(saveCompositionNameButton.get());
-
-    saveCompositionNameElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
-    addAndMakeVisible(saveCompositionNameElement);
-
 
     saveFileButton = std::make_unique<juce::DrawableButton>("saveFileButton", juce::DrawableButton::ImageFitted);
     auto saveImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8savefile66_png, BinaryData::icons8savefile66_pngSize));
     saveFileButton->setImages(saveImage.get());
+	saveFileElement.onClick = [this] { saveToFile(); };
+    saveFileButton->onClick = [this] { saveToFile(); };
     saveFileElement.addAndMakeVisible(saveFileButton.get());
 
     saveFileElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -127,6 +127,8 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     folderButton = std::make_unique<juce::DrawableButton>("FolderButton", juce::DrawableButton::ImageFitted);
     auto folderImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::icons8folder50_png, BinaryData::icons8folder50_pngSize));
     folderButton->setImages(folderImage.get());
+	folderElement.onClick = [this] { readFromFile(); };
+    folderButton->onClick = [this] { readFromFile(); };
     folderElement.addAndMakeVisible(folderButton.get());
 
     folderElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFC0CF82));
@@ -153,6 +155,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto wholeNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::wholeNote_png, BinaryData::wholeNote_pngSize));
     wholeNoteButton->setImages(wholeNoteImage.get());
     wholeNoteElement.addAndMakeVisible(wholeNoteButton.get());
+	wholeNoteElement.onClick = [this] { addNoteByButton(Note::NoteLength::Whole); };
     wholeNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Whole); };
 
     wholeNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -162,6 +165,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto wholeNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::wholeNoteRest_png, BinaryData::wholeNoteRest_pngSize));
     wholeNoteRestButton->setImages(wholeNoteRestImage.get());
     wholeNoteRestElement.addAndMakeVisible(wholeNoteRestButton.get());
+	wholeNoteRestElement.onClick = [this] { addNoteRestByButton(Note::NoteLength::Whole); };
     wholeNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Whole); };
 
     wholeNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -171,6 +175,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto halfNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::halfNote_png, BinaryData::halfNote_pngSize));
     halfNoteButton->setImages(halfNoteImage.get());
     halfNoteElement.addAndMakeVisible(halfNoteButton.get());
+	halfNoteElement.onClick = [this] { addNoteByButton(Note::NoteLength::Half); };
     halfNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Half); };
 
     halfNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -180,6 +185,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto halfNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::halfNoteRest_png, BinaryData::halfNoteRest_pngSize));
     halfNoteRestButton->setImages(halfNoteRestImage.get());
     halfNoteRestElement.addAndMakeVisible(halfNoteRestButton.get());
+	halfNoteRestElement.onClick = [this] { addNoteRestByButton(Note::NoteLength::Half); };
     halfNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Half); };
 
     halfNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -189,6 +195,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto quarterNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::quarterNote_png, BinaryData::quarterNote_pngSize));
     quarterNoteButton->setImages(quarterNoteImage.get());
     quarterNoteElement.addAndMakeVisible(quarterNoteButton.get());
+	quarterNoteElement.onClick = [this] { addNoteByButton(Note::NoteLength::Quarter); };
     quarterNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Quarter); };
 
     quarterNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -198,6 +205,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto quarterNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::quarterNoteRest_png, BinaryData::quarterNoteRest_pngSize));
     quarterNoteRestButton->setImages(quarterNoteRestImage.get());
     quarterNoteRestElement.addAndMakeVisible(quarterNoteRestButton.get());
+	quarterNoteRestElement.onClick = [this] { addNoteRestByButton(Note::NoteLength::Quarter); };
     quarterNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Quarter); };
 
     quarterNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -207,6 +215,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto eighthNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::eighthNote_png, BinaryData::eighthNote_pngSize));
     eighthNoteButton->setImages(eighthNoteImage.get());
     eighthNoteElement.addAndMakeVisible(eighthNoteButton.get());
+	eighthNoteElement.onClick = [this] { addNoteByButton(Note::NoteLength::Eighth); };
     eighthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Eighth); };
 
     eighthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -216,6 +225,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto eighthNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::eightNoteRest_png, BinaryData::eightNoteRest_pngSize));
     eighthNoteRestButton->setImages(eighthNoteRestImage.get());
     eighthNoteRestElement.addAndMakeVisible(eighthNoteRestButton.get());
+	eighthNoteRestElement.onClick = [this] { addNoteRestByButton(Note::NoteLength::Eighth); };
     eighthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Eighth); };
 
     eighthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -225,6 +235,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto sixteenthNoteImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::sixteenthNote_png, BinaryData::sixteenthNote_pngSize));
     sixteenthNoteButton->setImages(sixteenthNoteImage.get());
     sixteenthNoteElement.addAndMakeVisible(sixteenthNoteButton.get());
+	sixteenthNoteElement.onClick = [this] { addNoteByButton(Note::NoteLength::Sixteenth); };
     sixteenthNoteButton->onClick = [this] { addNoteByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -234,6 +245,7 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     auto sixteenthNoteRestImage = std::make_unique<juce::DrawableImage>(juce::ImageCache::getFromMemory(BinaryData::sixteenthNoteRest_png, BinaryData::sixteenthNoteRest_pngSize));
     sixteenthNoteRestButton->setImages(sixteenthNoteRestImage.get());
     sixteenthNoteRestElement.addAndMakeVisible(sixteenthNoteRestButton.get());
+	sixteenthNoteRestElement.onClick = [this] { addNoteRestByButton(Note::NoteLength::Sixteenth); };
     sixteenthNoteRestButton->onClick = [this] { addNoteRestByButton(Note::NoteLength::Sixteenth); };
 
     sixteenthNoteRestElement.setColour(juce::TextButton::buttonColourId, juce::Colour(0xFFE4E6D9));
@@ -283,16 +295,10 @@ MidiCore::MidiCore(MidiDeviceList& midiDeviceList)
     nameSongTextEditor->setColour(juce::TextEditor::textColourId, juce::Colours::black);
     nameSongTextEditor->setColour(juce::TextEditor::outlineColourId, juce::Colours::grey);
     nameSongTextEditor->setJustification(juce::Justification::centred);
-    nameSongTextEditor->setInputRestrictions(50);
+    nameSongTextEditor->setReadOnly(true);
+    nameSongTextEditor->setText("New composition", juce::dontSendNotification);
     addAndMakeVisible(*nameSongTextEditor);
 #pragma endregion
-
-	saveFileButton->onClick = [this] { saveToFile(); };
-	folderButton->onClick = [this] { readFromFile(); };
-
-    nameSongTextEditor->setReadOnly(true);
-	nameSongTextEditor->setText("New composition", juce::dontSendNotification);
-
 
     setSize(1301, 751);
     setSize(1300, 750);
