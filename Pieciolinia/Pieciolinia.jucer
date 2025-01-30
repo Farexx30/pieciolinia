@@ -55,8 +55,6 @@
               file="Source/Assets/icons8-staff-50.png"/>
         <FILE id="GQvZr6" name="icons8-stop-50.png" compile="0" resource="1"
               file="Source/Assets/icons8-stop-50.png"/>
-        <FILE id="XwCfTh" name="icons8-verified-50.png" compile="0" resource="1"
-              file="Source/Assets/icons8-verified-50.png"/>
       </GROUP>
     </GROUP>
     <GROUP id="{073DF58F-8A49-719A-CF35-671F17D8F851}" name="Source">
