@@ -1,5 +1,5 @@
 #pragma once
-#ifndef MIDIDEVICESLIST_H
+#ifndef MIDIDEVICELIST_H
 #define MIDIDEVICELIST_H
 
 #include<JuceHeader.h>

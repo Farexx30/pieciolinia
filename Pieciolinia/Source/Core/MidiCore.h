@@ -111,7 +111,6 @@ private:
     juce::TextButton LogoElement;
     juce::TextButton saveFileElement;
     juce::TextButton folderElement;
-    juce::TextButton saveCompositionNameElement;
     juce::TextButton playElement;
     juce::TextButton pauseElement;
     juce::TextButton stopElement;
@@ -141,7 +140,6 @@ private:
     std::unique_ptr<juce::DrawableButton> settingsButton;
     std::unique_ptr<juce::DrawableButton> arrowUpButton;
     std::unique_ptr<juce::DrawableButton> arrowDownButton;
-    std::unique_ptr<juce::DrawableButton> saveCompositionNameButton;
     std::unique_ptr<juce::DrawableButton> logoButton;
     std::unique_ptr<juce::DrawableButton> wholeNoteButton;
     std::unique_ptr<juce::DrawableButton> wholeNoteRestButton;

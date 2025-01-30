@@ -37,10 +37,6 @@ public:
         folderElement.setColour(juce::TextButton::buttonColourId, juce::Colours::cornflowerblue); // Light blue for middle
         addAndMakeVisible(folderElement);
 
-        saveCompositionNameElement.setColour(juce::TextButton::buttonColourId, juce::Colours::cornflowerblue);
-        addAndMakeVisible(saveCompositionNameElement);
-
-
         arrowUpElement.setColour(juce::TextButton::buttonColourId, juce::Colours::cornflowerblue);
         addAndMakeVisible(arrowUpElement);
 
@@ -71,7 +67,6 @@ public:
         LogoElement.setBounds(headerArea.removeFromLeft(sectionWidth));
         saveFileElement.setBounds(headerArea.removeFromLeft(sectionWidth));
         folderElement.setBounds(headerArea.removeFromLeft(bigsection));
-        saveCompositionNameElement.setBounds(headerArea);
 
         //footer.setBounds (area.removeFromBottom (headerFooterHeight));
 
@@ -110,7 +105,6 @@ private:
     juce::TextButton LogoElement;
     juce::TextButton saveFileElement;
     juce::TextButton folderElement;
-    juce::TextButton saveCompositionNameElement;
     juce::TextButton arrowUpElement;
     juce::TextButton arrowDownElement;
 
